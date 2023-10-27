@@ -206,7 +206,7 @@ String readDataString(int offset, int length)
     return result;
 }
 
-
+// /ap-configuration.json
 void getAPData()
 {
     String savedSSID = readDataString(offsetSSID1, eepromSizeString50);
@@ -232,6 +232,7 @@ void getAPData()
     server.send(200, "application/json", response);
 }
 
+// /save-ap
 void saveAPData()
 {
     if (server.method() == HTTP_POST)
@@ -254,6 +255,44 @@ void saveAPData()
     String message = "{\"status\":\"OK\"}";
     server.send(200, "application/json", message);
 }
+
+// /midi-configuration.json
+void getMidiConfiguration()
+{
+    
+    response += "{";
+    int i = 0;
+    for(int i = 1; i<=maxCh; i++)
+    {
+        int offset = memOffset + ((i - 1) * memSize);
+        String config = readDataString(offset, memSize);     
+        String str = sprintf("\"ch%02d\":\"%s\",", i, config);
+        response += str;
+    }
+    response += sprintf("\"max\":%d}", i);
+    server.send(200, "application/json", response);
+}
+
+// /save-midi
+void saveMidiConfiguration()
+{
+    if (server.method() == HTTP_POST)
+    {
+        int i = 0;
+        for(int i = 1; i<=maxCh; i++)
+        {
+            int offset = memOffset + ((i - 1) * memSize);
+            String par = sprintf("ch%02d", i);
+            String value = server.arg("ssid_password");
+            writeData(offset, memSize, value);
+        }
+    }
+    String message = "{\"status\":\"OK\"}";
+    server.send(200, "application/json", message);
+}
+
+
+
 
 void resetAP()
 {
@@ -279,6 +318,7 @@ void resetSTA()
     writeData(offsetSSIDPassword2, eepromSizeString50, savedSSIDPassword);
 }
 
+// /subscribtion-configuration.json
 void getSubData()
 {
     String response = "";
@@ -326,6 +366,7 @@ void getSubData()
     server.send(200, "application/json", response);
 }
 
+// /save-subscribtion
 void saveSubData()
 {
     if (server.method() == HTTP_POST)
@@ -468,13 +509,6 @@ void writePinState(int pin, int value)
     int offset = 700 + (pin * 2);
     String str = String(val);
     writeData(offset, 2, str);
-}
-
-String readPinState(int pin)
-{
-    int offset = 700 + (pin * 2);
-    String val = readDataString(offset, 2);
-    return val;
 }
 
 void sendResponse(const char * responseTopic, String response, int callbackDelay)
@@ -801,6 +835,8 @@ String[] splitCommandMax(String text, char splitChar, int splitCount)
     return returnValue;
 }
 
+// /
+// /index.html
 void handleRoot()
 {
     String response = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Smart-Switch</title><link rel=\"stylesheet\" href=\"style.css\"><script src=\"ajax.js\"></script></head><body><div class=\"all\"><h3>Smart-Switch</h3><div class=\"form-item\"><div class=\"row\"><div class=\"column\"><input class=\"btn btn-success\" type=\"button\" name=\"save\" id=\"sub\" value=\"Subscribtion\" onclick=\"window.location='subscribtion-configuration.html';\"></div><div class=\"column\"><input class=\"btn btn-success\" type=\"button\" name=\"save\" id=\"ap\" value=\"Access Point\" onclick=\"window.location='ap-configuration.html';\"></div></div></div></div></body></html>";
@@ -808,6 +844,7 @@ void handleRoot()
     server.send(200, "text/html", response);
 }
 
+// /ap-configuration.html
 void handleAP()
 {
     String response = "<!DOCTYPE html><html lang=\"en\"><head> <meta charset=\"UTF-8\"> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>Access Point Configuration</title> <link rel=\"stylesheet\" href=\"style.css\"> <script src=\"ajax.js\"></script></head><body> <div class=\"all\"> <h3>Access Point Configuration</h3> <form action=\"\" method=\"post\"> <div class=\"form-item\"> <div class=\"form-label\">SSID</div><div class=\"form-input\"> <input type=\"text\" name=\"ssid_name\" id=\"ssid_name\"> </div></div><div class=\"form-item\"> <div class=\"form-label\">Password</div><div class=\"form-input\"> <input type=\"password\" name=\"ssid_password\" id=\"ssid_password\"> </div></div><div class=\"form-item\"> <div class=\"form-label\">IP Address</div><div class=\"form-input\"> <input type=\"ipaddress\" name=\"ip\" id=\"ip\" placeholder=\"192.168.4.1\"> </div></div><div class=\"form-item\"> <div class=\"form-label\">Gateway</div><div class=\"form-input\"> <input type=\"ipaddress\" name=\"gateway\" id=\"gateway\" placeholder=\"192.168.4.1\"> </div></div><div class=\"form-item\"> <div class=\"form-label\">Subnet</div><div class=\"form-input\"> <input type=\"ipaddress\" name=\"subnet\" id=\"subnet\" placeholder=\"255.255.255.0\"> </div></div><div class=\"form-item\"> <div class=\"form-label\">Hidden</div><div class=\"form-input\"> <select name=\"hidden\" id=\"hidden\"> <option value=\"0\">No</option> <option value=\"1\">Yes</option> </select> </div></div><div class=\"form-item\"> <div class=\"row\"> <div class=\"column\"><input class=\"btn btn-success\" type=\"button\" name=\"save\" id=\"save\" value=\"Save\" onclick=\"return saveAPData();\"></div><div class=\"column\"><input class=\"btn btn-danger\" type=\"button\" name=\"save\" id=\"home\" value=\"Home\" onclick=\"window.location='index.html';\"></div></div></div></form> </div></body></html>";
@@ -815,6 +852,7 @@ void handleAP()
     server.send(200, "text/html", response);
 }
 
+// /subscribtion-configuration.html
 void handleSub()
 {
     String response = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Subscribtion Configuration</title><link rel=\"stylesheet\" href=\"style.css\"><script src=\"ajax.js\"></script></head><body><div class=\"all\"><h3>Subscribtion Configuration</h3><form action=\"\" method=\"post\"><div class=\"form-item\"><div class=\"form-label\">SSID</div><div class=\"form-input\"><input type=\"text\" name=\"ssid_name\" id=\"ssid_name\"></div></div><div class=\"form-item\"><div class=\"form-label\">Password</div><div class=\"form-input\"><input type=\"password\" name=\"ssid_password\" id=\"ssid_password\"></div></div><div class=\"form-item\"><div class=\"form-label\">WS Host</div><div class=\"form-input\"><input type=\"text\" name=\"ws_host\" id=\"ws_host\"></div></div><div class=\"form-item\"><div class=\"form-label\">WS Port</div><div class=\"form-input\"><input type=\"text\" name=\"ws_port\" id=\"ws_port\"></div></div><div class=\"form-item\"><div class=\"form-label\">WS Path</div><div class=\"form-input\"><input type=\"text\" name=\"ws_path\" id=\"ws_path\"></div></div><div class=\"form-item\"><div class=\"form-label\">WS Username</div><div class=\"form-input\"><input type=\"text\" name=\"ws_username\" id=\"ws_username\"></div></div><div class=\"form-item\"><div class=\"form-label\">WS Password</div><div class=\"form-input\"><input type=\"password\" name=\"ws_password\" id=\"ws_password\"></div></div><div class=\"form-item\"><div class=\"form-label\">Topic</div><div class=\"form-input\"><input type=\"text\" name=\"ws_topic\" id=\"ws_topic\"></div></div><div class=\"form-item\"><div class=\"form-label\">Enable</div><div class=\"form-input\"><select name=\"enable\" id=\"enable\"><option value=\"0\">No</option><option value=\"1\">Yes</option></select></div></div><div class=\"form-item\"><div class=\"row\"><div class=\"column\"><input class=\"btn btn-success\" type=\"button\" name=\"save\" id=\"save\" value=\"Save\" onclick=\"return saveSubData();\"></div><div class=\"column\"><input class=\"btn btn-danger\" type=\"button\" name=\"save\" id=\"home\" value=\"Home\" onclick=\"window.location='index.html';\"></div></div></div></form></div></body></html>";
@@ -822,9 +860,7 @@ void handleSub()
     server.send(200, "text/html", response);
 }
 
-/**
- * Handle .css
- */
+// /style.css
 void handleStyle()
 {
     String response = "body{margin:0;padding:0;position:relative;font-family:Verdana,Geneva,Tahoma,sans-serif;font-size:13px;color:#555}h3{margin:4px 0}.all{width:900px;max-width:100%;margin:auto;padding:20px;box-sizing:border-box}.form-label{padding:5px 0}.form-input{position:relative}.form-input input[type=\"text\"],.form-input input[type=\"number\"],.form-input input[type=\"password\"],.form-input input[type=\"ipaddress\"],.form-input select{width:100%;box-sizing:border-box;padding:6px 10px;border-radius:3px;border:1px solid #CCC;background-color:#FFF;margin-bottom:2px}.form-input input[type=\"ipaddress\"].invalid-ip{border:1px solid #C00}.form-input input[type=\"text\"]:focus,.form-input input[type=\"number\"]:focus,.form-input input[type=\"password\"]:focus,.form-input input[type=\"ipaddress\"]:focus,.form-input select:focus{outline:none}.btn{width:100%;box-sizing:border-box;padding:6px 10px;border-radius:3px;border:1px solid #bdbcbc;background-color:#c7c6c6;color:#333;margin:8px 0}.btn-success{color:#FFF;border:1px solid #46992d;background-color:#419129}.btn-primary{color:#FFF;border:1px solid #2d5899;background-color:#3464ac}.btn-warning{color:#212529;border:1px solid #ffc107;background-color:#ffc107}.btn-danger{color:#FFF;border:1px solid #dc3545;background-color:#dc3545}.row{display:flex;gap:10px}.column{flex:50%;justify-content:space-between}";
@@ -832,9 +868,8 @@ void handleStyle()
     server.send(200, "text/css", response);
 }
 
-/**
- * Handle .js
- */
+// /script.js
+// /ajax.js
 void handleScript()
 {
     String response = "var ajax={};function saveSubData(){var e=document.querySelector(\"#ssid_name\").value,t=document.querySelector(\"#ssid_password\").value,n=document.querySelector(\"#ws_host\").value,a=document.querySelector(\"#ws_port\").value,o=document.querySelector(\"#ws_path\").value,r=document.querySelector(\"#ws_username\").value,u=document.querySelector(\"#ws_password\").value,s=document.querySelector(\"#ws_topic\").value,c=document.querySelector(\"#enable\").value;return ajax.post(\"save-subscribtion\",{action:\"save-subscribtion\",ssid_name:e,ssid_password:t,ws_host:n,ws_port:a,ws_path:o,ws_username:r,ws_password:u,ws_topic:s,enable:c},function(e){},!0),!1}function loadSubData(){ajax.get(\"subscribtion-configuration.json\",{},function(e){try{var t=JSON.parse(e);document.querySelector(\"#ssid_name\").value=t.ssid_name,document.querySelector(\"#ssid_password\").value=t.ssid_password,document.querySelector(\"#ws_host\").value=t.ws_host,document.querySelector(\"#ws_port\").value=t.ws_port,document.querySelector(\"#ws_path\").value=t.ws_path,document.querySelector(\"#ws_username\").value=t.ws_username,document.querySelector(\"#ws_password\").value=t.ws_password,document.querySelector(\"#ws_topic\").value=t.ws_topic,document.querySelector(\"#enable\").value=t.enable}catch(e){}},!0)}function loadAPData(){ajax.get(\"ap-configuration.json\",{},function(e){try{var t=JSON.parse(e);document.querySelector(\"#ssid_name\").value=t.ssid_name,document.querySelector(\"#ssid_password\").value=t.ssid_password,document.querySelector(\"#ip\").value=t.ip,document.querySelector(\"#gateway\").value=t.gateway,document.querySelector(\"#subnet\").value=t.subnet,document.querySelector(\"#hidden\").value=t.hidden}catch(e){}},!0)}function saveAPData(){var e=document.querySelector(\"#ssid_name\").value,t=document.querySelector(\"#ssid_password\").value,n=document.querySelector(\"#ip\").value,a=document.querySelector(\"#gateway\").value,o=document.querySelector(\"#subnet\").value,r=document.querySelector(\"#hidden\").value;return ajax.post(\"save-ap\",{action:\"save-ap\",ssid_name:e,ssid_password:t,ip:n,gateway:a,subnet:o,hidden:r},function(e){},!0),!1}function handleIP(e){e=e.target;isValidIP(e.value)?e.classList.remove(\"invalid-ip\"):(e.classList.remove(\"invalid-ip\"),e.classList.add(\"invalid-ip\"))}function isValidIP(e){if(0==e.length)return!0;var t,n=e.split(\".\");if(4!=n.length)return!1;for(t in n){if(isNaN(parseInt(n[t])))return!1;if(n[t]<0||255<n[t])return!1}return!0}ajax.create=function(){if(\"undefined\"!=typeof XMLHttpRequest)return new XMLHttpRequest;for(var e,t=[\"MSXML2.XmlHttp.6.0\",\"MSXML2.XmlHttp.5.0\",\"MSXML2.XmlHttp.4.0\",\"MSXML2.XmlHttp.3.0\",\"MSXML2.XmlHttp.2.0\",\"Microsoft.XmlHttp\"],n=0;n<t.length;n++)try{e=new ActiveXObject(t[n]);break}catch(e){}return e},ajax.send=function(e,t,n,a,o){void 0===o&&(o=!0);var r=ajax.create();r.open(n,e,o),r.onreadystatechange=function(){4==r.readyState&&t(r.responseText)},\"POST\"==n&&r.setRequestHeader(\"Content-type\",\"application/x-www-form-urlencoded\"),r.send(a)},ajax.get=function(e,t,n,a){var o,r=[];for(o in t)t.hasOwnProperty(o)&&r.push(encodeURIComponent(o)+\"=\"+encodeURIComponent(t[o]));ajax.send(e+(r.length?\"?\"+r.join(\"&\"):\"\"),n,\"GET\",null,a)},ajax.post=function(e,t,n,a){var o,r=[];for(o in t)t.hasOwnProperty(o)&&r.push(encodeURIComponent(o)+\"=\"+encodeURIComponent(t[o]));ajax.send(e,n,\"POST\",r.join(\"&\"),a)},window.onload=function(){var e=window.location.toString();-1<e.indexOf(\"ap-configuration.html\")&&loadAPData(),-1<e.indexOf(\"subscribtion-configuration.html\")&&loadSubData();const t=document.querySelectorAll('input[type=\"ipaddress\"]');if(t.length)for(var n=0;n<t.length;n++)t[n].addEventListener(\"keyup\",function(e){handleIP(e)}),t[n].addEventListener(\"change\",function(e){handleIP(e)})};";
@@ -990,6 +1025,7 @@ void setup(void)
     server.on("/ajax.js", handleScript);
     server.on("/subscribtion-configuration.json", getSubData);
     server.on("/ap-configuration.json", getAPData);
+    server.on("/midi-configuration.json", getMidiConfiguration);
     server.on("/save-subscribtion", saveSubData);
     server.on("/save-ap", saveAPData);
     server.on("/inline", []()
