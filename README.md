@@ -21,7 +21,7 @@ ESP32 has 15 pin ADC and each pin can read analog signal to be converted into ve
 
 ### Enable Velocity
 
-ESP32 read signal as analog so it can be converted into velocity. ESP32 maybe read more than one signal sample to get more accurate value.
+ESP32 read signal as analog so it can be converted into velocity. ESP32 maybe read more than one sample of signal to get more accurate value.
 
 ### Low Latency
 
