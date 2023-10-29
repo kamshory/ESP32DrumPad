@@ -12,10 +12,10 @@ char *password             = "kodokterbang";
 char *ssid2                = "Smart-Switch";
 char *password2            = "Smart-Switch";
 
-int eepromSizeString50     = 50;
-int eepromSizeString20     = 20;
-int eepromSizeInt          = 10;
-int eepromSizeBoolean      = 2;
+int sizeofString50         = 50;
+int sizeofString20         = 20;
+int sizeofInteger10        = 10;
+int sizeofBoolean          = 2;
 
 int offsetSSID1            = 0;    // 50
 int offsetSSID2            = 50;   // 50
@@ -51,8 +51,8 @@ int offsetCh14             = 860;  // 20
 int offsetCh15             = 880;  // 20
 int offsetCh16             = 900;  // 20
 
-int memOffset = 600;
-int memSize = 20;
+int memOffset              = 600;
+int memSize                = 20;
 
 
 String savedWSPath         = "";
@@ -209,12 +209,12 @@ String readDataString(int offset, int length)
 // /ap-configuration.json
 void getAPData()
 {
-    String savedSSID = readDataString(offsetSSID1, eepromSizeString50);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword1, eepromSizeString50);
-    String savedIP = readDataString(offsetAPIP, eepromSizeString20);
-    String savedGateway = readDataString(offsetAPGateway, eepromSizeString20);
-    String savedSubnet = readDataString(offsetAPSubnet, eepromSizeString20);
-    String savedHidden = readDataString(offsetAPHidden, eepromSizeBoolean);
+    String savedSSID = readDataString(offsetSSID1, sizeofString50);
+    String savedSSIDPassword = readDataString(offsetSSIDPassword1, sizeofString50);
+    String savedIP = readDataString(offsetAPIP, sizeofString20);
+    String savedGateway = readDataString(offsetAPGateway, sizeofString20);
+    String savedSubnet = readDataString(offsetAPSubnet, sizeofString20);
+    String savedHidden = readDataString(offsetAPHidden, sizeofBoolean);
     String response = "";
     response += "{\"ssid_name\":\"";
     response += savedSSID;
@@ -238,18 +238,18 @@ void saveAPData()
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
-        writeData(offsetSSID1, eepromSizeString50, savedSSID);
+        writeData(offsetSSID1, sizeofString50, savedSSID);
         String savedSSIDPassword = server.arg("ssid_password");
-        writeData(offsetSSIDPassword1, eepromSizeString50, savedSSIDPassword);
+        writeData(offsetSSIDPassword1, sizeofString50, savedSSIDPassword);
         String savedIP = server.arg("ip");
-        writeData(offsetAPIP, eepromSizeString20, savedIP);
+        writeData(offsetAPIP, sizeofString20, savedIP);
         String savedGateway = server.arg("gateway");
-        writeData(offsetAPGateway, eepromSizeString20, savedGateway);
+        writeData(offsetAPGateway, sizeofString20, savedGateway);
         String savedSubnet = server.arg("subnet");
-        writeData(offsetAPSubnet, eepromSizeString20, savedSubnet);
+        writeData(offsetAPSubnet, sizeofString20, savedSubnet);
         String savedHidden = server.arg("hidden");
-        writeData(offsetAPHidden, eepromSizeBoolean, savedHidden);
-        writeData(offsetConfigured, eepromSizeBoolean, "1");  
+        writeData(offsetAPHidden, sizeofBoolean, savedHidden);
+        writeData(offsetConfigured, sizeofBoolean, "1");  
 
     }
     String message = "{\"status\":\"OK\"}";
@@ -297,40 +297,40 @@ void saveMidiConfiguration()
 void resetAP()
 {
     String savedSSID = "AlternativeMusic";
-    writeData(offsetSSID1, eepromSizeString50, savedSSID);
+    writeData(offsetSSID1, sizeofString50, savedSSID);
     String savedSSIDPassword = "AlternativeMusic";
-    writeData(offsetSSIDPassword1, eepromSizeString50, savedSSIDPassword);
+    writeData(offsetSSIDPassword1, sizeofString50, savedSSIDPassword);
     String savedIP = "";
-    writeData(offsetAPIP, eepromSizeString20, savedIP);
+    writeData(offsetAPIP, sizeofString20, savedIP);
     String savedGateway = "";
-    writeData(offsetAPGateway, eepromSizeString20, savedGateway);
+    writeData(offsetAPGateway, sizeofString20, savedGateway);
     String savedSubnet = "";
-    writeData(offsetAPSubnet, eepromSizeString20, savedSubnet);
+    writeData(offsetAPSubnet, sizeofString20, savedSubnet);
     String savedHidden = "0";
-    writeData(offsetAPHidden, eepromSizeBoolean, savedHidden);
+    writeData(offsetAPHidden, sizeofBoolean, savedHidden);
 }
 
 void resetSTA()
 {
     String savedSSID = "AlternativeMusic";
     String savedSSIDPassword = "AlternativeMusic";
-    writeData(offsetSSID2, eepromSizeString50, savedSSID);
-    writeData(offsetSSIDPassword2, eepromSizeString50, savedSSIDPassword);
+    writeData(offsetSSID2, sizeofString50, savedSSID);
+    writeData(offsetSSIDPassword2, sizeofString50, savedSSIDPassword);
 }
 
 // /subscribtion-configuration.json
 void getSubData()
 {
     String response = "";
-    String savedSSID = readDataString(offsetSSID2, eepromSizeString50);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword2, eepromSizeString50);
-    String savedWSHost = readDataString(offsetWSHost, eepromSizeString50);
-    String savedWSPort = readDataString(offsetWSPort, eepromSizeInt);
-    String savedWSPath = readDataString(offsetWSPath, eepromSizeString50);
-    String savedWSUsername = readDataString(offsetWSUsername, eepromSizeString50);
-    String savedWSPassword = readDataString(offsetWSPassword, eepromSizeString50);
-    String savedWSTopic = readDataString(offsetWSTopic, eepromSizeString50);
-    String savedEnable = readDataString(offsetEnable, eepromSizeBoolean);
+    String savedSSID = readDataString(offsetSSID2, sizeofString50);
+    String savedSSIDPassword = readDataString(offsetSSIDPassword2, sizeofString50);
+    String savedWSHost = readDataString(offsetWSHost, sizeofString50);
+    String savedWSPort = readDataString(offsetWSPort, sizeofInteger10);
+    String savedWSPath = readDataString(offsetWSPath, sizeofString50);
+    String savedWSUsername = readDataString(offsetWSUsername, sizeofString50);
+    String savedWSPassword = readDataString(offsetWSPassword, sizeofString50);
+    String savedWSTopic = readDataString(offsetWSTopic, sizeofString50);
+    String savedEnable = readDataString(offsetEnable, sizeofBoolean);
 
     response += "{\"ssid_name\":\"";
     response += savedSSID;
@@ -372,39 +372,39 @@ void saveSubData()
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
-        writeData(offsetSSID2, eepromSizeString50, savedSSID);
+        writeData(offsetSSID2, sizeofString50, savedSSID);
         delay(1);
 
         String savedSSIDPassword = server.arg("ssid_password");
-        writeData(offsetSSIDPassword2, eepromSizeString50, savedSSIDPassword);
+        writeData(offsetSSIDPassword2, sizeofString50, savedSSIDPassword);
         delay(1);
 
         String savedWSHost = server.arg("ws_host");
-        writeData(offsetWSHost, eepromSizeString50, savedWSHost);
+        writeData(offsetWSHost, sizeofString50, savedWSHost);
         delay(1);
 
         String savedWSPort = server.arg("ws_port");
-        writeData(offsetWSPort, eepromSizeInt, savedWSPort);
+        writeData(offsetWSPort, sizeofInteger10, savedWSPort);
         delay(1);
 
         String savedWSPath = server.arg("ws_path");
-        writeData(offsetWSPath, eepromSizeString50, savedWSPath);
+        writeData(offsetWSPath, sizeofString50, savedWSPath);
         delay(1);
 
         String savedWSUsername = server.arg("ws_username");
-        writeData(offsetWSUsername, eepromSizeString50, savedWSUsername);
+        writeData(offsetWSUsername, sizeofString50, savedWSUsername);
         delay(1);
 
         String savedWSPassword = server.arg("ws_password");
-        writeData(offsetWSPassword, eepromSizeString50, savedWSPassword);
+        writeData(offsetWSPassword, sizeofString50, savedWSPassword);
         delay(1);
 
         String savedWSTopic = server.arg("ws_topic");
-        writeData(offsetWSTopic, eepromSizeString50, savedWSTopic);
+        writeData(offsetWSTopic, sizeofString50, savedWSTopic);
         delay(1);
 
         String savedEnable = server.arg("enable");
-        writeData(offsetEnable, eepromSizeBoolean, savedEnable);
+        writeData(offsetEnable, sizeofBoolean, savedEnable);
         delay(1);
     }
     String message = "{\"status\":\"OK\"}";
@@ -413,12 +413,12 @@ void saveSubData()
 
 void getWSConfig()
 {
-    savedWSPath = readDataString(offsetWSPath, eepromSizeString50);
-    savedWSUsername = readDataString(offsetWSUsername, eepromSizeString50);
-    savedWSPassword = readDataString(offsetWSPassword, eepromSizeString50);
-    savedWSTopic = readDataString(offsetWSTopic, eepromSizeString50);
-    savedWSHost = readDataString(offsetWSHost, eepromSizeString50);
-    savedWSPort = readDataString(offsetWSPort, eepromSizeInt);
+    savedWSPath = readDataString(offsetWSPath, sizeofString50);
+    savedWSUsername = readDataString(offsetWSUsername, sizeofString50);
+    savedWSPassword = readDataString(offsetWSPassword, sizeofString50);
+    savedWSTopic = readDataString(offsetWSTopic, sizeofString50);
+    savedWSHost = readDataString(offsetWSHost, sizeofString50);
+    savedWSPort = readDataString(offsetWSPort, sizeofInteger10);
 }
 
 void webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
@@ -621,105 +621,105 @@ void Task2(void *pvParameters)
 }
 
 // DrumSet 1
-void Task3(void *pvParameters)
+void Listen01(void *pvParameters)
 {
     listenChannel(1);
 }
 
 // DrumSet 2
-void Task4(void *pvParameters)
+void Listen02(void *pvParameters)
 {
     listenChannel(2);
 }
 
 // DrumSet 3
-void Task5(void *pvParameters)
+void Listen03(void *pvParameters)
 {
     listenChannel(3);
 }
 
 // DrumSet 4
-void Task6(void *pvParameters)
+void Listen04(void *pvParameters)
 {
     listenChannel(4);
 }
 
 // DrumSet 5
-void Task7(void *pvParameters)
+void Listen05(void *pvParameters)
 {
     listenChannel(5);
 }
 
 // DrumSet 6
-void Task8(void *pvParameters)
+void Listen06(void *pvParameters)
 {
     listenChannel(6);
 }
 
 // DrumSet 7
-void Task9(void *pvParameters)
+void Listen07(void *pvParameters)
 {
     listenChannel(7);    
 }
 
 // DrumSet 8
-void Task10(void *pvParameters)
+void Listen08(void *pvParameters)
 {
     listenChannel(8);
 }
 
 // DrumSet 9
-void Task11(void *pvParameters)
+void Listen09(void *pvParameters)
 {
     listenChannel(9);
 }
 
 // DrumSet 10
-void Task12(void *pvParameters)
+void Listen10(void *pvParameters)
 {
     listenChannel(10);
 }
 
 // DrumSet 11
-void Task13(void *pvParameters)
+void Listen11(void *pvParameters)
 {
     listenChannel(11);
 }
 
 // DrumSet 12
-void Task14(void *pvParameters)
+void Listen12(void *pvParameters)
 {
     listenChannel(12);
 }
 
 // DrumSet 13
-void Task15(void *pvParameters)
+void Listen13(void *pvParameters)
 {
     listenChannel(13);
 }
 
 // DrumSet 14
-void Task16(void *pvParameters)
+void Listen14(void *pvParameters)
 {
     listenChannel(14);
 }
 
 // DrumSet 15
-void Task17(void *pvParameters)
+void Listen15(void *pvParameters)
 {
     listenChannel(15);
 }
 
 // DrumSet 16
-void Task18(void *pvParameters)
+void Listen16(void *pvParameters)
 {
-    listenChannel(15);
+    listenChannel(16);
 }
 
 void listenChannel(int channel)
 {
     int pin = channelPin[channel];
-    int input = Analog.read(pin);
+    int input = analogRead(pin);
     float total = (float) input;
     if(input > threshold)
     {
@@ -738,7 +738,7 @@ int analogRead(int pin, int count)
     int total = 0;
     while(count > 0)
     {
-        int int2 = Analog.read(pin);
+        int int2 = analogRead(pin);
         total+=int2;
         count--;
     }
@@ -909,13 +909,13 @@ void setup(void)
         readMidiConfig(i, config);
     }
 
-    String configured = readDataString(offsetConfigured, eepromSizeBoolean);
+    String configured = readDataString(offsetConfigured, sizeofBoolean);
     if(configured != "1")
     {
         resetAP();
     }
 
-    sysEnable = readDataString(offsetEnable, eepromSizeBoolean);
+    sysEnable = readDataString(offsetEnable, sizeofBoolean);
 
     if (sysEnable == "1")
     {
@@ -925,17 +925,17 @@ void setup(void)
     }
 
     // Configuration WiFi as Access Point
-    String ssidAPS = readDataString(offsetSSID1, eepromSizeString50);
-    String passwordAPS = readDataString(offsetSSIDPassword1, eepromSizeString50);
+    String ssidAPS = readDataString(offsetSSID1, sizeofString50);
+    String passwordAPS = readDataString(offsetSSIDPassword1, sizeofString50);
     Serial.println("ssidAPS     = "+ssidAPS);
     Serial.println("passwordAPS = "+passwordAPS);
 
     if (ssidAPS.length() > 0)
     {
-        String sip = readDataString(offsetAPIP, eepromSizeString20);
-        String sgw = readDataString(offsetAPGateway, eepromSizeString20);
-        String ssn = readDataString(offsetAPSubnet, eepromSizeString20);
-        String shd = readDataString(offsetAPHidden, eepromSizeBoolean);
+        String sip = readDataString(offsetAPIP, sizeofString20);
+        String sgw = readDataString(offsetAPGateway, sizeofString20);
+        String ssn = readDataString(offsetAPSubnet, sizeofString20);
+        String shd = readDataString(offsetAPHidden, sizeofBoolean);
 
         IPAddress test1(10,10,10,10);
 
@@ -974,8 +974,8 @@ void setup(void)
     if (sysEnable == "1")
     {
         // Configuration WiFi as Workstation
-        String ssidStaS = readDataString(offsetSSID2, eepromSizeString50);
-        String passwordStaS = readDataString(offsetSSIDPassword2, eepromSizeString50);
+        String ssidStaS = readDataString(offsetSSID2, sizeofString50);
+        String passwordStaS = readDataString(offsetSSIDPassword2, sizeofString50);
         const char *ssidSta = ssidStaS.c_str();
         const char *passwordSta = passwordStaS.c_str();
         if (ssidStaS.length() > 0)
