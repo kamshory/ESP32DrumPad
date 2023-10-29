@@ -43,8 +43,6 @@ ESP32 can connect to other WIFI so it can send MIDI signal over internet.
 
 Web server is used to configure MIDI controller.
 
-## Diagram
-
 ### Support USB
 
 ESP32 can send MIDI signal over USB and it recognized as MIDI controller.
@@ -56,5 +54,7 @@ ESP32 can send MIDI signal over LAN using WebSocket protocol.
 ### Support BLE
 
 ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
+
+## Diagram
 
 ![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/ESP32Drum.drawio.svg)
