@@ -14,6 +14,7 @@ ESP32DrumPad
 8. support USB
 9. support websocket
 10. support bluetooth low energy (BLE)
+11. 
 
 ### 15 Instrument Pad
 
