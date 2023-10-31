@@ -22,7 +22,7 @@ int offsetSSID2            = 50;   // 50
 int offsetAPIP             = 100;  // 20
 int offsetAPGateway        = 120;  // 20
 int offsetAPSubnet         = 140;  // 20
-int offsetAPHidden         = 160;  // 2
+int offsetAPHidden         = 160;  // 1
 int offsetSSIDPassword1    = 200;  // 50
 int offsetSSIDPassword2    = 250;  // 50
 int offsetWSHost           = 300;  // 50
@@ -31,8 +31,11 @@ int offsetWSPath           = 360;  // 50
 int offsetWSUsername       = 410;  // 50
 int offsetWSPassword       = 460;  // 50
 int offsetWSTopic          = 510;  // 50
-int offsetEnable           = 570;  // 2
-int offsetConfigured       = 572;  // 2
+int offsetEnable           = 570;  // 1
+int offsetConfigured       = 571;  // 1
+int offsetSolo             = 572;  // 1
+int offsetSoloChannel      = 573;  // 2
+
 
 int offsetCh1              = 600;  // 20
 int offsetCh2              = 620;  // 20
@@ -53,6 +56,9 @@ int offsetCh16             = 900;  // 20
 
 int memOffset              = 600;
 int memSize                = 20;
+
+int solo = 0;
+int soloChannel == 0;
 
 
 String savedWSPath         = "";
@@ -721,7 +727,7 @@ void listenChannel(int channel)
     int pin = channelPin[channel];
     int input = analogRead(pin);
     float total = (float) input;
-    if(input > threshold)
+    if(input > threshold && solo == 0 && channel == soloChannel)
     {
         total += (float) analogRead(pin, 3);      
         float average = total / 4;
@@ -783,6 +789,11 @@ void readMidiConfig(int channel, String config)
         float scale = scaleStr.toFloat();
         channelScale[channel] = scale;
     }
+    String soloStr = readDataString(offsetSolo, 1);
+    String soloChannelStr = readDataString(offsetSoloChannel, 2);
+    
+    int solo = soloStr.toInt();
+    int soloChannel == soloChannelStr.toInt();
 }
 
 int countSplitCharacters(String text, char splitChar) {
