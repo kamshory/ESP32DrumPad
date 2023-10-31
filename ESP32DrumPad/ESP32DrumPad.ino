@@ -769,7 +769,7 @@ void readMidiConfig(int channel, String config)
         // 120 is instrument code
         // 100 is delay. For percussion, delay is less than 1000 milli seconds
         // 1.2345678901 is scale. This scale is used to calculate the velocity. Please note that scale length is less than or equals 12
-        String[] configs = splitCommandMax(config, ',', cnt);
+        String[] configs = splitStringMax(config, ',', cnt);
         
         String codeStr = configs[0]; 
         int code = codeStr.toInt();
@@ -800,7 +800,7 @@ int countSplitCharacters(String text, char splitChar) {
     return returnValue;
 } 
 
-String[] splitCommand(String text, char splitChar) 
+String[] splitString(String text, char splitChar) 
 {
     int splitCount = countSplitCharacters(text, splitChar);
     String returnValue[splitCount];
@@ -818,7 +818,7 @@ String[] splitCommand(String text, char splitChar)
     return returnValue;
 }
 
-String[] splitCommandMax(String text, char splitChar, int splitCount) 
+String[] splitStringMax(String text, char splitChar, int splitCount) 
 {
     String returnValue[splitCount];
     int index = -1;
@@ -1030,7 +1030,7 @@ void setup(void)
     server.on("/save-ap", saveAPData);
     server.on("/inline", []()
     {
-    server.send(200, "text/plain", "this works as well");
+        server.send(200, "text/plain", "this works as well");
     });
     server.onNotFound(handleNotFound);
     server.begin();
@@ -1068,6 +1068,22 @@ void setup(void)
 
 
     Serial.println("Device is ready");
+}
+
+// /hit
+void saveAPData()
+{
+    if (server.method() == HTTP_POST)
+    {
+        String pinStr = server.arg("pin");
+        int channel = pinStr.toInt();
+        int instrumentCode = channelInstrument[channel];
+        Midi.on(instrumentCode, (int) velocity);     
+        delay(delay);
+        Midi.off(instrumentCode);
+    }
+    String message = "{}";
+    server.send(200, "application/json", message);
 }
 
 void loop(void)
