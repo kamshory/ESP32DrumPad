@@ -7,10 +7,10 @@
 #include <ESPmDNS.h>
 
 int onboardLED             = 2;
-char *ssid                 = "PLANET BIRU";
-char *password             = "kodokterbang";
-char *ssid2                = "Smart-Switch";
-char *password2            = "Smart-Switch";
+char *ssid                 = "AlternativeMusic";
+char *password             = "AlternativeMusic";
+char *ssid2                = "AlternativeMusic";
+char *password2            = "AlternativeMusic";
 
 int sizeofString50         = 50;
 int sizeofString20         = 20;
@@ -35,7 +35,6 @@ int offsetEnable           = 570;  // 1
 int offsetConfigured       = 571;  // 1
 int offsetSolo             = 572;  // 1
 int offsetSoloChannel      = 573;  // 2
-
 
 int offsetCh1              = 600;  // 20
 int offsetCh2              = 620;  // 20
@@ -90,24 +89,27 @@ void Task2(void *pvParameters);
 
 String urlDecode(String str)
 {
-    String encodedString="";
+    String encodedString = "";
     char c;
     char code0;
     char code1;
-    for (int i =0; i < str.length(); i++){
+    for (int i =0; i < str.length(); i++)
+    {
         c=str.charAt(i);
-        if (c == '+'){
+        if (c == '+')
+        {
             encodedString+=' ';  
         }
-        else if (c == '%') {
+        else if (c == '%') 
+        {
             i++;
             code0=str.charAt(i);
             i++;
             code1=str.charAt(i);
             c = (h2int(code0) << 4) | h2int(code1);
             encodedString+=c;
-        } else {
-
+        } else 
+        {
             encodedString+=c;  
         }   
         yield();
@@ -122,42 +124,53 @@ String urlEncode(String str)
     char code0;
     char code1;
     char code2;
-    for (int i =0; i < str.length(); i++) {
+    for (int i =0; i < str.length(); i++) 
+    {
         c=str.charAt(i);
-        if (c == ' ') {
+        if (c == ' ') 
+        {
             encodedString+= '+';
-        } else if (isalnum(c)) {
+        } 
+        else if (isalnum(c)) 
+        {
             encodedString+=c;
-        } else {
-        code1=(c & 0xf)+'0';
-        if ((c & 0xf) >9){
-            code1=(c & 0xf) - 10 + 'A';
+        } 
+        else 
+        {
+            code1=(c & 0xf)+'0';
+            if ((c & 0xf) > 9)
+            {
+                code1=(c & 0xf) - 10 + 'A';
+            }
+            c=(c>>4)&0xf;
+            code0=c+'0';
+            if (c > 9)
+            {
+                code0=c - 10 + 'A';
+            }
+            code2='\0';
+            encodedString+='%';
+            encodedString+=code0;
+            encodedString+=code1;
+            //encodedString+=code2;
         }
-        c=(c>>4)&0xf;
-        code0=c+'0';
-        if (c > 9){
-            code0=c - 10 + 'A';
-        }
-        code2='\0';
-        encodedString+='%';
-        encodedString+=code0;
-        encodedString+=code1;
-        //encodedString+=code2;
-    }
-    yield();
+        yield();
     }
     return encodedString; 
 }
 
 unsigned char h2int(char c)
 {
-    if (c >= '0' && c <='9'){
+    if (c >= '0' && c <='9')
+    {
         return((unsigned char)c - '0');
     }
-    if (c >= 'a' && c <='f'){
+    if (c >= 'a' && c <='f')
+    {
         return((unsigned char)c - 'a' + 10);
     }
-    if (c >= 'A' && c <='F'){
+    if (c >= 'A' && c <='F')
+    {
         return((unsigned char)c - 'A' + 10);
     }
     return(0);
@@ -265,7 +278,6 @@ void saveAPData()
 // /midi-configuration.json
 void getMidiConfiguration()
 {
-    
     response += "{";
     int i = 0;
     for(int i = 1; i<=maxCh; i++)
@@ -467,7 +479,7 @@ void handleMessage(uint8_t *payload, size_t length)
     int i = 0;
     for (i = 0; i < length; i++)
     {
-    request += (char) payload[i];
+        request += (char) payload[i];
     }
     DynamicJsonDocument json(1024);
     deserializeJson(json, request);
@@ -476,36 +488,6 @@ void handleMessage(uint8_t *payload, size_t length)
     boolean requireResponse = !(responseTopic == NULL);
 
     // Define your program here...
-
-    response = processRequest(command, json);
-
-    if(requireResponse)
-    {
-        int callbackDelay = json["callback_delay"];
-        sendResponse(responseTopic, response, callbackDelay);
-    }  
-}
-
-String processRequest(const char *command, DynamicJsonDocument json)
-{
-    String response = "";
-    if(std::string(command) == "set-gpio-value")
-    {
-        int gpio = json["data"]["gpio"];
-        int value = json["data"]["value"];
-        int value2 = 0;
-        if(gpio > 0)
-        {
-            pinMode(gpio, OUTPUT);
-            digitalWrite(gpio, value);
-            writePinState(gpio, value);
-        }
-        json["response_code"] = "0000";
-        json.remove("callback_topic");
-        json.remove("callback_delay"); 
-        serializeJson(json, response);
-    }
-    return response;
 }
 
 void writePinState(int pin, int value)
@@ -598,28 +580,28 @@ void Task2(void *pvParameters)
         {
             if(millis() - lastDisconnected > reconnectWiFiTreshold && WiFi.status() != WL_CONNECTED)
             {
-            Serial.println("Reconnecting to WiFi...");
-            WiFi.disconnect();
-            boolean res = WiFi.reconnect();
-            if(res)
-            {
-                int j = 0;
-                while(WiFi.status() != WL_CONNECTED && j < 10)
+                Serial.println("Reconnecting to WiFi...");
+                WiFi.disconnect();
+                boolean res = WiFi.reconnect();
+                if(res)
                 {
-                delay(500);
-                j++;
+                    int j = 0;
+                    while(WiFi.status() != WL_CONNECTED && j < 10)
+                    {
+                        delay(500);
+                        j++;
+                    }
+                    if(j < 10)
+                    {
+                        Serial.println("");
+                        Serial.print("Connected to ");
+                        Serial.println(ssidUsed);
+                        Serial.print("IP address: ");
+                        Serial.println(WiFi.localIP());    
+                        Serial.println("");
+                    }         
+                    lastDisconnected = millis();
                 }
-                if(j < 10)
-                {
-                Serial.println("");
-                Serial.print("Connected to ");
-                Serial.println(ssidUsed);
-                Serial.print("IP address: ");
-                Serial.println(WiFi.localIP());    
-                Serial.println("");
-                }         
-                lastDisconnected = millis();
-            }
             }
         }   
         vTaskDelay(5000);
@@ -1070,13 +1052,10 @@ void setup(void)
 
     pinMode(onboardLED, OUTPUT);
 
-
-
     if(sysEnable == "1")
     {
         wsReconnect();
     }
-
 
     Serial.println("Device is ready");
 }
