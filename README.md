@@ -58,4 +58,10 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 ## Diagram
 
-![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/ESP32Drum.drawio.svg)
+![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ESP32Drum.drawio.svg)
+
+## Materials Needed
+
+We need an ESP32 expansion board so that we have enough pins for the piezoelectric sensor with minimal effort. Each piezoelectric sensor will be connected to the expansion board with two cables. Because GND and analog input are separated by VCC, we need 3x1 dupont headers for each piezoelectric sensor.
+
+![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/images/esp32-expansion-board.jpg)
