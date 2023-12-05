@@ -72,4 +72,4 @@ We do not need the VCC pin to supply power to the piezoelectric sensor because t
 
 ## Wiring
 
-![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.svg)
+![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.drawio.svg)
