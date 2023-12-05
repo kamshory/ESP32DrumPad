@@ -79,3 +79,42 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC.
 
 When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.
+
+## EEPROM Data Structure
+
+| Data                   | Offset | Length |
+| ---------------------- | ------ | ------ |
+| offsetSSID1            | 0      | 50     |
+| offsetSSID2            | 50     | 50     |
+| offsetAPIP             | 100    | 20     |
+| offsetAPGateway        | 120    | 20     |
+| offsetAPSubnet         | 140    | 20     |
+| offsetAPHidden         | 160    | 1      |
+| offsetSSIDPassword1    | 200    | 50     |
+| offsetSSIDPassword2    | 250    | 50     |
+| offsetWSHost           | 300    | 50     |
+| offsetWSPort           | 350    | 10     |
+| offsetWSPath           | 360    | 50     |
+| offsetWSUsername       | 410    | 50     |
+| offsetWSPassword       | 460    | 50     |
+| offsetWSTopic          | 510    | 50     |
+| offsetEnable           | 570    | 1      |
+| offsetConfigured       | 571    | 1      |
+| offsetSolo             | 572    | 1      |
+| offsetSoloChannel      | 573    | 2      |
+| offsetCh1              | 600    | 20     |
+| offsetCh2              | 620    | 20     |
+| offsetCh3              | 640    | 20     |
+| offsetCh4              | 660    | 20     |
+| offsetCh5              | 680    | 20     |
+| offsetCh6              | 700    | 20     |
+| offsetCh7              | 720    | 20     |
+| offsetCh8              | 740    | 20     |
+| offsetCh9              | 760    | 20     |
+| offsetCh10             | 780    | 20     |
+| offsetCh11             | 800    | 20     |
+| offsetCh12             | 820    | 20     |
+| offsetCh13             | 840    | 20     |
+| offsetCh14             | 860    | 20     |
+| offsetCh15             | 880    | 20     |
+| offsetCh16             | 900    | 20     |
