@@ -65,3 +65,5 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 We need an ESP32 expansion board so that we have enough pins for the piezoelectric sensor with minimal effort. Each piezoelectric sensor will be connected to the expansion board with two cables. Because GND and analog input are separated by VCC, we need 3x1 dupont headers for each piezoelectric sensor.
 
 ![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/images/esp32-expansion-board.jpg)
+
+We do not need the VCC pin to supply power to the piezoelectric sensor because the piezoelectric sensor will generate an electrical voltage of itself when it receives enough vibrations. Thus, we can remove the VCC jumper pin.
