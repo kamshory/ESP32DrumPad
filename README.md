@@ -144,6 +144,8 @@ void readChannelConfig(int channel)
     uint16_t threshold = readWord(offset + 1);
     uint16_t scale = readWord(offset + 3);
     uint32_t duration = readDoubleWord(offset + 5);
+    
+    // add code here
 }
 
 int getChannelOffset(int channel)
