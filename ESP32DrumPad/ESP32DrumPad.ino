@@ -182,13 +182,13 @@ void writeByte(int address, uint8_t value)
     EEPROM.write(address, one);
 }
 
-long readByte(int address) {
+byte readByte(int address) {
     byte one = EEPROM.read(address);
 
     return ((one << 0) & 0xFF);
 }
 
-void writeWord(int address, uint16_t value)
+uint16_t writeWord(int address, uint16_t value)
 {
     byte two = ((value >> 16) & 0xFF);
     byte one = ((value >> 24) & 0xFF);
@@ -197,7 +197,7 @@ void writeWord(int address, uint16_t value)
     EEPROM.write(address + 1, one);
 }
 
-long readWord(int address) {
+uint16_t readWord(int address) {
     byte two = EEPROM.read(address);
     byte one = EEPROM.read(address + 1);
 
@@ -217,7 +217,7 @@ void writeDoubleWord(int address, uint32_t value)
     EEPROM.write(address + 3, one);
 }
 
-long readDoubleWord(int address) {
+uint32_t readDoubleWord(int address) {
     byte four = EEPROM.read(address);
     byte three = EEPROM.read(address + 1);
     byte two = EEPROM.read(address + 2);
