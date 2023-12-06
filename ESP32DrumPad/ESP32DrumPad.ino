@@ -176,6 +176,56 @@ unsigned char h2int(char c)
     return(0);
 }
 
+void writeByte(int address, uint8_t value)
+{
+    byte one = ((value) & 0xFF);
+    EEPROM.write(address, one);
+}
+
+long readByte(int address) {
+    byte one = EEPROM.read(address);
+
+    return ((one << 0) & 0xFF);
+}
+
+void writeWord(int address, uint16_t value)
+{
+    byte two = ((value >> 16) & 0xFF);
+    byte one = ((value >> 24) & 0xFF);
+
+    EEPROM.write(address, two);
+    EEPROM.write(address + 1, one);
+}
+
+long readWord(int address) {
+    byte two = EEPROM.read(address);
+    byte one = EEPROM.read(address + 1);
+
+    return ((two << 0) & 0xFF) + ((one << 8) & 0xFFFF);
+}
+
+void writeDoubleWord(int address, uint32_t value)
+{
+    byte four = (value & 0xFF);
+    byte three = ((value >> 8) & 0xFF);
+    byte two = ((value >> 16) & 0xFF);
+    byte one = ((value >> 24) & 0xFF);
+
+    EEPROM.write(address, four);
+    EEPROM.write(address + 1, three);
+    EEPROM.write(address + 2, two);
+    EEPROM.write(address + 3, one);
+}
+
+long readDoubleWord(int address) {
+    byte four = EEPROM.read(address);
+    byte three = EEPROM.read(address + 1);
+    byte two = EEPROM.read(address + 2);
+    byte one = EEPROM.read(address + 3);
+
+    return ((four << 0) & 0xFF) + ((three << 8) & 0xFFFF) + ((two << 16) & 0xFFFFFF) + ((one << 24) & 0xFFFFFFFF);
+}
+
 void writeData(int offset, int length, String value)
 {
     int max2 = length;
