@@ -150,6 +150,6 @@ void readChannelConfig(int channel)
 
 int getChannelOffset(int channel)
 {
-    return 292 + ((channel - 1) * 13);
+    return memOffset + ((channel - 1) * memSize);
 } 
 ```
