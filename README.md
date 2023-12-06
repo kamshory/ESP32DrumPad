@@ -82,39 +82,41 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 
 ## EEPROM Data Structure
 
-| Data                   | Offset | Length |
-| ---------------------- | ------ | ------ |
-| offsetSSID1            | 0      | 50     |
-| offsetSSID2            | 50     | 50     |
-| offsetAPIP             | 100    | 20     |
-| offsetAPGateway        | 120    | 20     |
-| offsetAPSubnet         | 140    | 20     |
-| offsetAPHidden         | 160    | 1      |
-| offsetSSIDPassword1    | 200    | 50     |
-| offsetSSIDPassword2    | 250    | 50     |
-| offsetWSHost           | 300    | 50     |
-| offsetWSPort           | 350    | 10     |
-| offsetWSPath           | 360    | 50     |
-| offsetWSUsername       | 410    | 50     |
-| offsetWSPassword       | 460    | 50     |
-| offsetWSTopic          | 510    | 50     |
-| offsetEnable           | 570    | 1      |
-| offsetConfigured       | 571    | 1      |
-| offsetSolo             | 572    | 1      |
-| offsetSoloChannel      | 573    | 2      |
-| offsetCh1              | 600    | 20     |
-| offsetCh2              | 620    | 20     |
-| offsetCh3              | 640    | 20     |
-| offsetCh4              | 660    | 20     |
-| offsetCh5              | 680    | 20     |
-| offsetCh6              | 700    | 20     |
-| offsetCh7              | 720    | 20     |
-| offsetCh8              | 740    | 20     |
-| offsetCh9              | 760    | 20     |
-| offsetCh10             | 780    | 20     |
-| offsetCh11             | 800    | 20     |
-| offsetCh12             | 820    | 20     |
-| offsetCh13             | 840    | 20     |
-| offsetCh14             | 860    | 20     |
-| offsetCh15             | 880    | 20     |
-| offsetCh16             | 900    | 20     |
+We use at least 500 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+
+| Data                | Offset | Length | Type   |                                     |
+| ------------------- | ------ | ------ | ------ | ----------------------------------- |
+| offsetSSID1         | 0      | 20     | String | SSID Wifi                           |
+| offsetSSID2         | 20     | 20     | String | SSID AP                             |
+| offsetAPIP          | 40     | 15     | String | IP Address AP                       |
+| offsetAPGateway     | 55     | 15     | String | Gateway AP                          |
+| offsetAPSubnet      | 70     | 15     | String | Subnet AP                           |
+| offsetAPHidden      | 85     | 1      | Byte   | Hidden AP                           |
+| offsetSSIDPassword1 | 86     | 20     | String | Password Wifi                       |
+| offsetSSIDPassword2 | 106    | 20     | String | Password AP                         |
+| offsetWSHost        | 126    | 40     | String | Host WS                             |
+| offsetWSPort        | 166    | 2      | Word   | Port WS                             |
+| offsetWSPath        | 168    | 50     | String | Path WS                             |
+| offsetWSUsername    | 218    | 20     | String | Username WS                         |
+| offsetWSPassword    | 238    | 20     | String | Password WS                         |
+| offsetWSTopic       | 258    | 30     | String | Topic WS                            |
+| offsetEnable        | 288    | 1      | Byte   | Enable WS                           |
+| offsetConfigured    | 289    | 1      | Byte   | Flag that controller was configured |
+| offsetSolo          | 290    | 1      | Byte   | Flag solo channel                   |
+| offsetSoloChannel   | 291    | 1      | Byte   | Solo channel number                 |
+| offsetCh1           | 292    | 13     | String | Channel 1                           |
+| offsetCh2           | 305    | 13     | String | Channel 2                           |
+| offsetCh3           | 318    | 13     | String | Channel 3                           |
+| offsetCh4           | 331    | 13     | String | Channel 4                           |
+| offsetCh5           | 344    | 13     | String | Channel 5                           |
+| offsetCh6           | 357    | 13     | String | Channel 6                           |
+| offsetCh7           | 370    | 13     | String | Channel 7                           |
+| offsetCh8           | 383    | 13     | String | Channel 8                           |
+| offsetCh9           | 396    | 13     | String | Channel 9                           |
+| offsetCh10          | 409    | 13     | String | Channel 10                          |
+| offsetCh11          | 422    | 13     | String | Channel 11                          |
+| offsetCh12          | 435    | 13     | String | Channel 12                          |
+| offsetCh13          | 448    | 13     | String | Channel 13                          |
+| offsetCh14          | 461    | 13     | String | Channel 14                          |
+| offsetCh15          | 474    | 13     | String | Channel 15                          |
+| offsetCh16          | 487    | 13     | String | Channel 16                          |
