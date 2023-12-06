@@ -134,7 +134,7 @@ Each channel has an EEPROM address allocation to store the channel configuration
 | 3      | 2      | Word       | 0-65535      | Scale                          |
 | 5      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
 
-Instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
+Instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address. We have used 9 of the 13 bytes provided for channel configuration. We have 4 bytes of data that we reserve for future use.
 
 ```c
 void readChannelConfig(int channel)
