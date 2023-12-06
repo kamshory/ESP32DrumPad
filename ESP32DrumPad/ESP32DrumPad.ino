@@ -19,47 +19,49 @@ int sizeofInteger10        = 10;
 int sizeofBoolean          = 1;
 
 
-
-int offsetSSID1         = 0   ;//   | 20     | String | SSID Wifi                           |
-int offsetSSID2         = 20  ;//   | 20     | String | SSID AP                             |
-int offsetAPIP          = 40  ;//   | 15     | String | IP Address AP                       |
-int offsetAPGateway     = 55  ;//   | 15     | String | Gateway AP                          |
-int offsetAPSubnet      = 70  ;//   | 15     | String | Subnet AP                           |
-int offsetAPHidden      = 85  ;//   | 1      | Byte   | Hidden AP                           |
-int offsetSSIDPassword1 = 86  ;//   | 20     | String | Password Wifi                       |
-int offsetSSIDPassword2 = 106 ;//   | 20     | String | Password AP                         |
-int offsetWSHost        = 126 ;//   | 40     | String | Host WS                             |
-int offsetWSPort        = 166 ;//   | 2      | Word   | Port WS                             |
-int offsetWSPath        = 168 ;//   | 50     | String | Path WS                             |
-int offsetWSUsername    = 218 ;//   | 20     | String | Username WS                         |
-int offsetWSPassword    = 238 ;//   | 20     | String | Password WS                         |
-int offsetWSTopic       = 258 ;//   | 30     | String | Topic WS                            |
-int offsetEnable        = 288 ;//   | 1      | Byte   | Enable WS                           |
-int offsetConfigured    = 289 ;//   | 1      | Byte   | Flag that controller was configured |
-int offsetSolo          = 290 ;//   | 1      | Byte   | Flag solo channel                   |
-int offsetSoloChannel   = 291 ;//   | 1      | Byte   | Solo channel number                 |
-int offsetCh1           = 292 ;//   | 13     | String | Channel 1                           |
-int offsetCh2           = 305 ;//   | 13     | String | Channel 2                           |
-int offsetCh3           = 318 ;//   | 13     | String | Channel 3                           |
-int offsetCh4           = 331 ;//   | 13     | String | Channel 4                           |
-int offsetCh5           = 344 ;//   | 13     | String | Channel 5                           |
-int offsetCh6           = 357 ;//   | 13     | String | Channel 6                           |
-int offsetCh7           = 370 ;//   | 13     | String | Channel 7                           |
-int offsetCh8           = 383 ;//   | 13     | String | Channel 8                           |
-int offsetCh9           = 396 ;//   | 13     | String | Channel 9                           |
-int offsetCh10          = 409 ;//   | 13     | String | Channel 10                          |
-int offsetCh11          = 422 ;//   | 13     | String | Channel 11                          |
-int offsetCh12          = 435 ;//   | 13     | String | Channel 12                          |
-int offsetCh13          = 448 ;//   | 13     | String | Channel 13                          |
-int offsetCh14          = 461 ;//   | 13     | String | Channel 14                          |
-int offsetCh15          = 474 ;//   | 13     | String | Channel 15                          |
-int offsetCh16          = 487 ;//   | 13     | String | Channel 16                          |
+//  Variable            | Offset   | Length | Type   | Description                         |
+int offsetSSID1         = 0  ;//   | 20     | String | SSID Wifi                           |
+int offsetSSID2         = 20 ;//   | 20     | String | SSID AP                             |
+int offsetAPIP          = 40 ;//   | 15     | String | IP Address AP                       |
+int offsetAPGateway     = 55 ;//   | 15     | String | Gateway AP                          |
+int offsetAPSubnet      = 70 ;//   | 15     | String | Subnet AP                           |
+int offsetAPHidden      = 85 ;//   | 1      | Byte   | Hidden AP                           |
+int offsetSSIDPassword1 = 86 ;//   | 20     | String | Password Wifi                       |
+int offsetSSIDPassword2 = 106;//   | 20     | String | Password AP                         |
+int offsetWSHost        = 126;//   | 40     | String | Host WS                             |
+int offsetWSPort        = 166;//   | 2      | Word   | Port WS                             |
+int offsetWSPath        = 168;//   | 50     | String | Path WS                             |
+int offsetWSUsername    = 218;//   | 20     | String | Username WS                         |
+int offsetWSPassword    = 238;//   | 20     | String | Password WS                         |
+int offsetWSTopic       = 258;//   | 30     | String | Topic WS                            |
+int offsetEnable        = 288;//   | 1      | Byte   | Enable WS                           |
+int offsetConfigured    = 289;//   | 1      | Byte   | Flag that controller was configured |
+int offsetSolo          = 290;//   | 1      | Byte   | Flag solo channel                   |
+int offsetSoloChannel   = 291;//   | 1      | Byte   | Solo channel number                 |
+int offsetCh1           = 292;//   | 10     | String | Channel 1                           |
+int offsetCh2           = 302;//   | 10     | String | Channel 2                           |
+int offsetCh3           = 312;//   | 10     | String | Channel 3                           |
+int offsetCh4           = 322;//   | 10     | String | Channel 4                           |
+int offsetCh5           = 332;//   | 10     | String | Channel 5                           |
+int offsetCh6           = 342;//   | 10     | String | Channel 6                           |
+int offsetCh7           = 352;//   | 10     | String | Channel 7                           |
+int offsetCh8           = 362;//   | 10     | String | Channel 8                           |
+int offsetCh9           = 372;//   | 10     | String | Channel 9                           |
+int offsetCh10          = 382;//   | 10     | String | Channel 10                          |
+int offsetCh11          = 392;//   | 10     | String | Channel 11                          |
+int offsetCh12          = 402;//   | 10     | String | Channel 12                          |
+int offsetCh13          = 412;//   | 10     | String | Channel 13                          |
+int offsetCh14          = 422;//   | 10     | String | Channel 14                          |
+int offsetCh15          = 432;//   | 10     | String | Channel 15                          |
+int offsetCh16          = 442;//   | 10     | String | Channel 16                          |
+int offsetMCUser        = 452;//   | 20     | String | MIDI Controller username            |
+int offsetMCPassword    = 472;//   | 32     | String | MIDI Controller password            |
 
 
 
 
 int memOffset              = 292;
-int memSize                = 13;
+int memSize                = 10;
 
 int solo = 0;
 int soloChannel == 0;
@@ -87,6 +89,7 @@ class channelConfig
 {
     /* data */
     public:
+    byte configured;
     byte instrumentCode;
     uint16_t threshold;
     uint16_t scale;
@@ -100,8 +103,9 @@ class channelConfig
         duration = 1;
     }
     
-    channelConfig(byte i, uint16_t t, uint16_t s, uint32_t d)
+    channelConfig(byte c, byte i, uint16_t t, uint16_t s, uint32_t d)
     {
+        configured = c;
         instrumentCode = i;
         threshold = t;
         scale = s;
@@ -111,13 +115,14 @@ class channelConfig
     void readChannelConfig(int channel)
     {
         int offset = getChannelOffset(channel);
-        byte instrumentCode = readByte(offset);
-        uint16_t threshold = readWord(offset + 1);
-        uint16_t scale = readWord(offset + 3);
-        uint32_t duration = readDoubleWord(offset + 5);
+        byte configured2 = readByte(offset);
+        byte instrumentCode2 = readByte(offset + 1);
+        uint16_t threshold2 = readWord(offset + 2); 
+        uint16_t scale2 = readWord(offset + 4);
+        uint32_t duration2 = readDoubleWord(offset + 6);
         
         // add code here
-        return channelConfig(instrumentCode, threshold, scale, duration);
+        return channelConfig(configured2, instrumentCode2, threshold2, scale2, duration2);
     }
 
 };

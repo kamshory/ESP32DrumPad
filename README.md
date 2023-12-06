@@ -104,24 +104,26 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 | offsetConfigured    | 289    | 1      | Byte   | Flag that controller was configured |
 | offsetSolo          | 290    | 1      | Byte   | Flag solo channel                   |
 | offsetSoloChannel   | 291    | 1      | Byte   | Solo channel number                 |
-| offsetCh1           | 292    | 13     | String | Channel 1                           |
-| offsetCh2           | 305    | 13     | String | Channel 2                           |
-| offsetCh3           | 318    | 13     | String | Channel 3                           |
-| offsetCh4           | 331    | 13     | String | Channel 4                           |
-| offsetCh5           | 344    | 13     | String | Channel 5                           |
-| offsetCh6           | 357    | 13     | String | Channel 6                           |
-| offsetCh7           | 370    | 13     | String | Channel 7                           |
-| offsetCh8           | 383    | 13     | String | Channel 8                           |
-| offsetCh9           | 396    | 13     | String | Channel 9                           |
-| offsetCh10          | 409    | 13     | String | Channel 10                          |
-| offsetCh11          | 422    | 13     | String | Channel 11                          |
-| offsetCh12          | 435    | 13     | String | Channel 12                          |
-| offsetCh13          | 448    | 13     | String | Channel 13                          |
-| offsetCh14          | 461    | 13     | String | Channel 14                          |
-| offsetCh15          | 474    | 13     | String | Channel 15                          |
-| offsetCh16          | 487    | 13     | String | Channel 16                          |
+| offsetCh1           | 292    | 10     | String | Channel 1                           |
+| offsetCh2           | 302    | 10     | String | Channel 2                           |
+| offsetCh3           | 312    | 10     | String | Channel 3                           |
+| offsetCh4           | 322    | 10     | String | Channel 4                           |
+| offsetCh5           | 332    | 10     | String | Channel 5                           |
+| offsetCh6           | 342    | 10     | String | Channel 6                           |
+| offsetCh7           | 352    | 10     | String | Channel 7                           |
+| offsetCh8           | 362    | 10     | String | Channel 8                           |
+| offsetCh9           | 372    | 10     | String | Channel 9                           |
+| offsetCh10          | 382    | 10     | String | Channel 10                          |
+| offsetCh11          | 392    | 10     | String | Channel 11                          |
+| offsetCh12          | 402    | 10     | String | Channel 12                          |
+| offsetCh13          | 412    | 10     | String | Channel 13                          |
+| offsetCh14          | 422    | 10     | String | Channel 14                          |
+| offsetCh15          | 432    | 10     | String | Channel 15                          |
+| offsetCh16          | 442    | 10     | String | Channel 16                          |
+| offsetMCUser        | 452    | 20     | String | MIDI Controller username            |
+| offsetMCPassword    | 472    | 32     | String | MIDI Controller password            |
 
-We use at least 500 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+We use at least 504 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
 Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
 
@@ -129,21 +131,23 @@ Each channel has an EEPROM address allocation to store the channel configuration
 
 | Offset | Length | Type       | Range        | Usage                          |
 | ------ | ------ | ---------- | ------------ | ------------------------------ |
-| 0      | 1      | Byte       | 0-127        | Instrument code                |
-| 1      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
-| 3      | 2      | Word       | 0-65535      | Scale                          |
-| 5      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
+| 0      | 1      | Byte       | 0-127        | Flag configuration             |
+| 1      | 1      | Byte       | 0-127        | Instrument code                |
+| 2      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
+| 4      | 2      | Word       | 0-65535      | Scale                          |
+| 6      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
 
-Instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address. We have used 9 of the 13 bytes provided for channel configuration. We have 4 bytes of data that we reserve for future use.
+Instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
 
 ```c
 void readChannelConfig(int channel)
 {
     int offset = getChannelOffset(channel);
-    byte instrumentCode = readByte(offset);
-    uint16_t threshold = readWord(offset + 1);
-    uint16_t scale = readWord(offset + 3);
-    uint32_t duration = readDoubleWord(offset + 5);
+    byte configured = readByte(offset);
+    byte instrumentCode = readByte(offset + 1);
+    uint16_t threshold = readWord(offset + 2);
+    uint16_t scale = readWord(offset + 4);
+    uint32_t duration = readDoubleWord(offset + 6);
     
     // add code here
 }
