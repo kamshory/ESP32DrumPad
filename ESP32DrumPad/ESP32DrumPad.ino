@@ -14,47 +14,52 @@ char *password2            = "AlternativeMusic";
 
 int sizeofString50         = 50;
 int sizeofString20         = 20;
+int sizeofInteger15        = 15;
 int sizeofInteger10        = 10;
-int sizeofBoolean          = 2;
+int sizeofBoolean          = 1;
 
-int offsetSSID1            = 0;    // 50
-int offsetSSID2            = 50;   // 50
-int offsetAPIP             = 100;  // 20
-int offsetAPGateway        = 120;  // 20
-int offsetAPSubnet         = 140;  // 20
-int offsetAPHidden         = 160;  // 1
-int offsetSSIDPassword1    = 200;  // 50
-int offsetSSIDPassword2    = 250;  // 50
-int offsetWSHost           = 300;  // 50
-int offsetWSPort           = 350;  // 10
-int offsetWSPath           = 360;  // 50
-int offsetWSUsername       = 410;  // 50
-int offsetWSPassword       = 460;  // 50
-int offsetWSTopic          = 510;  // 50
-int offsetEnable           = 570;  // 1
-int offsetConfigured       = 571;  // 1
-int offsetSolo             = 572;  // 1
-int offsetSoloChannel      = 573;  // 2
 
-int offsetCh1              = 600;  // 20
-int offsetCh2              = 620;  // 20
-int offsetCh3              = 640;  // 20
-int offsetCh4              = 660;  // 20
-int offsetCh5              = 680;  // 20
-int offsetCh6              = 700;  // 20
-int offsetCh7              = 720;  // 20
-int offsetCh8              = 740;  // 20
-int offsetCh9              = 760;  // 20
-int offsetCh10             = 780;  // 20
-int offsetCh11             = 800;  // 20
-int offsetCh12             = 820;  // 20
-int offsetCh13             = 840;  // 20
-int offsetCh14             = 860;  // 20
-int offsetCh15             = 880;  // 20
-int offsetCh16             = 900;  // 20
 
-int memOffset              = 600;
-int memSize                = 20;
+int offsetSSID1         = 0   ;//   | 20     | String | SSID Wifi                           |
+int offsetSSID2         = 20  ;//   | 20     | String | SSID AP                             |
+int offsetAPIP          = 40  ;//   | 15     | String | IP Address AP                       |
+int offsetAPGateway     = 55  ;//   | 15     | String | Gateway AP                          |
+int offsetAPSubnet      = 70  ;//   | 15     | String | Subnet AP                           |
+int offsetAPHidden      = 85  ;//   | 1      | Byte   | Hidden AP                           |
+int offsetSSIDPassword1 = 86  ;//   | 20     | String | Password Wifi                       |
+int offsetSSIDPassword2 = 106 ;//   | 20     | String | Password AP                         |
+int offsetWSHost        = 126 ;//   | 40     | String | Host WS                             |
+int offsetWSPort        = 166 ;//   | 2      | Word   | Port WS                             |
+int offsetWSPath        = 168 ;//   | 50     | String | Path WS                             |
+int offsetWSUsername    = 218 ;//   | 20     | String | Username WS                         |
+int offsetWSPassword    = 238 ;//   | 20     | String | Password WS                         |
+int offsetWSTopic       = 258 ;//   | 30     | String | Topic WS                            |
+int offsetEnable        = 288 ;//   | 1      | Byte   | Enable WS                           |
+int offsetConfigured    = 289 ;//   | 1      | Byte   | Flag that controller was configured |
+int offsetSolo          = 290 ;//   | 1      | Byte   | Flag solo channel                   |
+int offsetSoloChannel   = 291 ;//   | 1      | Byte   | Solo channel number                 |
+int offsetCh1           = 292 ;//   | 13     | String | Channel 1                           |
+int offsetCh2           = 305 ;//   | 13     | String | Channel 2                           |
+int offsetCh3           = 318 ;//   | 13     | String | Channel 3                           |
+int offsetCh4           = 331 ;//   | 13     | String | Channel 4                           |
+int offsetCh5           = 344 ;//   | 13     | String | Channel 5                           |
+int offsetCh6           = 357 ;//   | 13     | String | Channel 6                           |
+int offsetCh7           = 370 ;//   | 13     | String | Channel 7                           |
+int offsetCh8           = 383 ;//   | 13     | String | Channel 8                           |
+int offsetCh9           = 396 ;//   | 13     | String | Channel 9                           |
+int offsetCh10          = 409 ;//   | 13     | String | Channel 10                          |
+int offsetCh11          = 422 ;//   | 13     | String | Channel 11                          |
+int offsetCh12          = 435 ;//   | 13     | String | Channel 12                          |
+int offsetCh13          = 448 ;//   | 13     | String | Channel 13                          |
+int offsetCh14          = 461 ;//   | 13     | String | Channel 14                          |
+int offsetCh15          = 474 ;//   | 13     | String | Channel 15                          |
+int offsetCh16          = 487 ;//   | 13     | String | Channel 16                          |
+
+
+
+
+int memOffset              = 292;
+int memSize                = 13;
 
 int solo = 0;
 int soloChannel == 0;
@@ -278,11 +283,11 @@ String readDataString(int offset, int length)
 // /ap-configuration.json
 void getAPData()
 {
-    String savedSSID = readDataString(offsetSSID1, sizeofString50);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword1, sizeofString50);
-    String savedIP = readDataString(offsetAPIP, sizeofString20);
-    String savedGateway = readDataString(offsetAPGateway, sizeofString20);
-    String savedSubnet = readDataString(offsetAPSubnet, sizeofString20);
+    String savedSSID = readDataString(offsetSSID1, sizeofString20);
+    String savedSSIDPassword = readDataString(offsetSSIDPassword1, sizeofString20);
+    String savedIP = readDataString(offsetAPIP, sizeofString15);
+    String savedGateway = readDataString(offsetAPGateway, sizeofString15);
+    String savedSubnet = readDataString(offsetAPSubnet, sizeofString15);
     String savedHidden = readDataString(offsetAPHidden, sizeofBoolean);
     String response = "";
     response += "{\"ssid_name\":\"";
@@ -382,21 +387,21 @@ void resetSTA()
 {
     String savedSSID = "AlternativeMusic";
     String savedSSIDPassword = "AlternativeMusic";
-    writeData(offsetSSID2, sizeofString50, savedSSID);
-    writeData(offsetSSIDPassword2, sizeofString50, savedSSIDPassword);
+    writeData(offsetSSID2, sizeofString20, savedSSID);
+    writeData(offsetSSIDPassword2, sizeofString20, savedSSIDPassword);
 }
 
 // /subscribtion-configuration.json
 void getSubData()
 {
     String response = "";
-    String savedSSID = readDataString(offsetSSID2, sizeofString50);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword2, sizeofString50);
-    String savedWSHost = readDataString(offsetWSHost, sizeofString50);
-    String savedWSPort = readDataString(offsetWSPort, sizeofInteger10);
+    String savedSSID = readDataString(offsetSSID2, sizeofString20);
+    String savedSSIDPassword = readDataString(offsetSSIDPassword2, sizeofString20);
+    String savedWSHost = readDataString(offsetWSHost, sizeofString40);
+    uint16_t savedWSPort = readWord(offsetWSPort);
     String savedWSPath = readDataString(offsetWSPath, sizeofString50);
-    String savedWSUsername = readDataString(offsetWSUsername, sizeofString50);
-    String savedWSPassword = readDataString(offsetWSPassword, sizeofString50);
+    String savedWSUsername = readDataString(offsetWSUsername, sizeofString20);
+    String savedWSPassword = readDataString(offsetWSPassword, sizeofString20);
     String savedWSTopic = readDataString(offsetWSTopic, sizeofString50);
     String savedEnable = readDataString(offsetEnable, sizeofBoolean);
 
