@@ -83,6 +83,46 @@ const char * gTopic        = "";
 const char * gMessage      = "";
 String ssidUsed            = "";
 
+class channelConfig
+{
+    /* data */
+    public:
+    byte instrumentCode;
+    uint16_t threshold;
+    uint16_t scale;
+    uint32_t duration; 
+    
+    channelConfig()
+    {
+        instrumentCode = 0;
+        threshold = 0;
+        scale = 1;
+        duration = 1;
+    }
+    
+    channelConfig(byte i, uint16_t t, uint16_t s, uint32_t d)
+    {
+        instrumentCode = i;
+        threshold = t;
+        scale = s;
+        duration = d;
+    }
+    
+    void readChannelConfig(int channel)
+    {
+        int offset = getChannelOffset(channel);
+        byte instrumentCode = readByte(offset);
+        uint16_t threshold = readWord(offset + 1);
+        uint16_t scale = readWord(offset + 3);
+        uint32_t duration = readDoubleWord(offset + 5);
+        
+        // add code here
+        return channelConfig(instrumentCode, threshold, scale, duration);
+    }
+
+};
+
+
 IPAddress apLocalID(192,168,4,1);
 IPAddress apGateway(192,168,4,2);
 IPAddress apSubnet(255,255,255,0);
