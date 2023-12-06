@@ -127,10 +127,10 @@ Each channel has an EEPROM address allocation to store the channel configuration
 
 ### Channel Configuration
 
-| Offset | Length | Type       | Usage                          |
-| ------ | ------ | ---------- | ------------------------------ |
-| 0      | 1      | Byte       | Instrument code                |
-| 1      | 2      | Word       | Threshold (minimum value)      |
-| 3      | 2      | Word       | Scale                          |
-| 5      | 4      | DWord      | Duration (micro second)        |
+| Offset | Length | Type       | Range        | Usage                          |
+| ------ | ------ | ---------- | ------------ | ------------------------------ |
+| 0      | 1      | Byte       | 0-127        | Instrument code                |
+| 1      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
+| 3      | 2      | Word       | 0-65535      | Scale                          |
+| 5      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
 
