@@ -85,7 +85,26 @@ const char * gTopic        = "";
 const char * gMessage      = "";
 String ssidUsed            = "";
 
-class channelConfig
+// ESP32 has only 15 pin ADC
+int maxCh = 15;
+
+// we need maxCh + 1 because channel begin with 1
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
+byte channelInstrument[]     = {0, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
+uint16_t channelScale[]      = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
+
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
+uint16_t channelThreshold[]  = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
+
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
+int channelPin[]             = {0, 36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13,  4,  2, 15, 0};
+
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
+int channelDelay[]           = {0,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5};
+
+
+class ChannelConfig
 {
     /* data */
     public:
@@ -95,7 +114,7 @@ class channelConfig
     uint16_t scale;
     uint32_t duration; 
     
-    channelConfig()
+    ChannelConfig()
     {
         instrumentCode = 0;
         threshold = 0;
@@ -103,8 +122,24 @@ class channelConfig
         duration = 1;
     }
     
-    channelConfig(byte c, byte i, uint16_t t, uint16_t s, uint32_t d)
+    ChannelConfig(byte c, byte i, uint16_t t, uint16_t s, uint32_t d)
     {
+        configured = c;
+        instrumentCode = i;
+        threshold = t;
+        scale = s;
+        duration = d;
+    }
+    
+    ChannelConfig(int channel)
+    {
+        int offset = getChannelOffset(channel);
+        byte c = readByte(offset);
+        byte i = readByte(offset + 1);
+        uint16_t t = readWord(offset + 2); 
+        uint16_t s = readWord(offset + 4);
+        uint32_t d = readDoubleWord(offset + 6);
+        
         configured = c;
         instrumentCode = i;
         threshold = t;
@@ -136,6 +171,22 @@ WebSocketsClient webSocket;
 
 void Task1(void *pvParameters);
 void Task2(void *pvParameters);
+
+void loadMidiConfig()
+{
+    for(int channel = 1; channel <= maxCh; channel++)
+    {
+        ChannelConfig cc(channel);
+        if(cc.configured)
+        {
+            channelInstrument[channel] = cc.instrumentCode;
+            channelThreshold[channel] = cc.threshold;
+            channelScale[channel] = cc.scale;
+            channelDelay[channel] = cc.duration;
+        }
+    }
+}
+
 
 String urlDecode(String str)
 {
@@ -708,97 +759,97 @@ void Task2(void *pvParameters)
     }
 }
 
-// DrumSet 1
+// Drum Pad 1
 void Listen01(void *pvParameters)
 {
     listenChannel(1);
 }
 
-// DrumSet 2
+// Drum Pad 2
 void Listen02(void *pvParameters)
 {
     listenChannel(2);
 }
 
-// DrumSet 3
+// Drum Pad 3
 void Listen03(void *pvParameters)
 {
     listenChannel(3);
 }
 
-// DrumSet 4
+// Drum Pad 4
 void Listen04(void *pvParameters)
 {
     listenChannel(4);
 }
 
-// DrumSet 5
+// Drum Pad 5
 void Listen05(void *pvParameters)
 {
     listenChannel(5);
 }
 
-// DrumSet 6
+// Drum Pad 6
 void Listen06(void *pvParameters)
 {
     listenChannel(6);
 }
 
-// DrumSet 7
+// Drum Pad 7
 void Listen07(void *pvParameters)
 {
     listenChannel(7);    
 }
 
-// DrumSet 8
+// Drum Pad 8
 void Listen08(void *pvParameters)
 {
     listenChannel(8);
 }
 
-// DrumSet 9
+// Drum Pad 9
 void Listen09(void *pvParameters)
 {
     listenChannel(9);
 }
 
-// DrumSet 10
+// Drum Pad 10
 void Listen10(void *pvParameters)
 {
     listenChannel(10);
 }
 
-// DrumSet 11
+// Drum Pad 11
 void Listen11(void *pvParameters)
 {
     listenChannel(11);
 }
 
-// DrumSet 12
+// Drum Pad 12
 void Listen12(void *pvParameters)
 {
     listenChannel(12);
 }
 
-// DrumSet 13
+// Drum Pad 13
 void Listen13(void *pvParameters)
 {
     listenChannel(13);
 }
 
-// DrumSet 14
+// Drum Pad 14
 void Listen14(void *pvParameters)
 {
     listenChannel(14);
 }
 
-// DrumSet 15
+// Drum Pad 15
 void Listen15(void *pvParameters)
 {
     listenChannel(15);
 }
 
-// DrumSet 16
+// Drum Pad 16
 void Listen16(void *pvParameters)
 {
     listenChannel(16);
@@ -833,20 +884,6 @@ int analogRead(int pin, int count)
     return total;
 }
 
-// ESP32 has only 15 pin ADC
-int maxCh = 15;
-
-// we need maxCh + 1 because channel begin with 1
-//                             1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-int channelInstrument[] = {0, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-//                             1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
-float channelScale[]    = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
-
-//                             1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-int channelPin[]        = {0, 36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13,  4,  2, 15, 0};
-
-//                             1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-int channelDelay[]      = {0,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5};
 
 void readMidiConfig(int channel, String config)
 {
@@ -989,18 +1026,12 @@ void handleNotFound()
 }
 
 
-
 void setup(void)
 {
     EEPROM.begin(1024);
     Serial.begin(115200);
     
-    for(i = 1; i <= maxCh; i++)
-    {
-        int offset = memOffset + ((i - 1) * memSize);
-        String config = readDataString(offset, memSize);
-        readMidiConfig(i, config);
-    }
+    loadMidiConfig();    
 
     String configured = readDataString(offsetConfigured, sizeofBoolean);
     if(configured != "1")
