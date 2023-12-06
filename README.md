@@ -133,13 +133,13 @@ Each channel has an EEPROM address allocation to store the channel configuration
 
 | Offset | Length | Type       | Range        | Usage                          |
 | ------ | ------ | ---------- | ------------ | ------------------------------ |
-| 0      | 1      | Byte       | 0-127        | Flag configuration             |
+| 0      | 1      | Byte       | 0-127        | Configuration flag             |
 | 1      | 1      | Byte       | 0-127        | Instrument code                |
 | 2      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
 | 4      | 2      | Word       | 0-65535      | Scale                          |
 | 6      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
 
-Instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
+Configuration flag, instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
 
 ```c
 void readChannelConfig(int channel)
