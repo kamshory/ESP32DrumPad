@@ -82,9 +82,9 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 
 ## EEPROM Data Structure
 
-We use at least 500 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+### EEPROM Data Offset
 
-| Data                | Offset | Length | Type   |                                     |
+| Data                | Offset | Length | Type   | Description                         |
 | ------------------- | ------ | ------ | ------ | ----------------------------------- |
 | offsetSSID1         | 0      | 20     | String | SSID Wifi                           |
 | offsetSSID2         | 20     | 20     | String | SSID AP                             |
@@ -120,3 +120,17 @@ We use at least 500 bytes of EEPROM to store the application configuration. So f
 | offsetCh14          | 461    | 13     | String | Channel 14                          |
 | offsetCh15          | 474    | 13     | String | Channel 15                          |
 | offsetCh16          | 487    | 13     | String | Channel 16                          |
+
+We use at least 500 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+
+Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
+
+### Channel Configuration
+
+| Offset | Length | Type       | Usage                          |
+| ------ | ------ | ---------- | ------------------------------ |
+| 0      | 1      | Byte       | Instrument code                |
+| 1      | 2      | Word       | Threshold (minimum value)      |
+| 3      | 2      | Word       | Scale                          |
+| 5      | 4      | DWord      | Duration (micro second)        |
+
