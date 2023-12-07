@@ -871,19 +871,27 @@ void Listen16(void *pvParameters)
 
 void listenChannel(int channel)
 {
-    int pin = channelPin[channel];
-    int input = analogRead(pin);
-    float total = (float) input;
-    if(input > threshold && solo == 0 && channel == soloChannel)
+    do
     {
-        total += (float) analogRead(pin, 3);      
-        float average = total / 4;
-        float velocity = channelHeadRoom[channel] * average * factor;
-        int instrumentCode = channelInstrument[channel];
-        Midi.on(instrumentCode, (int) velocity);     
-        delay(delay);
-        Midi.off(instrumentCode);
-    }    
+        int pin = channelPin[channel];
+        int input = analogRead(pin);
+        float total = (float) input;
+        
+        uint16_t threshold = channelThreshold[channel];
+        if(input > threshold && solo == 0 && channel == soloChannel)
+        {
+            total += (float) analogRead(pin, 3);      
+            float average = total / 4;
+            
+            uint8_t velocity = calcVelocity((uint16_t) average, threshold, (uint16_t) channelHeadRoom[channel])
+            
+            int instrumentCode = channelInstrument[channel];
+            Midi.on(instrumentCode, (int) velocity);     
+            delay(delay);
+            Midi.off(instrumentCode);
+        }   
+    } 
+    while(true);
 }
 
 int analogRead(int pin, int count)
