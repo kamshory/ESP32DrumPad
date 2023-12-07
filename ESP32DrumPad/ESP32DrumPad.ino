@@ -180,7 +180,7 @@ int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
     {
         outp2 = 127;
     } 
-    return uint16_t round(outp2);
+    return (uint16_t) round(outp2);
 }
 
 void loadMidiConfig()
