@@ -193,7 +193,7 @@ uint8_t calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
     {
         outp2 = 127;
     } 
-    return uint8_t round(outp2);
+    return (uint8_t) round(outp2);
 }
 ```
 
