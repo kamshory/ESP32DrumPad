@@ -878,6 +878,7 @@ void listenChannel(int channel)
         float total = (float) input;
         
         uint16_t threshold = channelThreshold[channel];
+        uint32_t delayTime = channelDuration[channel];
         if(input > threshold && solo == 0 && channel == soloChannel)
         {
             total += (float) analogRead(pin, 3);      
@@ -887,7 +888,7 @@ void listenChannel(int channel)
             
             int instrumentCode = channelInstrument[channel];
             Midi.on(instrumentCode, (int) velocity);     
-            delay(delay);
+            delay(delayTime);
             Midi.off(instrumentCode);
         }   
     } 
