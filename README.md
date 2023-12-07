@@ -188,3 +188,7 @@ int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 ### Duration
 
 Duration in general is the time calculated from the `note on` signal to the next `note off` signal on the same channel and instrument or note. When it comes to drum pads, duration is very important because this will affect the speed at which the player plays the drums. The default value of the duration must be provided by the application.
+
+## Need Support
+
+Please support our YouTube channel by subsribe it at https://www.youtube.com/@MusicPlanetbiru
