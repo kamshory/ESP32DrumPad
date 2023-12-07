@@ -174,7 +174,7 @@ void Task2(void *pvParameters);
 
 int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 {
-    uint16_t inp2 = inp >= thd ? inp - thd : inp;
+    uint16_t inp2 = inp >= thd ? inp - thd : 0;
     float outp2 = 127 * (float) inp2 / (float)(headRoom - thd);
     if(outp2 > 127)
     {
