@@ -172,8 +172,10 @@ The threshold will basically have almost the same value for all pads because the
 Users must enter the correct threshold and head room values to get the best results. Default values which are test results must be provided by the application.
 
 
+![Velocity](https://github.com/kamshory/ESP32DrumPad/blob/main/images/velocity.drawio.svg)
+
 ```c
-int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
+uint8_t calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 {
     uint16_t inp2 = inp >= thd ? inp - thd : inp;
     float outp2 = 127 * (float) inp2 / (float)(headRoom - thd);
@@ -181,7 +183,7 @@ int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
     {
         outp2 = 127;
     } 
-    return uint16_t round(outp2);
+    return uint8_t round(outp2);
 }
 ```
 
