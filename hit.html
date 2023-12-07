@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity</title>
+</head>
+<body>
+    Threshold
+    <input type="number" name="threshold" id="threshold" value="10">
+    Headroom
+    <input type="number" name="headroom" id="headroom" value="2000">
+    Input
+    <input type="number" name="input" id="input" value="1800">
+    Output
+    <input type="number" name="output" id="output" readonly>
+    <script>
+        let inp = parseFloat(document.querySelector('#input').value);
+        let thd = parseFloat(document.querySelector('#threshold').value);
+        let hr = parseFloat(document.querySelector('#headroom').value);
+        let outp = calcVelocity(inp, thd, hr); 
+        console.log(outp)
+        showOutput(outp);
+        
+        function calcVelocity(inp, thd, headRoom)
+        {
+            let inp2 = inp >= thd ? inp - thd : inp;
+            let outp2 = 127 * inp2 / (headRoom - thd);
+            if(outp2 > 127)
+            {
+                outp2 = 127;
+            } 
+            return Math.round(outp2);
+        }
+        function showOutput(outp)
+        {
+            document.querySelector('#output').value = outp; 
+        }
+        document.querySelector('#threshold').addEventListener('change', function(e){
+            thd = parseFloat(e.target.value);
+            outp = calcVelocity(inp, thd, hr);
+            showOutput(outp);
+        });
+        document.querySelector('#headroom').addEventListener('change', function(e){
+            hr = parseFloat(e.target.value);
+            outp = calcVelocity(inp, thd, hr);
+            showOutput(outp);
+        });
+        document.querySelector('#input').addEventListener('change', function(e){
+           let inp = parseFloat(e.target.value); 
+           outp = calcVelocity(inp, thd, hr);
+           showOutput(outp);
+        });
+        
+    </script>
+</body>
+</html>

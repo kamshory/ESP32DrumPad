@@ -1,6 +1,6 @@
 # ESP32DrumPad
 
-ESP32DrumPad
+ESP32DrumPad is drum pad MIDI controller
 
 ## Features
 
@@ -135,10 +135,10 @@ Each channel has an EEPROM address allocation to store the channel configuration
 | 0      | 1      | Byte       | 0-127        | Configuration flag             |
 | 1      | 1      | Byte       | 0-127        | Instrument code                |
 | 2      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
-| 4      | 2      | Word       | 0-65535      | Scale                          |
+| 4      | 2      | Word       | 0-65535      | Head room                      |
 | 6      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
 
-Configuration flag, instrument code, threshold, scale and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
+Configuration flag, instrument code, threshold, head room and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
 
 ```c
 void readChannelConfig(int channel)
@@ -147,7 +147,7 @@ void readChannelConfig(int channel)
     byte configured = readByte(offset);
     byte instrumentCode = readByte(offset + 1);
     uint16_t threshold = readWord(offset + 2);
-    uint16_t scale = readWord(offset + 4);
+    uint16_t headRoom = readWord(offset + 4);
     uint32_t duration = readDoubleWord(offset + 6);
     
     // add code here
@@ -158,3 +158,32 @@ int getChannelOffset(int channel)
     return memOffset + ((channel - 1) * memSize);
 } 
 ```
+
+### Convert Voltage to Velocity
+
+To convert average stress into velocity, the calculation uses the following parameters:
+
+1. 12 bit voltage input (0 - 4095) is obtained from the average voltage on the ADC PIN
+2. 12 bit threshold (0 - 4095) which will reduce the original average voltage to prevent vibrations from one pad propagating to other pads. The smaller the threshold, the weaker the strike will produce vibrations on other pads that are not hit. The greater the threshold, the less sensitive the pad is, which causes the player to have to hit faster to get high velocity.
+3. head room (0 - 4095) is the maximum tension produced by the fastest shot of the average player. The smaller the headroom, the smaller the head will produce high velocity.
+
+The threshold will basically have almost the same value for all pads because the threshold prevents nearby pads from being accidentally triggered if the pad next to it is hit at very high speed. Meanwhile, head room can have very varying values depending on the instrument used. For example, the snare may require a harder hit than the hat.
+
+Users must enter the correct threshold and head room values to get the best results. Default values which are test results must be provided by the application.
+
+
+```c
+int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
+{
+    uint16_t inp2 = inp >= thd ? inp - thd : inp;
+    float outp2 = 127 * (float) inp2 / (float)(headRoom - thd);
+    if(outp2 > 127)
+    {
+        outp2 = 127;
+    } 
+    return uint16_t round(outp2);
+}
+```
+
+### Duration
+

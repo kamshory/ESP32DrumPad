@@ -91,11 +91,11 @@ int maxCh = 15;
 // we need maxCh + 1 because channel begin with 1
 //                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
 byte channelInstrument[]     = {0, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
-uint16_t channelScale[]      = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
+uint16_t channelHeadRoom[]   = {0,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000};
 
 //                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
-uint16_t channelThreshold[]  = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
+uint16_t channelThreshold[]  = {0,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100};
 
 //                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
 int channelPin[]             = {0, 36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13,  4,  2, 15, 0};
@@ -172,6 +172,17 @@ WebSocketsClient webSocket;
 void Task1(void *pvParameters);
 void Task2(void *pvParameters);
 
+int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
+{
+    uint16_t inp2 = inp >= thd ? inp - thd : inp;
+    float outp2 = 127 * (float) inp2 / (float)(headRoom - thd);
+    if(outp2 > 127)
+    {
+        outp2 = 127;
+    } 
+    return uint16_t round(outp2);
+}
+
 void loadMidiConfig()
 {
     for(int channel = 1; channel <= maxCh; channel++)
@@ -181,7 +192,7 @@ void loadMidiConfig()
         {
             channelInstrument[channel] = cc.instrumentCode;
             channelThreshold[channel] = cc.threshold;
-            channelScale[channel] = cc.scale;
+            channelHeadRoom[channel] = cc.scale;
             channelDelay[channel] = cc.duration;
         }
     }
@@ -867,7 +878,7 @@ void listenChannel(int channel)
     {
         total += (float) analogRead(pin, 3);      
         float average = total / 4;
-        float velocity = channelScale[channel] * average * factor;
+        float velocity = channelHeadRoom[channel] * average * factor;
         int instrumentCode = channelInstrument[channel];
         Midi.on(instrumentCode, (int) velocity);     
         delay(delay);
@@ -909,7 +920,7 @@ void readMidiConfig(int channel, String config)
         
         String scaleStr = configs[2];
         float scale = scaleStr.toFloat();
-        channelScale[channel] = scale;
+        channelHeadRoom[channel] = scale;
     }
     String soloStr = readDataString(offsetSolo, 1);
     String soloChannelStr = readDataString(offsetSoloChannel, 2);
