@@ -174,11 +174,15 @@ Users must enter the correct threshold and head room values to get the best resu
 
 ![Velocity](https://github.com/kamshory/ESP32DrumPad/blob/main/images/velocity.drawio.svg)
 
-In the example above, it is known that the threshold is equal to 383 and the head room is equal to 2059. The voltage that will be converted to velocity is above 0.309450549 volts while voltages below 0.309450549 volts will be ignored. Meanwhile, any voltage will be reduced by 0.309450549 volts. A voltage of 2.0625 volts will be converted to a velocity of 127 while a voltage of 0.309450549 volts will be converted to a velocity of 0. The relationship between voltage and velocity is as follows:
+The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity. In the example above, it is known that the threshold is equal to 383 and the head room is equal to 2059. The voltage that will be converted to velocity is above 0.309450549 volts while voltages below 0.309450549 volts will be ignored. Meanwhile, any voltage will be reduced by 0.309450549 volts. A voltage of 2.0625 volts will be converted to a velocity of 127 while a voltage of 0.309450549 volts will be converted to a velocity of 0. The relationship between voltage and velocity is as follows:
 
 ```
-velocity = voltage * 127 * (- 0.309450549 / (2.0625 - 0.309450549))
+velocity = 127 * (voltage - 0.309450549 / (2.0625 - 0.309450549))
 ```
+
+where `voltage` is the average voltage of several voltage samples taken.
+
+We can write the diagram above into the following function:
 
 ```c
 uint8_t calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
