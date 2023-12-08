@@ -81,6 +81,26 @@ The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is 
 
 When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.
 
+## Pad pin mapping
+
+| Pad | Pin     |
+| --- | ------- |
+| 1   | GPIO 36 |
+| 2   | GPIO 39 |
+| 3   | GPIO 34 |
+| 4   | GPIO 35 |
+| 5   | GPIO 32 |
+| 6   | GPIO 33 |
+| 7   | GPIO 25 |
+| 8   | GPIO 26 |
+| 9   | GPIO 27 |
+| 10  | GPIO 24 |
+| 11  | GPIO 12 |
+| 12  | GPIO 13 |
+| 13  | GPIO 15 |
+| 14  | GPIO 2  |
+| 15  | GPIO 4  |
+
 ## EEPROM Data Structure
 
 ### EEPROM Data Offset
