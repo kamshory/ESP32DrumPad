@@ -81,7 +81,7 @@ The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is 
 
 When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.
 
-## Pad pin mapping
+## Pad Pin Mapping
 
 | Pad | Pin     |
 | --- | ------- |
