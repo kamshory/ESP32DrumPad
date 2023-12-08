@@ -143,8 +143,9 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 | offsetCh16          | 442    | 10     | String | Channel 16                          |
 | offsetMCUser        | 452    | 20     | String | MIDI Controller username            |
 | offsetMCPassword    | 472    | 32     | String | MIDI Controller password            |
+| midiChannel         | 504    | 1      | Byte   | MIDI channel                        |
 
-We use at least 504 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+We use at least 505 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
 Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
 

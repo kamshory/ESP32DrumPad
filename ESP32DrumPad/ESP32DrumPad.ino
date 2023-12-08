@@ -56,6 +56,7 @@ int offsetCh15          = 432;//   | 10     | String | Channel 15               
 int offsetCh16          = 442;//   | 10     | String | Channel 16                          |
 int offsetMCUser        = 452;//   | 20     | String | MIDI Controller username            |
 int offsetMCPassword    = 472;//   | 32     | String | MIDI Controller password            |
+int midiChannel         = 50; //   | 1      | Byte   | MIDI channel                        |
 
 
 
@@ -887,9 +888,9 @@ void listenChannel(int channel)
             uint8_t velocity = calcVelocity((uint16_t) average, threshold, (uint16_t) channelHeadRoom[channel])
             
             int instrumentCode = channelInstrument[channel];
-            Midi.on(instrumentCode, (int) velocity);     
+            MIDI.sendNoteOn(instrumentCode, velocity, midiChannel);
             delay(delayTime);
-            Midi.off(instrumentCode);
+            MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
         }   
     } 
     while(true);
