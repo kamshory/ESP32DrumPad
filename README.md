@@ -75,7 +75,6 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 
 ## Wiring
 
-
 | **GPIO** | **Input** | **Output** | **Notes**                                                                      |
 | -------- | --------- | ---------- | ------------------------------------------------------------------------------ |
 | **0**    | pulled up | OK         | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
@@ -138,6 +137,8 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 | 15  | GPIO 4  |
 
 ## EEPROM Data Structure
+
+The MIDI controller configuration is stored in EEPROM which ensures that the configuration is maintained even if the MIDI controller is not powered. This data will be read every time the MIDI controller is turned on and when the configuration is required by the software. The configuration will be rewritten to EEPROM every time the user makes configuration changes.
 
 ### EEPROM Data Offset
 
