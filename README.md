@@ -1,6 +1,15 @@
 # ESP32DrumPad
 
-ESP32DrumPad is drum pad MIDI controller
+ESP32DrumPad is drum pad MIDI controller. 
+
+For those of you who are still new to MIDI, please read the following references:
+https://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html
+
+A MIDI controller is any hardware or software that generates and transmits Musical Instrument Digital Interface (MIDI) data to MIDI-enabled devices, typically to trigger sounds and control parameters of an electronic music performance. They most often use a musical keyboard to send data about the pitch of notes to play, although a MIDI controller may trigger lighting and other effects. A wind controller has a sensor that converts breath pressure to volume information and lip pressure to control pitch. Controllers for percussion and stringed instruments exist, as well as specialized and experimental devices. Some MIDI controllers are used in association with specific digital audio workstation software. The original MIDI specification has been extended to include a greater range of control features. 
+
+Keyboards can be used to trigger drum sounds, but are impractical for playing repeated patterns such as rolls, due to the length of key travel. After keyboards, drum pads are the next most significant MIDI performance controllers. Drum controllers may be built into drum machines, may be standalone control surfaces, or may emulate the look and feel of acoustic percussion instruments. MIDI triggers can also be installed into acoustic drum and percussion instruments. The pads built into drum machines are typically too small and fragile to be played with sticks, and are played with fingers.
+
+In this project, we will make a drum pad MIDI controller with piezoelectric ceramic as a transducer. This transducer will convert the pressure received into electrical voltage. The electric voltage is converted by an analog to digital converter (ADC) into an integer. This number will be operated with logic and mathematical formulas to get the velocity value of the blows received by the drum pad. Velocity values between 0 and 127 according to MIDI standards. A drum pad consists of several pads, each pad will represent a certain instrument such as kick drum, snare drum, hat, tom, cymbals, and so on.
 
 ## Features
 
