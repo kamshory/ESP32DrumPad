@@ -105,6 +105,10 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 
 ### EEPROM Data Offset
 
+We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
+
+With the internal EEPROM built in on the ESP32, we can map data addresses as follows:
+
 | Data                | Offset | Length | Type   | Description                         |
 | ------------------- | ------ | ------ | ------ | ----------------------------------- |
 | offsetSSID1         | 0      | 20     | String | SSID Wifi                           |
