@@ -75,6 +75,42 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 
 ## Wiring
 
+
+| **GPIO** | **Input** | **Output** | **Notes**                                                                      |
+| -------- | --------- | ---------- | ------------------------------------------------------------------------------ |
+| **0**    | pulled up | OK         | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
+| **1**    | TX pin    | OK         | debug output at boot                                                           |
+| **2**    | OK        | OK         | connected to on-board LED, must be left floating or LOW to enter flashing mode |
+| **3**    | OK        | RX pin     | HIGH at boot                                                                   |
+| **4**    | OK        | OK         |                                                                                |
+| **5**    | OK        | OK         | outputs PWM signal at boot, strapping pin                                      |
+| **6**    | x         | x          | connected to the integrated SPI flash                                          |
+| **7**    | x         | x          | connected to the integrated SPI flash                                          |
+| **8**    | x         | x          | connected to the integrated SPI flash                                          |
+| **9**    | x         | x          | connected to the integrated SPI flash                                          |
+| **10**   | x         | x          | connected to the integrated SPI flash                                          |
+| **11**   | x         | x          | connected to the integrated SPI flash                                          |
+| **12**   | OK        | OK         | boot fails if pulled high, strapping pin                                       |
+| **13**   | OK        | OK         |                                                                                |
+| **14**   | OK        | OK         | outputs PWM signal at boot                                                     |
+| **15**   | OK        | OK         | outputs PWM signal at boot, strapping pin                                      |
+| **16**   | OK        | OK         | (U2_RXD)                                                                       |
+| **17**   | OK        | OK         | (U2_TXD)                                                                       |
+| **18**   | OK        | OK         | (SCK / VSPI_SCL)                                                               |
+| **19**   | OK        | OK         | (MISO)                                                                         |
+| **21**   | OK        | OK         | (SDA)                                                                          |
+| **22**   | OK        | OK         | (SCL)                                                                          |
+| **23**   | OK        | OK         | (MOSI)                                                                         |
+| **25**   | OK        | OK         |                                                                                |
+| **26**   | OK        | OK         |                                                                                |
+| **27**   | OK        | OK         |                                                                                |
+| **32**   | OK        | OK         |                                                                                |
+| **33**   | OK        | OK         |                                                                                |
+| **34**   | OK        |            | input only                                                                     |
+| **35**   | OK        |            | input only                                                                     |
+| **36**   | OK        |            | input only                                                                     |
+| **39**   | OK        |            | input only                                                                     |
+
 ![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.drawio.svg)
 
 The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC.
@@ -104,10 +140,6 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 ## EEPROM Data Structure
 
 ### EEPROM Data Offset
-
-We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
-
-![AT24C256](https://github.com/kamshory/ESP32DrumPad/blob/main/images/at24C256.png)
 
 With the internal EEPROM built in on the ESP32, we can map data addresses as follows:
 
@@ -155,6 +187,33 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 We use at least 509 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
 Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
+
+We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
+
+![AT24C256](https://github.com/kamshory/ESP32DrumPad/blob/main/images/at24C256.png)
+
+
+If we want to use AT24C256, then the wiring is as follows:
+
+| AT24C256 | ESP32         |
+| -------- | ------------- |
+| VCC      | VIN 3.3V      |
+| GND      | GND           |
+| SCL      | SCL (GPIO 22) |
+| SDA      | SDA (GPIO 21) |
+
+We can use 8 AT24C256s simultaneously on the same bus. By configuring the address pins, we can determine the AT24C256 addresses ranging from 80 to 87 with the following configuration:
+
+| A2 | A1 | A0 | Hexadecimal | Decimal |
+| -- | -- | -- | ----------- | ------- |
+| 0  | 0  | 0  | 50          | 80      |
+| 0  | 0  | 1  | 51          | 81      |
+| 0  | 1  | 0  | 52          | 82      |
+| 0  | 1  | 1  | 53          | 83      |
+| 1  | 0  | 0  | 54          | 84      |
+| 1  | 0  | 1  | 55          | 85      |
+| 1  | 1  | 0  | 56          | 86      |
+| 1  | 1  | 1  | 57          | 87      |
 
 ### Channel Configuration
 
