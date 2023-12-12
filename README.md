@@ -141,6 +141,10 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 
 ### EEPROM Data Offset
 
+Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
+
+We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. 
+
 With the internal EEPROM built in on the ESP32, we can map data addresses as follows:
 
 | Data                | Offset | Length | Type   | Description                         |
@@ -186,14 +190,12 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 
 We use at least 509 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
-Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
-
-We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
+If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
 
 ![AT24C256](https://github.com/kamshory/ESP32DrumPad/blob/main/images/at24C256.png)
 
 
-If we want to use AT24C256, then the wiring is as follows:
+The wiring of AT24C256 is as follows:
 
 | AT24C256 | ESP32         |
 | -------- | ------------- |
@@ -202,7 +204,7 @@ If we want to use AT24C256, then the wiring is as follows:
 | SCL      | SCL (GPIO 22) |
 | SDA      | SDA (GPIO 21) |
 
-We can use 8 AT24C256s simultaneously on the same bus. By configuring the address pins, we can determine the AT24C256 addresses ranging from 80 to 87 with the following configuration:
+We can use 8 AT24C256 simultaneously on the same bus. By configuring the address pins, we can determine the AT24C256 addresses ranging from 80 to 87 with the following configuration:
 
 | A2 | A1 | A0 | Hexadecimal | Decimal |
 | -- | -- | -- | ----------- | ------- |
