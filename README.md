@@ -68,6 +68,70 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 ![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ESP32Drum.drawio.svg)
 
+## MIDI Isntrument Code
+
+| Key  | Note | Drum Sound         |
+| ---- | ---- | ------------------ |
+| 35   | B1   | Acoustic Bass Drum |
+| 36   | C2   | Bass Drum 1        |
+| 37   | C#2  | Side Stick         |
+| 38   | D2   | Acoustic Snare     |
+| 39   | D#2  | Hand Clap          |
+| 40   | E2   | Electric Snare     |
+| 41   | F2   | Low Floor Tom      |
+| 42   | F#2  | Closed Hi Hat      |
+| 43   | G2   | High Floor Tom     |
+| 44   | G#2  | Pedal Hi-Hat       |
+| 45   | A2   | Low Tom            |
+| 46   | A#2  | Open Hi-Hat        |
+| 47   | B2   | Low-Mid Tom        |
+| 48   | C3   | Hi Mid Tom         |
+| 49   | C#3  | Crash Cymbal 1     |
+| 50   | D3   | High Tom           |
+| 51   | D#3  | Ride Cymbal 1      |
+| 52   | E3   | Chinese Cymbal     |
+| 53   | F3   | Ride Bell          |
+| 54   | F#3  | Tambourine         |
+| 55   | G3   | Splash Cymbal      |
+| 56   | G#3  | Cowbell            |
+| 57   | A3   | Crash Cymbal 2     |
+| 58   | A#3  | Vibraslap          |
+| 59   | B3   | Ride Cymbal 2      |
+| 60   | C4   | Hi Bongo           |
+| 61   | C#4  | Low Bongo          |
+| 62   | D4   | Mute Hi Conga      |
+| 63   | D#4  | Open Hi Conga      |
+| 64   | E4   | Low Conga          |
+| 65   | F4   | High Timbale       |
+| 66   | F#4  | Low Timbale        |
+| 67   | G4   | High Agogo         |
+| 68   | G#4  | Low Agogo          |
+| 69   | A4   | Cabasa             |
+| 70   | A#4  | Maracas            |
+| 71   | B4   | Short Whistle      |
+| 72   | C5   | Long Whistle       |
+| 73   | C#5  | Short Guiro        |
+| 74   | D5   | Long Guiro         |
+| 75   | D#5  | Claves             |
+| 76   | E5   | Hi Wood Block      |
+| 77   | F5   | Low Wood Block     |
+| 78   | F#5  | Mute Cuica         |
+| 79   | G5   | Open Cuica         |
+| 80   | G#5  | Mute Triangle      |
+| 81   | A5   | Open Triangle      |
+
+
+1000nnnn0kkkkkkk0vvvvvvv is note off event where nnnn is channel number (0 - 15), kkkkkkk is key (0 to 127), vvvvvvv is velocity (0 - 127).
+
+1001nnnn0kkkkkkk0vvvvvvv is note on event where nnnn is channel number (0 - 15), kkkkkkk is key (0 to 127), vvvvvvv is velocity (0 - 127).
+
+So, to send Bass Drum 1 with velocity 90 persent, MIDI controller will send `1001100100010010001110010` 
+
+where first `1001` represent note on, second `1001` represent channel number (channel 10), `00100100` represent Bass Drum 1 code (36), and `01110010` represent velocity 114 (90 persent). 
+
+To send note off event, MIDI controller can send `1000100100010010001110010`.
+
+
 ## Materials Needed
 
 We need an ESP32 expansion board so that we have enough pins for the piezoelectric sensor with minimal effort. Each piezoelectric sensor will be connected to the expansion board with two cables. Because GND and analog input are separated by VCC, we need 3x1 dupont headers for each piezoelectric sensor.
