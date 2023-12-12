@@ -291,6 +291,8 @@ We can use 8 AT24C256 simultaneously on the same bus. By configuring the address
 | 1  | 1  | 0  | 56          | 86      |
 | 1  | 1  | 1  | 57          | 87      |
 
+The AT24C128/256 has a hardware data protection scheme that allows the user to write protect the whole memory when the WP pin is at VCC. 
+
 ### Channel Configuration
 
 | Offset | Length | Type       | Range        | Usage                          |
