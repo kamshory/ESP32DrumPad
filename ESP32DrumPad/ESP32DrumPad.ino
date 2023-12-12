@@ -7,10 +7,10 @@
 #include <ESPmDNS.h>
 
 int onboardLED             = 2;
-char *ssid                 = "AlternativeMusic";
-char *password             = "AlternativeMusic";
-char *ssid2                = "AlternativeMusic";
-char *password2            = "AlternativeMusic";
+char *ssid                 = "PlanetbiruMusic";
+char *password             = "PlanetbiruMusic";
+char *ssid2                = "PlanetbiruMusic";
+char *password2            = "PlanetbiruMusic";
 
 int sizeofString50         = 50;
 int sizeofString20         = 20;
@@ -56,12 +56,13 @@ int offsetCh15          = 432;//   | 10     | String | Channel 15               
 int offsetCh16          = 442;//   | 10     | String | Channel 16                          |
 int offsetMCUser        = 452;//   | 20     | String | MIDI Controller username            |
 int offsetMCPassword    = 472;//   | 32     | String | MIDI Controller password            |
-int midiChannel         = 50; //   | 1      | Byte   | MIDI channel                        |
+int midiChannel         = 505; //   | 1     | Byte   | MIDI channel                        |
+int midiChannel         = 506; //   | 4     | DWord  | Read analog interval                |
 
 
 
 
-int memOffset              = 292;
+int memOffset              = offsetCh1;
 int memSize                = 10;
 
 int solo = 0;
@@ -475,14 +476,11 @@ void saveMidiConfiguration()
     server.send(200, "application/json", message);
 }
 
-
-
-
 void resetAP()
 {
-    String savedSSID = "AlternativeMusic";
+    String savedSSID = "PlanetbiruMusic";
     writeData(offsetSSID1, sizeofString50, savedSSID);
-    String savedSSIDPassword = "AlternativeMusic";
+    String savedSSIDPassword = "PlanetbiruMusic";
     writeData(offsetSSIDPassword1, sizeofString50, savedSSIDPassword);
     String savedIP = "";
     writeData(offsetAPIP, sizeofString20, savedIP);
@@ -496,8 +494,8 @@ void resetAP()
 
 void resetSTA()
 {
-    String savedSSID = "AlternativeMusic";
-    String savedSSIDPassword = "AlternativeMusic";
+    String savedSSID = "PlanetbiruMusic";
+    String savedSSIDPassword = "PlanetbiruMusic";
     writeData(offsetSSID2, sizeofString20, savedSSID);
     writeData(offsetSSIDPassword2, sizeofString20, savedSSIDPassword);
 }

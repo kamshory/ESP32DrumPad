@@ -7,10 +7,10 @@ ESP32DrumPad is drum pad MIDI controller
 1. 15 instument pads (16 for ESP32 S3)
 2. enable velocity
 3. low latency
-4. configurable
-5. WIFI access point
-6. WIFI client
-7. built-in web server
+4. WIFI access point
+5. WIFI client
+6. built-in web server
+7. configurable via web application
 8. support USB
 9. support websocket
 10. support bluetooth low energy (BLE)
@@ -27,10 +27,6 @@ ESP32 read signal as analog so it can be converted into velocity. ESP32 maybe re
 
 ESP32 read each ADC asynchronously so it has low latency.
 
-### Configurable
-
-User can configure instrument, threshold, and velocity to each pads.
-
 ### WIFI Access Point
 
 WIFI access poin is used to connect to ESP32 before it connected to other WIFI.
@@ -42,6 +38,10 @@ ESP32 can connect to other WIFI so it can send MIDI signal over internet.
 ### Built-In Web Server
 
 Web server is used to configure MIDI controller.
+
+### Configurable via Web Application
+
+User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller point.
 
 ### Support USB
 
@@ -144,8 +144,9 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 | offsetMCUser        | 452    | 20     | String | MIDI Controller username            |
 | offsetMCPassword    | 472    | 32     | String | MIDI Controller password            |
 | midiChannel         | 504    | 1      | Byte   | MIDI channel                        |
+| readInterval        | 506    | 4      | DWord  | Read analog interval                |
 
-We use at least 505 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+We use at least 509 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
 Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
 
@@ -190,12 +191,20 @@ To convert average stress into velocity, the calculation uses the following para
 
 The threshold will basically have almost the same value for all pads because the threshold prevents nearby pads from being accidentally triggered if the pad next to it is hit at very high speed. Meanwhile, head room can have very varying values depending on the instrument used. For example, the snare may require a harder hit than the hat.
 
-Users must enter the correct threshold and head room values to get the best results. Default values which are test results must be provided by the application.
+The sampling interval must be precise. A small interval will reduce the latency between the time the pad is hit and the time the note ON signal is sent. Conversely, if the interval is too small, then the ESP32 cannot capture the maximum voltage which represents the player's speed when hitting the pad.
+
+The duration must be set in such a way that when the next voltage is read, the voltage value is below the threshold. This is intended to prevent the ESP32 from sending the ON note twice when the player hits the pad once. Thus, the number of note ON signals sent by the ESP32 is equal to the number of pad strokes made by the player.
+
+Default values which are test results must be provided by the application.
 
 
 ![Velocity](https://github.com/kamshory/ESP32DrumPad/blob/main/images/velocity.drawio.svg)
 
-The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity. In the example above, it is known that the threshold is equal to 383 and the head room is equal to 2059. The voltage that will be converted to velocity is above 0.309450549 volts while voltages below 0.309450549 volts will be ignored. Meanwhile, any voltage will be reduced by 0.309450549 volts. A voltage of 2.0625 volts will be converted to a velocity of 127 while a voltage of 0.309450549 volts will be converted to a velocity of 0. The relationship between voltage and velocity is as follows:
+The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity. 
+
+The average voltage is not the peak voltage but rather the average value taken from several samples when a voltage above the threshold is detected. This voltage may be far from the peak value depending on the sampling time. If the sampling time is close to the peak voltage, then the data-average voltage will be close to the peak voltage value. On the other hand, if the sampling time is far from the peak voltage, then the average data voltage will be far from the peak voltage value.
+
+In the example above, it is known that the threshold is equal to 383 and the head room is equal to 2059. The voltage that will be converted to velocity is above 0.309450549 volts while voltages below 0.309450549 volts will be ignored. Meanwhile, any voltage will be reduced by 0.309450549 volts. A voltage of 2.0625 volts will be converted to a velocity of 127 while a voltage of 0.309450549 volts will be converted to a velocity of 0. The relationship between voltage and velocity is as follows:
 
 ```
 velocity = 127 * (voltage - 0.309450549 / (2.0625 - 0.309450549))
