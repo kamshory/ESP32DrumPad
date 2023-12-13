@@ -87,8 +87,8 @@ const char * gTopic        = "";
 const char * gMessage      = "";
 String ssidUsed            = "";
 
-// ESP32 has only 15 pin ADC
-int maxCh = 15;
+// ESP32 has only 12 pin ADC but we will only develop MIDI controller with 12 pads
+int maxCh = 12;
 
 // we need maxCh + 1 because channel begin with 1
 //                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
@@ -880,7 +880,7 @@ void listenChannel(int channel)
         uint32_t delayTime = channelDuration[channel];
         if(input > threshold && solo == 0 && channel == soloChannel)
         {
-            total += (float) analogRead(pin, 3);      
+            total += (float) adcRead(pin, 3);      
             float average = total / 4;
             
             uint8_t velocity = calcVelocity((uint16_t) average, threshold, (uint16_t) channelHeadRoom[channel])
@@ -894,7 +894,7 @@ void listenChannel(int channel)
     while(true);
 }
 
-int analogRead(int pin, int count)
+int adcRead(int pin, int count)
 {
     int total = 0;
     while(count > 0)
@@ -1188,7 +1188,7 @@ void setup(void)
     xTaskCreate(    
         Task1
         , "Task1"  // A name just for humans
-        , 32768    // This stack size can be checked &adjusted by reading the Stack Highwater
+        , 32768    // This stack size can be checked & adjusted by reading the Stack Highwater
         , NULL
         , 3        // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
         , NULL
@@ -1197,7 +1197,7 @@ void setup(void)
     xTaskCreate(    
         Task2
         , "Task2"  // A name just for humans
-        , 5120    // This stack size can be checked &adjusted by reading the Stack Highwater
+        , 5120    // This stack size can be checked & adjusted by reading the Stack Highwater
         , NULL
         , 2        // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
         , NULL
