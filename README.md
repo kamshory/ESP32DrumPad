@@ -13,7 +13,7 @@ In this project, we will make a drum pad MIDI controller with piezoelectric cera
 
 ## Features
 
-1. 15 instument pads (16 for ESP32 S3)
+1. 15 instument pads (16 for ESP32 S3). We will only develop MIDI controller with 12 pads
 2. enable velocity
 3. low latency
 4. WIFI access point
@@ -147,40 +147,40 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 
 ## Wiring
 
-| **GPIO** | **Input** | **Output** | **Notes**                                                                      |
-| -------- | --------- | ---------- | ------------------------------------------------------------------------------ |
-| **0**    | pulled up | OK         | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
-| **1**    | TX pin    | OK         | debug output at boot                                                           |
-| **2**    | OK        | OK         | connected to on-board LED, must be left floating or LOW to enter flashing mode |
-| **3**    | OK        | RX pin     | HIGH at boot                                                                   |
-| **4**    | OK        | OK         |                                                                                |
-| **5**    | OK        | OK         | outputs PWM signal at boot, strapping pin                                      |
-| **6**    | x         | x          | connected to the integrated SPI flash                                          |
-| **7**    | x         | x          | connected to the integrated SPI flash                                          |
-| **8**    | x         | x          | connected to the integrated SPI flash                                          |
-| **9**    | x         | x          | connected to the integrated SPI flash                                          |
-| **10**   | x         | x          | connected to the integrated SPI flash                                          |
-| **11**   | x         | x          | connected to the integrated SPI flash                                          |
-| **12**   | OK        | OK         | boot fails if pulled high, strapping pin                                       |
-| **13**   | OK        | OK         |                                                                                |
-| **14**   | OK        | OK         | outputs PWM signal at boot                                                     |
-| **15**   | OK        | OK         | outputs PWM signal at boot, strapping pin                                      |
-| **16**   | OK        | OK         | (U2_RXD)                                                                       |
-| **17**   | OK        | OK         | (U2_TXD)                                                                       |
-| **18**   | OK        | OK         | (SCK / VSPI_SCL)                                                               |
-| **19**   | OK        | OK         | (MISO)                                                                         |
-| **21**   | OK        | OK         | (SDA)                                                                          |
-| **22**   | OK        | OK         | (SCL)                                                                          |
-| **23**   | OK        | OK         | (MOSI)                                                                         |
-| **25**   | OK        | OK         |                                                                                |
-| **26**   | OK        | OK         |                                                                                |
-| **27**   | OK        | OK         |                                                                                |
-| **32**   | OK        | OK         |                                                                                |
-| **33**   | OK        | OK         |                                                                                |
-| **34**   | OK        |            | input only                                                                     |
-| **35**   | OK        |            | input only                                                                     |
-| **36**   | OK        |            | input only                                                                     |
-| **39**   | OK        |            | input only                                                                     |
+| **GPIO** | **Input** | **Output** | **Pad CH** | **Notes**                                                                      |
+| -------- | --------- | ---------- | ---------- | ------------------------------------------------------------------------------ |
+| **0**    | pulled up | OK         |            | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
+| **1**    | TX pin    | OK         |            | debug output at boot                                                           |
+| **2**    | OK        | OK         | CH 14      | connected to on-board LED, must be left floating or LOW to enter flashing mode |
+| **3**    | OK        | RX pin     |            | HIGH at boot                                                                   |
+| **4**    | OK        | OK         | CH 15      |                                                                                |
+| **5**    | OK        | OK         |            | outputs PWM signal at boot, strapping pin                                      |
+| **6**    | x         | x          |            | connected to the integrated SPI flash                                          |
+| **7**    | x         | x          |            | connected to the integrated SPI flash                                          |
+| **8**    | x         | x          |            | connected to the integrated SPI flash                                          |
+| **9**    | x         | x          |            | connected to the integrated SPI flash                                          |
+| **10**   | x         | x          |            | connected to the integrated SPI flash                                          |
+| **11**   | x         | x          |            | connected to the integrated SPI flash                                          |
+| **12**   | OK        | OK         | CH 11      | boot fails if pulled high, strapping pin                                       |
+| **13**   | OK        | OK         | CH 12      |                                                                                |
+| **14**   | OK        | OK         | CH 10      | outputs PWM signal at boot                                                     |
+| **15**   | OK        | OK         | CH 13      | outputs PWM signal at boot, strapping pin                                      |
+| **16**   | OK        | OK         |            | (U2_RXD)                                                                       |
+| **17**   | OK        | OK         |            | (U2_TXD)                                                                       |
+| **18**   | OK        | OK         |            | (SCK / VSPI_SCL)                                                               |
+| **19**   | OK        | OK         |            | (MISO)                                                                         |
+| **21**   | OK        | OK         |            | (SDA)                                                                          |
+| **22**   | OK        | OK         |            | (SCL)                                                                          |
+| **23**   | OK        | OK         |            | (MOSI)                                                                         |
+| **25**   | OK        | OK         | CH 7       |                                                                                |
+| **26**   | OK        | OK         | CH 8       |                                                                                |
+| **27**   | OK        | OK         | CH 9       |                                                                                |
+| **32**   | OK        | OK         | CH 5       |                                                                                |
+| **33**   | OK        | OK         | CH 6       |                                                                                |
+| **34**   | OK        |            | CH 3       | input only                                                                     |
+| **35**   | OK        |            | CH 4       | input only                                                                     |
+| **36**   | OK        |            | CH 1       | input only                                                                     |
+| **39**   | OK        |            | CH 2       | input only                                                                     |
 
 ![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.drawio.svg)
 
@@ -188,7 +188,11 @@ The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is 
 
 When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.
 
+Keep in mind that GPIO 2 is connected to the onboard LED. The onboard LED can no longer be used as an indicator because it is already used as an ADC input. In addition, reading the ADC input must also be done after the ESP32 has finished booting. We also have to remove the onboard LED so that GPIO 2 can be used effectively for the ADC thereby preventing a voltage drop entering the ADC and causing reading errors.
+
 ## Pad Pin Mapping
+
+### Full pin Usage
 
 | Pad | Pin     |
 | --- | ------- |
@@ -201,12 +205,31 @@ When using the ESP32 WROOM-32, the application must be limited so that it does n
 | 7   | GPIO 25 |
 | 8   | GPIO 26 |
 | 9   | GPIO 27 |
-| 10  | GPIO 24 |
+| 10  | GPIO 14 |
 | 11  | GPIO 12 |
 | 12  | GPIO 13 |
 | 13  | GPIO 15 |
 | 14  | GPIO 2  |
 | 15  | GPIO 4  |
+
+### Minimum Pin Usage
+
+| Pad | Pin     |
+| --- | ------- |
+| 1   | GPIO 36 |
+| 2   | GPIO 39 |
+| 3   | GPIO 34 |
+| 4   | GPIO 35 |
+| 5   | GPIO 32 |
+| 6   | GPIO 33 |
+| 7   | GPIO 25 |
+| 8   | GPIO 26 |
+| 9   | GPIO 27 |
+| 10  | GPIO 14 |
+| 11  | GPIO 12 |
+| 12  | GPIO 13 |
+
+With 12 pads, we can use GPIO 2 as a system indicator and don't need to remove the onboard LED.
 
 ## EEPROM Data Structure
 
