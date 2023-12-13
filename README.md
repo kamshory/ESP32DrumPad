@@ -125,12 +125,11 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 1001nnnn0kkkkkkk0vvvvvvv is note on event where nnnn is channel number (0 - 15), kkkkkkk is key (0 to 127), vvvvvvv is velocity (0 - 127).
 
-So, to send Bass Drum 1 with velocity 90 persent, MIDI controller will send `1001100100010010001110010` 
+So, to send Bass Drum 1 with velocity 90 percent, MIDI controller will send `1001100100010010001110010` 
 
-where first `1001` represent note on, second `1001` represent channel number (channel 10), `00100100` represent Bass Drum 1 code (36), and `01110010` represent velocity 114 (90 persent). 
+where first `1001` represent note on, second `1001` represent channel number (channel 10), `00100100` represent Bass Drum 1 code (36), and `01110010` represent velocity 114 (90 percent). 
 
 To send note off event, MIDI controller can send `1000100100010010001110010`.
-
 
 ## Materials Needed
 
