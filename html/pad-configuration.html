@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no">
+    <title>Pad Configuration</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="ajax.js"></script>
+    <script>
+        let defaultConfigData = {
+            "row": [
+                [9, 10, 11, 12],
+                [5, 6, 7, 8],
+                [1, 2, 3, 4]
+            ],
+            "pad": {
+                "f1": [35, 100, 1000, 10000, 20000],
+                "f2": [36, 100, 1000, 10000, 20000],
+                "f3": [37, 100, 1000, 10000, 20000],
+                "f4": [38, 100, 1000, 10000, 20000],
+                "f5": [39, 100, 1000, 10000, 20000],
+                "f6": [40, 100, 1000, 10000, 20000],
+                "f7": [41, 100, 1000, 10000, 20000],
+                "f8": [42, 100, 1000, 10000, 20000],
+                "f9": [42, 100, 1000, 10000, 20000],
+                "f10": [44, 100, 1000, 10000, 20000],
+                "f11": [45, 100, 1000, 10000, 20000],
+                "f12": [46, 100, 1000, 10000, 20000],
+            }
+        };
+        window.onload = function () {
+            renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
+        }
+        function resetToDefault()
+        {
+            if(confirm('Are you sure you want to reset the config?'))
+            {
+                for(let i in defaultConfigData.pad)
+                {
+                    if(defaultConfigData.pad.hasOwnProperty(i))
+                    {
+                        let bt = _sl('#'+i);
+                        let data = defaultConfigData.pad[i];
+                        setData(bt, data);
+                    }
+                }
+            }
+        }
+        function renderPad(padArr, config, selector) {
+            let sel = _sl(selector);
+            for (let i = 0; i < padArr.length; i++) {
+                let row = padArr[i];
+                let rw = document.createElement('div');
+                rw.classList.add('row');
+                for (let j = 0; j < row.length; j++) {
+                    let cl = document.createElement('div');
+                    cl.classList.add('pad-wrapper');
+                    cl.setAttribute('data-ch', row[j]);
+                    cl.appendChild(createButton(row[j], config));
+                    cl.appendChild(editor(row[j], config));
+                    rw.appendChild(cl);
+                }
+                sel.appendChild(rw);
+            }
+        }
+        function createButton(ch, config) {
+            let id = 'f' + ch;
+            let data = config[id] || [35, 100, 1000, 10000, 20000];
+
+            let bt = document.createElement('button');
+            bt.classList.add('btn');
+            bt.classList.add('pad');
+            bt.setAttribute('type', 'button');
+            bt.setAttribute('id', id);
+            setData(bt, data);
+            return bt;
+        }
+
+        function setData(bt, data) {
+            let isnt = data[0];
+            bt.innerText = isnt;
+            bt.setAttribute('title', instrumentCode['f' + isnt][1]);
+            bt.setAttribute('data-code', isnt);
+            bt.setAttribute('data-threshold', data[1]);
+            bt.setAttribute('data-headroom', data[2]);
+            bt.setAttribute('data-duration', data[3]);
+        }
+
+        function editor() {
+            let ed = document.createElement('div');
+            ed.classList.add('editor');
+            let a = document.createElement('a');
+            a.classList.add('ctrl');
+            a.setAttribute('href', 'javascript:');
+            a.addEventListener('click', function (e) {
+                let data = getPadData(e);
+                console.log(data);
+            }, false);
+            ed.appendChild(a);
+            return ed;
+        }
+        function getPadData(e)
+        {
+            let target = e.target.parentNode.parentNode.querySelector('.pad');
+            return {
+                'data-code': target.getAttribute('data-code'),
+                'data-threshold': target.getAttribute('data-threshold'),
+                'data-headroom': target.getAttribute('data-headroom'),
+                'data-duration': target.getAttribute('data-duration')
+            };
+        }
+        function getFormData(container) {
+            let cntr = _sl(container);
+            let arr = cntr.querySelectorAll('button');
+            let bld2 = [];
+            for (let i = 0; i < arr.length; i++) {
+
+                let bld = [];
+                bld.push(arr[i].getAttribute('id') + '=' + arr[i].getAttribute('data-code'));
+                bld.push(arr[i].getAttribute('data-threshold'));
+                bld.push(arr[i].getAttribute('data-headroom'));
+                bld.push(arr[i].getAttribute('data-duration'));
+                bld2.push(bld.join(','));
+            }
+            return bld2.join('&');
+        }
+
+        function savePadConfig() {
+            if(confirm('Are you sure you want to save the config?'))
+            {
+                let fomData = getFormData('#container');
+                console.log(fomData);
+            }
+        }
+
+        let instrumentCode = {
+            "f35": ["B1", "Acoustic Bass Drum"],
+            "f36": ["C2", "Bass Drum 1"],
+            "f37": ["C#2", "Side Stick"],
+            "f38": ["D2", "Acoustic Snare"],
+            "f39": ["D#2", "Hand Clap"],
+            "f40": ["E2", "Electric Snare"],
+            "f41": ["F2", "Low Floor Tom"],
+            "f42": ["F#2", "Closed Hi Hat"],
+            "f43": ["G2", "High Floor Tom"],
+            "f44": ["G#2", "Pedal Hi-Hat"],
+            "f45": ["A2", "Low Tom"],
+            "f46": ["A#2", "Open Hi-Hat"],
+            "f47": ["B2", "Low-Mid Tom"],
+            "f48": ["C3", "Hi Mid Tom"],
+            "f49": ["C#3", "Crash Cymbal 1"],
+            "f50": ["D3", "High Tom"],
+            "f51": ["D#3", "Ride Cymbal 1"],
+            "f52": ["E3", "Chinese Cymbal"],
+            "f53": ["F3", "Ride Bell"],
+            "f54": ["F#3", "Tambourine"],
+            "f55": ["G3", "Splash Cymbal"],
+            "f56": ["G#3", "Cowbell"],
+            "f57": ["A3", "Crash Cymbal 2"],
+            "f58": ["A#3", "Vibraslap"],
+            "f59": ["B3", "Ride Cymbal 2"],
+            "f60": ["C4", "Hi Bongo"],
+            "f61": ["C#4", "Low Bongo"],
+            "f62": ["D4", "Mute Hi Conga"],
+            "f63": ["D#4", "Open Hi Conga"],
+            "f64": ["E4", "Low Conga"],
+            "f65": ["F4", "High Timbale"],
+            "f66": ["F#4", "Low Timbale"],
+            "f67": ["G4", "High Agogo"],
+            "f68": ["G#4", "Low Agogo"],
+            "f69": ["A4", "Cabasa"],
+            "f70": ["A#4", "Maracas"],
+            "f71": ["B4", "Short Whistle"],
+            "f72": ["C5", "Long Whistle"],
+            "f73": ["C#5", "Short Guiro"],
+            "f74": ["D5", "Long Guiro"],
+            "f75": ["D#5", "Claves"],
+            "f76": ["E5", "Hi Wood Block"],
+            "f77": ["F5", "Low Wood Block"],
+            "f78": ["F#5", "Mute Cuica"],
+            "f79": ["G5", "Open Cuica"],
+            "f80": ["G#5", "Mute Triangle"],
+            "f81": ["A5", "Open Triangle"]
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="all">
+        <form action="" method="post">
+            <div class="form-item">
+                <div id="container">
+
+                </div>
+            </div>
+
+            <div class="form-item">
+                <div class="row">
+                    <div class="column"><input class="btn btn-success" type="button" name="save" id="save" value="Save"
+                            onclick="return savePadConfig();"></div>
+                    <div class="column"><input class="btn btn-primary" type="button" name="default" id="default"
+                            value="Default" onclick="return resetToDefault();"></div>
+                    <div class="column"><input class="btn btn-danger" type="button" name="save" id="home" value="Home"
+                            onclick="window.location='index.html';"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+    <div id="popDiv" class="disablepagediv">
+        <div class="masterpopup">
+            <div style="height:25px;line-height:25px;background-color:rgb(6, 62, 137);color:white;padding-left:5px;">
+                Warning
+            </div>
+            <div align="center" style="padding-top:5px">
+                Your session will expire in <label id="lblSessionExpiryMins"></label> minutes.
+                <br/>
+                <input type="button" style="margin:5px" onClick="hide('popDiv')" value="Close" />
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

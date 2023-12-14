@@ -121,9 +121,9 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 | 81   | A5   | Open Triangle      |
 
 
-1000nnnn0kkkkkkk0vvvvvvv is note off event where nnnn is channel number (0 - 15), kkkkkkk is key (0 to 127), vvvvvvv is velocity (0 - 127).
+`1000nnnn0kkkkkkk0vvvvvvv` is note off event where nnnn is channel number (0 - 15), `kkkkkkk` is key (0 to 127), `vvvvvvv` is velocity (0 - 127).
 
-1001nnnn0kkkkkkk0vvvvvvv is note on event where nnnn is channel number (0 - 15), kkkkkkk is key (0 to 127), vvvvvvv is velocity (0 - 127).
+`1001nnnn0kkkkkkk0vvvvvvv` is note on event where nnnn is channel number (0 - 15), `kkkkkkk` is key (0 to 127), `vvvvvvv` is velocity (0 - 127).
 
 So, to send Bass Drum 1 with velocity 90 percent, MIDI controller will send `1001100100010010001110010` 
 
@@ -147,40 +147,40 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 
 ## Wiring
 
-| **GPIO** | **Input** | **Output** | **Pad CH** | **Notes**                                                                      |
-| -------- | --------- | ---------- | ---------- | ------------------------------------------------------------------------------ |
-| **0**    | pulled up | OK         |            | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
-| **1**    | TX pin    | OK         |            | debug output at boot                                                           |
-| **2**    | OK        | OK         | CH 14      | connected to on-board LED, must be left floating or LOW to enter flashing mode |
-| **3**    | OK        | RX pin     |            | HIGH at boot                                                                   |
-| **4**    | OK        | OK         | CH 15      |                                                                                |
-| **5**    | OK        | OK         |            | outputs PWM signal at boot, strapping pin                                      |
-| **6**    | x         | x          |            | connected to the integrated SPI flash                                          |
-| **7**    | x         | x          |            | connected to the integrated SPI flash                                          |
-| **8**    | x         | x          |            | connected to the integrated SPI flash                                          |
-| **9**    | x         | x          |            | connected to the integrated SPI flash                                          |
-| **10**   | x         | x          |            | connected to the integrated SPI flash                                          |
-| **11**   | x         | x          |            | connected to the integrated SPI flash                                          |
-| **12**   | OK        | OK         | CH 11      | boot fails if pulled high, strapping pin                                       |
-| **13**   | OK        | OK         | CH 12      |                                                                                |
-| **14**   | OK        | OK         | CH 10      | outputs PWM signal at boot                                                     |
-| **15**   | OK        | OK         | CH 13      | outputs PWM signal at boot, strapping pin                                      |
-| **16**   | OK        | OK         |            | (U2_RXD)                                                                       |
-| **17**   | OK        | OK         |            | (U2_TXD)                                                                       |
-| **18**   | OK        | OK         |            | (SCK / VSPI_SCL)                                                               |
-| **19**   | OK        | OK         |            | (MISO)                                                                         |
-| **21**   | OK        | OK         |            | (SDA)                                                                          |
-| **22**   | OK        | OK         |            | (SCL)                                                                          |
-| **23**   | OK        | OK         |            | (MOSI)                                                                         |
-| **25**   | OK        | OK         | CH 7       |                                                                                |
-| **26**   | OK        | OK         | CH 8       |                                                                                |
-| **27**   | OK        | OK         | CH 9       |                                                                                |
-| **32**   | OK        | OK         | CH 5       |                                                                                |
-| **33**   | OK        | OK         | CH 6       |                                                                                |
-| **34**   | OK        |            | CH 3       | input only                                                                     |
-| **35**   | OK        |            | CH 4       | input only                                                                     |
-| **36**   | OK        |            | CH 1       | input only                                                                     |
-| **39**   | OK        |            | CH 2       | input only                                                                     |
+| GPIO | Input     | Output | Pad CH | Notes                                                                          |
+| ---- | --------- | ------ | ------ | ------------------------------------------------------------------------------ |
+| 0    | pulled up | OK     |        | outputs PWM signal at boot, must be LOW to enter flashing mode                 |
+| 1    | TX pin    | OK     |        | debug output at boot                                                           |
+| 2    | OK        | OK     | CH 14  | connected to on-board LED, must be left floating or LOW to enter flashing mode |
+| 3    | OK        | RX pin |        | HIGH at boot                                                                   |
+| 4    | OK        | OK     | CH 15  |                                                                                |
+| 5    | OK        | OK     |        | outputs PWM signal at boot, strapping pin                                      |
+| 6    | x         | x      |        | connected to the integrated SPI flash                                          |
+| 7    | x         | x      |        | connected to the integrated SPI flash                                          |
+| 8    | x         | x      |        | connected to the integrated SPI flash                                          |
+| 9    | x         | x      |        | connected to the integrated SPI flash                                          |
+| 10   | x         | x      |        | connected to the integrated SPI flash                                          |
+| 11   | x         | x      |        | connected to the integrated SPI flash                                          |
+| 12   | OK        | OK     | CH 11  | boot fails if pulled high, strapping pin                                       |
+| 13   | OK        | OK     | CH 12  |                                                                                |
+| 14   | OK        | OK     | CH 10  | outputs PWM signal at boot                                                     |
+| 15   | OK        | OK     | CH 13  | outputs PWM signal at boot, strapping pin                                      |
+| 16   | OK        | OK     |        | (U2_RXD)                                                                       |
+| 17   | OK        | OK     |        | (U2_TXD)                                                                       |
+| 18   | OK        | OK     |        | (SCK / VSPI_SCL)                                                               |
+| 19   | OK        | OK     |        | (MISO)                                                                         |
+| 21   | OK        | OK     |        | (SDA)                                                                          |
+| 22   | OK        | OK     |        | (SCL)                                                                          |
+| 23   | OK        | OK     |        | (MOSI)                                                                         |
+| 25   | OK        | OK     | CH 7   |                                                                                |
+| 26   | OK        | OK     | CH 8   |                                                                                |
+| 27   | OK        | OK     | CH 9   |                                                                                |
+| 32   | OK        | OK     | CH 5   |                                                                                |
+| 33   | OK        | OK     | CH 6   |                                                                                |
+| 34   | OK        |        | CH 3   | input only                                                                     |
+| 35   | OK        |        | CH 4   | input only                                                                     |
+| 36   | OK        |        | CH 1   | input only                                                                     |
+| 39   | OK        |        | CH 2   | input only                                                                     |
 
 ![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.drawio.svg)
 
