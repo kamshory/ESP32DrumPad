@@ -203,7 +203,7 @@ a.ctrl::before{
 }
 .two-side-table td
 {
-    padding: 5px 0;
+    padding: 2px 0;
 }
 .two-side-table tr > td:nth-child(1)
 {
