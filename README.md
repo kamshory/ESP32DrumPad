@@ -54,15 +54,15 @@ User can configure instrument, threshold, and velocity to each pads via web appl
 
 **Screenshot**
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.13.07.png)
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.13.40.png)
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss02.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.14.46.png)
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss03.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.14.54.png)
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss04.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.15.03.png)
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss05.png)
 
 ### Support USB
 
