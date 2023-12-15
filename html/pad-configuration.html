@@ -32,6 +32,19 @@
             }
         };
         window.onload = function () {
+            let opt = _sl('#instrument');
+            for(let i in instrumentCode)
+            {
+                opt.appendChild(new Option(instrumentCode[i][0]+' - '+instrumentCode[i][2], instrumentCode[i][0]));
+            }
+            let btnhide = document.querySelectorAll('.pupup-hide');
+            for(let i = 0; i<btnhide.length; i++)
+            {
+                btnhide[i].addEventListener('click', function(e){
+                    e.target.closest('.popup').style.display = 'none';
+                    e.target.closest('.popup-shadow').style.display = 'none';
+                });
+            }
             renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
         }
         function resetToDefault()
@@ -51,7 +64,8 @@
         }
         function renderPad(padArr, config, selector) {
             let sel = _sl(selector);
-            for (let i = 0; i < padArr.length; i++) {
+            for (let i = 0; i < padArr.length; i++)
+            {
                 let row = padArr[i];
                 let rw = document.createElement('div');
                 rw.classList.add('row');
@@ -137,53 +151,53 @@
         }
 
         let instrumentCode = {
-            "f35": ["B1", "Acoustic Bass Drum"],
-            "f36": ["C2", "Bass Drum 1"],
-            "f37": ["C#2", "Side Stick"],
-            "f38": ["D2", "Acoustic Snare"],
-            "f39": ["D#2", "Hand Clap"],
-            "f40": ["E2", "Electric Snare"],
-            "f41": ["F2", "Low Floor Tom"],
-            "f42": ["F#2", "Closed Hi Hat"],
-            "f43": ["G2", "High Floor Tom"],
-            "f44": ["G#2", "Pedal Hi-Hat"],
-            "f45": ["A2", "Low Tom"],
-            "f46": ["A#2", "Open Hi-Hat"],
-            "f47": ["B2", "Low-Mid Tom"],
-            "f48": ["C3", "Hi Mid Tom"],
-            "f49": ["C#3", "Crash Cymbal 1"],
-            "f50": ["D3", "High Tom"],
-            "f51": ["D#3", "Ride Cymbal 1"],
-            "f52": ["E3", "Chinese Cymbal"],
-            "f53": ["F3", "Ride Bell"],
-            "f54": ["F#3", "Tambourine"],
-            "f55": ["G3", "Splash Cymbal"],
-            "f56": ["G#3", "Cowbell"],
-            "f57": ["A3", "Crash Cymbal 2"],
-            "f58": ["A#3", "Vibraslap"],
-            "f59": ["B3", "Ride Cymbal 2"],
-            "f60": ["C4", "Hi Bongo"],
-            "f61": ["C#4", "Low Bongo"],
-            "f62": ["D4", "Mute Hi Conga"],
-            "f63": ["D#4", "Open Hi Conga"],
-            "f64": ["E4", "Low Conga"],
-            "f65": ["F4", "High Timbale"],
-            "f66": ["F#4", "Low Timbale"],
-            "f67": ["G4", "High Agogo"],
-            "f68": ["G#4", "Low Agogo"],
-            "f69": ["A4", "Cabasa"],
-            "f70": ["A#4", "Maracas"],
-            "f71": ["B4", "Short Whistle"],
-            "f72": ["C5", "Long Whistle"],
-            "f73": ["C#5", "Short Guiro"],
-            "f74": ["D5", "Long Guiro"],
-            "f75": ["D#5", "Claves"],
-            "f76": ["E5", "Hi Wood Block"],
-            "f77": ["F5", "Low Wood Block"],
-            "f78": ["F#5", "Mute Cuica"],
-            "f79": ["G5", "Open Cuica"],
-            "f80": ["G#5", "Mute Triangle"],
-            "f81": ["A5", "Open Triangle"]
+            "f35": ["35", "B1", "Acoustic Bass Drum"],
+            "f36": ["36", "C2", "Bass Drum 1"],
+            "f37": ["37", "C#2", "Side Stick"],
+            "f38": ["38", "D2", "Acoustic Snare"],
+            "f39": ["39", "D#2", "Hand Clap"],
+            "f40": ["40", "E2", "Electric Snare"],
+            "f41": ["41", "F2", "Low Floor Tom"],
+            "f42": ["42", "F#2", "Closed Hi Hat"],
+            "f43": ["43", "G2", "High Floor Tom"],
+            "f44": ["44", "G#2", "Pedal Hi-Hat"],
+            "f45": ["45", "A2", "Low Tom"],
+            "f46": ["46", "A#2", "Open Hi-Hat"],
+            "f47": ["47", "B2", "Low-Mid Tom"],
+            "f48": ["48", "C3", "Hi Mid Tom"],
+            "f49": ["49", "C#3", "Crash Cymbal 1"],
+            "f50": ["50", "D3", "High Tom"],
+            "f51": ["51", "D#3", "Ride Cymbal 1"],
+            "f52": ["52", "E3", "Chinese Cymbal"],
+            "f53": ["53", "F3", "Ride Bell"],
+            "f54": ["54", "F#3", "Tambourine"],
+            "f55": ["55", "G3", "Splash Cymbal"],
+            "f56": ["56", "G#3", "Cowbell"],
+            "f57": ["57", "A3", "Crash Cymbal 2"],
+            "f58": ["58", "A#3", "Vibraslap"],
+            "f59": ["59", "B3", "Ride Cymbal 2"],
+            "f60": ["60", "C4", "Hi Bongo"],
+            "f61": ["61", "C#4", "Low Bongo"],
+            "f62": ["62", "D4", "Mute Hi Conga"],
+            "f63": ["63", "D#4", "Open Hi Conga"],
+            "f64": ["64", "E4", "Low Conga"],
+            "f65": ["65", "F4", "High Timbale"],
+            "f66": ["66", "F#4", "Low Timbale"],
+            "f67": ["67", "G4", "High Agogo"],
+            "f68": ["68", "G#4", "Low Agogo"],
+            "f69": ["69", "A4", "Cabasa"],
+            "f70": ["70", "A#4", "Maracas"],
+            "f71": ["71", "B4", "Short Whistle"],
+            "f72": ["72", "C5", "Long Whistle"],
+            "f73": ["73", "C#5", "Short Guiro"],
+            "f74": ["74", "D5", "Long Guiro"],
+            "f75": ["75", "D#5", "Claves"],
+            "f76": ["76", "E5", "Hi Wood Block"],
+            "f77": ["77", "F5", "Low Wood Block"],
+            "f78": ["78", "F#5", "Mute Cuica"],
+            "f79": ["79", "G5", "Open Cuica"],
+            "f80": ["80", "G#5", "Mute Triangle"],
+            "f81": ["81", "A5", "Open Triangle"]
         }
 
     </script>
@@ -212,15 +226,43 @@
     </div>
     
     
-    <div id="popDiv" class="disablepagediv">
-        <div class="masterpopup">
-            <div style="height:25px;line-height:25px;background-color:rgb(6, 62, 137);color:white;padding-left:5px;">
-                Warning
+    <div class="popup-shadow">
+        <div class="popup">
+            <div class="popup-header">
+                Pad Setting
             </div>
-            <div align="center" style="padding-top:5px">
-                Your session will expire in <label id="lblSessionExpiryMins"></label> minutes.
-                <br/>
-                <input type="button" style="margin:5px" onClick="hide('popDiv')" value="Close" />
+            <div class="popup-body">
+                <form action="" class="form-input">
+                    <table class="two-side-table">
+                        <tbody>
+                            <tr>
+                                <td>Pad Number</td>
+                                <td><input type="number" name="number" id="number"></td>
+                            </tr>
+                            <tr>
+                                <td>Instrument</td>
+                                <td><select name="instrument" id="instrument"></select></td>
+                            </tr>
+                            <tr>
+                                <td>Threshold</td>
+                                <td><input type="number" name="threshold" id="threshold"></td>
+                            </tr>
+                            <tr>
+                                <td>Headroom</td>
+                                <td><input type="number" name="headroom" id="headroom"></td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td><input type="number" name="duration" id="duration"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="popup-footer">
+                <button type="button" class="btn btn-success">OK</button>
+                <button type="button" class="btn btn-warning pupup-hide">Canel</button>
             </div>
         </div>
     </div>

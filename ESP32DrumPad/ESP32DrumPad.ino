@@ -538,9 +538,6 @@ void getSubData()
     response += "\", \"ws_password\":\"";
     response += savedWSPassword;
 
-    response += "\", \"ws_topic\":\"";
-    response += savedWSTopic;
-
     response += "\", \"enable\":\"";
     response += savedEnable;
 
@@ -581,10 +578,6 @@ void saveSubData()
         writeData(offsetWSPassword, sizeofString50, savedWSPassword);
         delay(1);
 
-        String savedWSTopic = server.arg("ws_topic");
-        writeData(offsetWSTopic, sizeofString50, savedWSTopic);
-        delay(1);
-
         String savedEnable = server.arg("enable");
         writeData(offsetEnable, sizeofBoolean, savedEnable);
         delay(1);
@@ -598,7 +591,6 @@ void getWSConfig()
     savedWSPath = readDataString(offsetWSPath, sizeofString50);
     savedWSUsername = readDataString(offsetWSUsername, sizeofString50);
     savedWSPassword = readDataString(offsetWSPassword, sizeofString50);
-    savedWSTopic = readDataString(offsetWSTopic, sizeofString50);
     savedWSHost = readDataString(offsetWSHost, sizeofString50);
     savedWSPort = readDataString(offsetWSPort, sizeofInteger10);
 }
@@ -666,8 +658,6 @@ void writePinState(int pin, int value)
 void sendResponse(const char * responseTopic, String response, int callbackDelay)
 {
     String path = savedWSPath;
-    path += "?topic=";
-    path += urlEncode(String(responseTopic));
 
     WebSocketsClient webSocket2;
     webSocket2.begin(savedWSHost.c_str(), savedWSPort.toInt(), path.c_str());
@@ -698,8 +688,6 @@ void wsReconnect()
 {
     Serial.println("wsReconnect()");
     String path = savedWSPath;
-    path += "?topic=";
-    path += urlEncode(String(savedWSTopic));
     Serial.println(savedWSHost);
     Serial.println(savedWSPort);
     Serial.println(path);
