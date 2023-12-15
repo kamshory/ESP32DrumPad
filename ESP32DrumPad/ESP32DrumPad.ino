@@ -19,45 +19,45 @@ int sizeofInteger10        = 10;
 int sizeofBoolean          = 1;
 
 
-//  Variable            | Offset   | Length | Type   | Description                         |
-int offsetSSID1         = 0  ;//   | 20     | String | SSID Wifi                           |
-int offsetSSID2         = 20 ;//   | 20     | String | SSID AP                             |
-int offsetAPIP          = 40 ;//   | 15     | String | IP Address AP                       |
-int offsetAPGateway     = 55 ;//   | 15     | String | Gateway AP                          |
-int offsetAPSubnet      = 70 ;//   | 15     | String | Subnet AP                           |
-int offsetAPHidden      = 85 ;//   | 1      | Byte   | Hidden AP                           |
-int offsetSSIDPassword1 = 86 ;//   | 20     | String | Password Wifi                       |
-int offsetSSIDPassword2 = 106;//   | 20     | String | Password AP                         |
-int offsetWSHost        = 126;//   | 40     | String | Host WS                             |
-int offsetWSPort        = 166;//   | 2      | Word   | Port WS                             |
-int offsetWSPath        = 168;//   | 50     | String | Path WS                             |
-int offsetWSUsername    = 218;//   | 20     | String | Username WS                         |
-int offsetWSPassword    = 238;//   | 20     | String | Password WS                         |
-int offsetWSTopic       = 258;//   | 30     | String | Topic WS                            |
-int offsetEnable        = 288;//   | 1      | Byte   | Enable WS                           |
-int offsetConfigured    = 289;//   | 1      | Byte   | Flag that controller was configured |
-int offsetSolo          = 290;//   | 1      | Byte   | Flag solo channel                   |
-int offsetSoloChannel   = 291;//   | 1      | Byte   | Solo channel number                 |
-int offsetCh1           = 292;//   | 10     | String | Channel 1                           |
-int offsetCh2           = 302;//   | 10     | String | Channel 2                           |
-int offsetCh3           = 312;//   | 10     | String | Channel 3                           |
-int offsetCh4           = 322;//   | 10     | String | Channel 4                           |
-int offsetCh5           = 332;//   | 10     | String | Channel 5                           |
-int offsetCh6           = 342;//   | 10     | String | Channel 6                           |
-int offsetCh7           = 352;//   | 10     | String | Channel 7                           |
-int offsetCh8           = 362;//   | 10     | String | Channel 8                           |
-int offsetCh9           = 372;//   | 10     | String | Channel 9                           |
-int offsetCh10          = 382;//   | 10     | String | Channel 10                          |
-int offsetCh11          = 392;//   | 10     | String | Channel 11                          |
-int offsetCh12          = 402;//   | 10     | String | Channel 12                          |
-int offsetCh13          = 412;//   | 10     | String | Channel 13                          |
-int offsetCh14          = 422;//   | 10     | String | Channel 14                          |
-int offsetCh15          = 432;//   | 10     | String | Channel 15                          |
-int offsetCh16          = 442;//   | 10     | String | Channel 16                          |
-int offsetMCUser        = 452;//   | 20     | String | MIDI Controller username            |
-int offsetMCPassword    = 472;//   | 32     | String | MIDI Controller password            |
-int midiChannel         = 505; //   | 1     | Byte   | MIDI channel                        |
-int midiChannel         = 506; //   | 4     | DWord  | Read analog interval                |
+int offsetAPSSID            = 0;   //	30	String	SSID AP
+int offsetAPSSIDPassword    = 30;  //	30	String	Password AP
+int offsetAPIP              = 60;  //	4	IP Address	IP Address AP
+int offsetAPGateway         = 64;  //	4	IP Address	Gateway AP
+int offsetAPSubnet          = 68;  //	4	IP Address	Subnet AP
+int offsetAPHidden          = 72;  //	1	Byte	Hidden AP
+int offsetWifiSSID          = 73;  //	30	String	SSID Wifi
+int offsetWifiSSIDPassword  = 103; //	30	String	Password Wifi
+int offsetWSHost            = 133; //	40	String	Host WS
+int offsetWSPort            = 173; //	2	Word	Port WS
+int offsetWSPath            = 175; //	50	String	Path WS
+int offsetWSUsername        = 225; //	20	String	Username WS
+int offsetWSPassword        = 245; //	20	String	Password WS
+int offsetWSTopic           = 265; //	30	String	Topic WS
+int offsetEnable            = 295; //	1	Byte	Enable WS
+int offsetConfigured        = 296; //	1	Byte	Flag that controller was configured
+int offsetSolo              = 297; //	1	Byte	Flag solo channel
+int offsetSoloChannel       = 298; //	1	Byte	Solo channel number
+int offsetMCUser            = 299; //	20	String	MIDI Controller username
+int offsetMCPassword        = 319; //	20	String	MIDI Controller password
+int midiChannel             = 339; //	1	Byte	MIDI channel
+int readInterval            = 340; //	4	DWord	Read analog interval
+int offsetCh1               = 344; //	10	String	Channel 1
+int offsetCh2               = 354; //	10	String	Channel 2
+int offsetCh3               = 364; //	10	String	Channel 3
+int offsetCh4               = 374; //	10	String	Channel 4
+int offsetCh5               = 384; //	10	String	Channel 5
+int offsetCh6               = 394; //	10	String	Channel 6
+int offsetCh7               = 404; //	10	String	Channel 7
+int offsetCh8               = 414; //	10	String	Channel 8
+int offsetCh9               = 424; //	10	String	Channel 9
+int offsetCh10              = 434; //	10	String	Channel 10
+int offsetCh11              = 444; //	10	String	Channel 11
+int offsetCh12              = 454; //	10	String	Channel 12
+int offsetCh13              = 464; //	10	String	Channel 13
+int offsetCh14              = 474; //	10	String	Channel 14
+int offsetCh15              = 484; //	10	String	Channel 15
+int offsetCh16              = 494; //	10	String	Channel 16
+
 
 
 
@@ -290,17 +290,42 @@ unsigned char h2int(char c)
     return(0);
 }
 
+void writeIp(int address, String ip)
+{
+    if(countSplitCharacters(ip, '.') == 4)
+    {
+        String[] value = splitString(ip, '.');
+        byte one = value[0].toInt() & 0xFF;
+        byte two = value[1].toInt() & 0xFF;
+        byte three = value[2].toInt() & 0xFF;
+        byte four = value[3].toInt() & 0xFF;
+        EEPROM.write(address, one);
+        EEPROM.write(address+1, two);
+        EEPROM.write(address+2, three);
+        EEPROM.write(address+3, four);
+        EEPROM.commit();
+    }
+}
+
+string readIp(int address) {
+    byte one = EEPROM.read(address) & 0xFF;
+    byte two = EEPROM.read(address + 1) & 0xFF;
+    byte three = EEPROM.read(address + 2) & 0xFF;
+    byte four = EEPROM.read(address + 3) & 0xFF;
+    return sprintf("%d.%d.%d.%d", one, two, three, four);
+}
+
+
 void writeByte(int address, uint8_t value)
 {
-    byte one = ((value) & 0xFF);
+    byte one = (value & 0xFF);
     EEPROM.write(address, one);
     EEPROM.commit();
 }
 
 byte readByte(int address) {
     byte one = EEPROM.read(address);
-
-    return ((one << 0) & 0xFF);
+    return (one & 0xFF);
 }
 
 uint16_t writeWord(int address, uint16_t value)
