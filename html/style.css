@@ -61,7 +61,7 @@ h3 {
 }
 
 .btn {
-    min-width: 70px;
+    min-width: 60px;
     box-sizing: border-box;
     padding: 6px 10px;
     border-radius: 3px;
@@ -124,16 +124,16 @@ h3 {
 {
     height: 60px;
     font-size: 14px;
-    background-color: #fa6cff;
-    border: 1px solid #df60e4;
+    background-color: #ffb464;
+    border: 1px solid #df994e;
 }
 .pad-wrapper .editor{
     display: block;
     width: 20px;
     height: 20px;
     position: absolute;
-    bottom: 12px;
-    right: 4px;
+    bottom: 10px;
+    right: 0px;
 }
 a.ctrl{
     display: block;
@@ -158,7 +158,7 @@ a.ctrl::before{
     left: 0;
     display: block;
     position: absolute;             
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
     color: #aaaaaa;
     display: none;
 }
@@ -167,16 +167,16 @@ a.ctrl::before{
     position: absolute;
     color: #000000;
     background-color: #ffffff;
-    width: 600px;
+    width: 480px;
     left: 50%;
-    margin-left: -300px;
+    margin-left: -240px;
     min-height: 100px;
     top: 20px;
     border: 1px solid rgb(124, 153, 193);
     display: none;
 }
 
-@media screen and (max-width:640px) {
+@media screen and (max-width:520px) {
     .popup {
     width: calc(100vw - 40px);
     left: 0%;
@@ -198,10 +198,14 @@ a.ctrl::before{
 }
 .popup-footer
 {
-    padding:4px 12px;
+    padding:6px 12px;
     min-height:25px;
     background-color: #eeeeee;
     text-align: end;
+}
+
+.popup-footer .btn{
+    margin: 4px 0;
 }
 
 .two-side-table{

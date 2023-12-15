@@ -95,7 +95,7 @@ function createButton(ch, config) {
 function setData(bt, data) {
     let isnt = data[0];
     bt.innerText = isnt;
-    bt.setAttribute('title', instrumentCode['f' + isnt][1]);
+    bt.setAttribute('title', instrumentCode['f' + isnt][2]);
     bt.setAttribute('data-code', isnt);
     bt.setAttribute('data-threshold', data[1]);
     bt.setAttribute('data-headroom', data[2]);
