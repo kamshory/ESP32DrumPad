@@ -519,9 +519,6 @@ void getSubData()
 
     response += "\", \"ssid_password\":\"";
     response += savedSSIDPassword;
-    
-    
-    
 
     response += "\", \"ws_host\":\"";
     response += savedWSHost;
