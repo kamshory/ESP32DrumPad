@@ -263,38 +263,39 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetAPGateway        | 64     | 4      | IP Address | Gateway AP                          |
 | offsetAPSubnet         | 68     | 4      | IP Address | Subnet AP                           |
 | offsetAPHidden         | 72     | 1      | Byte       | Hidden AP                           |
-| offsetWifiSSID         | 73     | 30     | String     | SSID Wifi                           |
-| offsetWifiSSIDPassword | 103    | 30     | String     | Password Wifi                       |
-| offsetWSScheme         | 133    | 5      | String     | Scheme WS                           |
-| offsetWSHost           | 138    | 40     | String     | Host WS                             |
-| offsetWSPort           | 178    | 2      | Word       | Port WS                             |
-| offsetWSPath           | 180    | 50     | String     | Path WS                             |
-| offsetWSUsername       | 230    | 20     | String     | Username WS                         |
-| offsetWSPassword       | 250    | 20     | String     | Password WS                         |
-| offsetEnable           | 270    | 1      | Byte       | Enable WS                           |
-| offsetConfigured       | 271    | 1      | Byte       | Flag that controller was configured |
-| offsetSolo             | 272    | 1      | Byte       | Flag solo channel                   |
-| offsetSoloChannel      | 273    | 1      | Byte       | Solo channel number                 |
-| offsetMCUser           | 274    | 20     | String     | MIDI Controller username            |
-| offsetMCPassword       | 294    | 20     | String     | MIDI Controller password            |
-| midiChannel            | 314    | 1      | Byte       | MIDI channel                        |
-| readInterval           | 315    | 4      | DWord      | Read analog interval                |
-| offsetCh1              | 319    | 10     | String     | Channel 1                           |
-| offsetCh2              | 329    | 10     | String     | Channel 2                           |
-| offsetCh3              | 339    | 10     | String     | Channel 3                           |
-| offsetCh4              | 349    | 10     | String     | Channel 4                           |
-| offsetCh5              | 359    | 10     | String     | Channel 5                           |
-| offsetCh6              | 369    | 10     | String     | Channel 6                           |
-| offsetCh7              | 379    | 10     | String     | Channel 7                           |
-| offsetCh8              | 389    | 10     | String     | Channel 8                           |
-| offsetCh9              | 399    | 10     | String     | Channel 9                           |
-| offsetCh10             | 409    | 10     | String     | Channel 10                          |
-| offsetCh11             | 419    | 10     | String     | Channel 11                          |
-| offsetCh12             | 429    | 10     | String     | Channel 12                          |
-| offsetCh13             | 439    | 10     | String     | Channel 13                          |
-| offsetCh14             | 449    | 10     | String     | Channel 14                          |
-| offsetCh15             | 459    | 10     | String     | Channel 15                          |
-| offsetCh16             | 469    | 10     | String     | Channel 16                          |
+| offsetWifiEnable       | 73     | 1      | Byte       | Enable Wifi                         |
+| offsetWifiSSID         | 74     | 30     | String     | SSID Wifi                           |
+| offsetWifiSSIDPassword | 104    | 30     | String     | Password Wifi                       |
+| offsetWSEnable         | 134    | 1      | Byte       | Enable WS                           |
+| offsetWSScheme         | 135    | 5      | String     | Scheme WS                           |
+| offsetWSHost           | 140    | 40     | String     | Host WS                             |
+| offsetWSPort           | 180    | 2      | Word       | Port WS                             |
+| offsetWSPath           | 182    | 50     | String     | Path WS                             |
+| offsetWSUsername       | 232    | 20     | String     | Username WS                         |
+| offsetWSPassword       | 252    | 20     | String     | Password WS                         |
+| offsetConfigured       | 272    | 1      | Byte       | Flag that controller was configured |
+| offsetSolo             | 273    | 1      | Byte       | Flag solo channel                   |
+| offsetSoloChannel      | 274    | 1      | Byte       | Solo channel number                 |
+| offsetMCUser           | 275    | 20     | String     | MIDI Controller username            |
+| offsetMCPassword       | 295    | 20     | String     | MIDI Controller password            |
+| midiChannel            | 315    | 1      | Byte       | MIDI channel                        |
+| readInterval           | 316    | 4      | DWord      | Read analog interval                |
+| offsetCh1              | 320    | 10     | String     | Channel 1                           |
+| offsetCh2              | 330    | 10     | String     | Channel 2                           |
+| offsetCh3              | 340    | 10     | String     | Channel 3                           |
+| offsetCh4              | 350    | 10     | String     | Channel 4                           |
+| offsetCh5              | 360    | 10     | String     | Channel 5                           |
+| offsetCh6              | 370    | 10     | String     | Channel 6                           |
+| offsetCh7              | 380    | 10     | String     | Channel 7                           |
+| offsetCh8              | 390    | 10     | String     | Channel 8                           |
+| offsetCh9              | 400    | 10     | String     | Channel 9                           |
+| offsetCh10             | 410    | 10     | String     | Channel 10                          |
+| offsetCh11             | 420    | 10     | String     | Channel 11                          |
+| offsetCh12             | 430    | 10     | String     | Channel 12                          |
+| offsetCh13             | 440    | 10     | String     | Channel 13                          |
+| offsetCh14             | 450    | 10     | String     | Channel 14                          |
+| offsetCh15             | 460    | 10     | String     | Channel 15                          |
+| offsetCh16             | 470    | 10     | String     | Channel 16                          |
 
 So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
