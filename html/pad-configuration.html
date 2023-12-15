@@ -41,10 +41,19 @@
             for(let i = 0; i<btnhide.length; i++)
             {
                 btnhide[i].addEventListener('click', function(e){
-                    e.target.closest('.popup').style.display = 'none';
-                    e.target.closest('.popup-shadow').style.display = 'none';
+                    e.target.closest('.popup').popupHide();
                 });
             }
+            _sl('.update-data').addEventListener('click', function(e){
+                let number = _sl('#number').value;
+                let isntrument = _sl('#instrument').value;
+                let threshold = _sl('#threshold').value;
+                let headroom = _sl('#headroom').value;
+                let duration = _sl('#duration').value;
+                let bt = _sl('#f'+number);
+                setData(bt, [isntrument, threshold, headroom, duration]);
+                _sl('#popup-pad-setting').popupHide();
+            }, false);
             renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
         }
         function resetToDefault()
@@ -86,6 +95,7 @@
 
             let bt = document.createElement('button');
             bt.classList.add('btn');
+            bt.classList.add('btn-100');
             bt.classList.add('pad');
             bt.setAttribute('type', 'button');
             bt.setAttribute('id', id);
@@ -103,15 +113,22 @@
             bt.setAttribute('data-duration', data[3]);
         }
 
-        function editor() {
+        function editor(id, config) {
             let ed = document.createElement('div');
             ed.classList.add('editor');
             let a = document.createElement('a');
             a.classList.add('ctrl');
             a.setAttribute('href', 'javascript:');
+            a.setAttribute('data-id', id);
             a.addEventListener('click', function (e) {
                 let data = getPadData(e);
-                console.log(data);
+                let pop = _sl('#popup-pad-setting');
+                _sl('#number').value = e.target.getAttribute('data-id');
+                _sl('#instrument').value = data['data-code'];
+                _sl('#threshold').value = data['data-threshold'];
+                _sl('#headroom').value = data['data-headroom'];
+                _sl('#duration').value = data['data-duration'];
+                pop.popupShow();
             }, false);
             ed.appendChild(a);
             return ed;
@@ -214,11 +231,11 @@
 
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-success" type="button" name="save" id="save" value="Save"
+                    <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save" value="Save"
                             onclick="return savePadConfig();"></div>
-                    <div class="column"><input class="btn btn-primary" type="button" name="default" id="default"
+                    <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
                             value="Default" onclick="return resetToDefault();"></div>
-                    <div class="column"><input class="btn btn-danger" type="button" name="save" id="home" value="Home"
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
             </div>
@@ -227,7 +244,7 @@
     
     
     <div class="popup-shadow">
-        <div class="popup">
+        <div class="popup" id="popup-pad-setting">
             <div class="popup-header">
                 Pad Setting
             </div>
@@ -262,7 +279,7 @@
 
             <div class="popup-footer">
                 <button type="button" class="btn btn-primary">Test</button>
-                <button type="button" class="btn btn-success">OK</button>
+                <button type="button" class="btn btn-success update-data">OK</button>
                 <button type="button" class="btn btn-warning pupup-hide">Canel</button>
             </div>
         </div>

@@ -14,6 +14,16 @@ if (!Element.prototype.closest) {
   };
 }
 
+Element.prototype.popupShow = function() {
+    this.style.display = 'block';
+    this.closest('.popup-shadow').style.display = 'block';
+}
+
+Element.prototype.popupHide = function() {
+    this.style.display = 'none';
+    this.closest('.popup-shadow').style.display = 'none';
+}
+
 let ajax = {};
 
 function _sl(s)

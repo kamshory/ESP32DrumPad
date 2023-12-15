@@ -70,7 +70,7 @@ h3 {
     color: #333;
     margin: 8px 0
 }
-.row .btn{
+.btn-100{
     width: 100%;
 }
 
@@ -123,6 +123,9 @@ h3 {
 .pad
 {
     height: 60px;
+    font-size: 14px;
+    background-color: #fa6cff;
+    border: 1px solid #df60e4;
 }
 .pad-wrapper .editor{
     display: block;
@@ -144,6 +147,7 @@ a.ctrl::before{
     display: block;
     position: absolute;
     font-size: 15px;
+    transform: rotate(90deg);
 }
 
 .popup-shadow {
@@ -156,6 +160,7 @@ a.ctrl::before{
     position: absolute;             
     background-color: rgba(0,0,0,0.5);
     color: #aaaaaa;
+    display: none;
 }
 
 .popup {
@@ -168,6 +173,7 @@ a.ctrl::before{
     min-height: 100px;
     top: 20px;
     border: 1px solid rgb(124, 153, 193);
+    display: none;
 }
 
 @media screen and (max-width:640px) {
@@ -209,22 +215,3 @@ a.ctrl::before{
 {
     width: 30%;
 }
-/*
-.two-side-table input[type="text"], .two-side-table input[type="number"], .two-side-table input[type="password"], .two-side-table select
-{
-    width: 100%;
-    box-sizing: border-box;
-}
-input[type="text"], input[type="number"], input[type="password"], select
-{
-    padding: 5px 5px;
-    border: 1px solid #cccccc;
-    background-color: #ffffff;
-    transition:border 0.3s ease-in-out;
-}
-input[type="text"]:focus-visible, input[type="number"]:focus-visible, input[type="password"]:focus-visible, select:focus-visible
-{
-    outline: none;
-    border: 1px solid #4d80ce;
-}
-*/
