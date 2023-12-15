@@ -296,7 +296,7 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetCh15             | 459    | 10     | String     | Channel 15                          |
 | offsetCh16             | 469    | 10     | String     | Channel 16                          |
 
-We use at least 509 bytes of EEPROM to store the application configuration. So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
 
 If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
 
