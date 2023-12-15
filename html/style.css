@@ -126,6 +126,7 @@ h3 {
     font-size: 14px;
     background-color: #ffb464;
     border: 1px solid #df994e;
+    min-width: 20px;
 }
 .pad-wrapper .editor{
     display: block;

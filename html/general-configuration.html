@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no">
+    <title>Access Point Configuration</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <form action="" method="post">
+            <div class="form-item">
+                <div class="form-label">MIDI Channel</div>
+                <div class="form-input"> <input type="number" min="1" max="10" name="channel" id="channel" value="10" required> </div>
+            </div>
+            <div class="form-item">
+                <div class="form-label">Read Interval</div>
+                <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" id="read_interval" required> </div>
+            </div>
+            <div class="form-item">
+                <div class="row">
+                    <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save" value="Save"
+                            onclick="return saveAPData();"></div>
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
+                            onclick="window.location='index.html';"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
