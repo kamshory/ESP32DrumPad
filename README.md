@@ -52,6 +52,18 @@ Web server is used to configure MIDI controller.
 
 User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller point.
 
+**Screenshot**
+
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.13.07.png)
+
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.13.40.png)
+
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.14.46.png)
+
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.14.54.png)
+
+![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/Screen Shot 2023-12-15 at 13.15.03.png)
+
 ### Support USB
 
 ESP32 can send MIDI signal over USB and it recognized as MIDI controller.
