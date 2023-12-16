@@ -23,6 +23,14 @@
                 <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" id="read_interval" required> </div>
             </div>
             <div class="form-item">
+                <div class="form-label">Solo Pad</div>
+                <div class="form-input"> <label for=""><input type="checkbox" name="solo_pad" id="solo_pad"> Yes</label> </div>
+            </div>
+            <div class="form-item">
+                <div class="form-label">Solo Pad Number</div>
+                <div class="form-input"> <input type="number" min="1" max="16" name="solo_pad_number" id="solo_pad_number"> </div>
+            </div>
+            <div class="form-item">
                 <div class="row">
                     <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save" value="Save"
                             onclick="return saveAPData();"></div>
