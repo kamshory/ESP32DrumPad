@@ -415,13 +415,6 @@ Some modules that can be used for displays are as follows:
 | Module  | Com | Resolution | Color | Touch | SD Card |
 | ------- | --- | ---------- | ----- | ----- | ------- |
 | OLED    | IIC | 128 x 64   | White | No    | No      |
-| ST7735  | SPI | 128 x 160  | RGB   | Yes   | Yes     |
-| ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
-
-
-| Module  | Com | Resolution | Color | Touch | SD Card |
-| ------- | --- | ---------- | ----- | ----- | ------- |
-| OLED    | IIC | 128 x 64   | White | No    | No      |
 | ST7735  | SPI | 128 x 160  | RGB   | No    | Yes     |
 | ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
 
@@ -463,7 +456,6 @@ Some modules that can be used for displays are as follows:
 | CS       | CSO (GPIO 5)   |
 | GND      | GND            |
 | VCC      | VIN 3.3V       |
-
 
 # Need Support
 
