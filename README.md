@@ -418,6 +418,53 @@ Some modules that can be used for displays are as follows:
 | ST7735  | SPI | 128 x 160  | RGB   | Yes   | Yes     |
 | ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
 
+
+| Module  | Com | Resolution | Color | Touch | SD Card |
+| ------- | --- | ---------- | ----- | ----- | ------- |
+| OLED    | IIC | 128 x 64   | White | No    | No      |
+| ST7735  | SPI | 128 x 160  | RGB   | No    | Yes     |
+| ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
+
+
+## Wiring
+
+### OLED
+
+| OLED     | ESP32         |
+| -------- | ------------- |
+| VCC      | VIN 3.3V      |
+| GND      | GND           |
+| SCL      | SCL (GPIO 22) |
+| SDA      | SDA (GPIO 21) |
+
+### ST7735
+
+| ST7735   | ESP32          |
+| -------- | -------------- |
+| LED      | VIN 3.3V       |
+| SCK      | CLK (GPIO 18)  |
+| SDA      | MOSI (GPIO 23) |
+| A0       | GPIO 4         |
+| RESET    | RESET          |
+| CS       | CSO (GPIO 5)   |
+| GND      | GND            |
+| VCC      | VIN 3.3V       |
+
+### ili9341
+
+| ili9341  | ESP32          |
+| -------- | -------------- |
+| LED      | VIN 3.3V       |
+| SCK      | CLK (GPIO 18)  |
+| MOSI     | MOSI (GPIO 23) |
+| MISO     | MISO (GPIO 19) |
+| D/C      | GPIO 4         |
+| RESET    | VIN 3.3V       |
+| CS       | CSO (GPIO 5)   |
+| GND      | GND            |
+| VCC      | VIN 3.3V       |
+
+
 # Need Support
 
 Please support our YouTube channel by subsribe it at https://www.youtube.com/@MusicPlanetbiru
