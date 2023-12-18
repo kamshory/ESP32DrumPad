@@ -1,16 +1,27 @@
 window.onload = function () {
+    renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
     let opt = _sl('#instrument');
     for(let i in instrumentCode)
     {
         opt.appendChild(new Option(instrumentCode[i][0]+' - '+instrumentCode[i][2], instrumentCode[i][0]));
     }
-    let btnhide = document.querySelectorAll('.pupup-hide');
-    for(let i = 0; i<btnhide.length; i++)
+    let btnhide = _sls('.pupup-hide');
+    for(let i = 0; i<btnhide.length; i++) //NOSONAR
     {
         btnhide[i].addEventListener('click', function(e){
             e.target.closest('.popup').popupHide();
         });
     }
+    let btnPad = _sls('.pad');
+    for(let i = 0; i<btnPad.length; i++) //NOSONAR
+    {
+        btnPad[i].addEventListener('click', function(e){
+            testDrum(e.target.attr('data-code'));
+        });
+    }
+    _sl('.test-drum').addEventListener('click', function(e){
+        testDrum(e.target.closest('.popup').querySelector('#instrument').value)
+    });
     _sl('.update-data').addEventListener('click', function(e){
         let number = _sl('#number').value;
         let isntrument = _sl('#instrument').value;
@@ -21,7 +32,7 @@ window.onload = function () {
         setData(bt, [isntrument, threshold, headroom, duration]);
         _sl('#popup-pad-setting').popupHide();
     }, false);
-    renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
+    
 }
 let defaultConfigData = {
     "row": [
@@ -38,13 +49,16 @@ let defaultConfigData = {
         "f6": [40, 100, 1000, 10000, 20000],
         "f7": [41, 100, 1000, 10000, 20000],
         "f8": [42, 100, 1000, 10000, 20000],
-        "f9": [42, 100, 1000, 10000, 20000],
+        "f9": [43, 100, 1000, 10000, 20000],
         "f10": [44, 100, 1000, 10000, 20000],
         "f11": [45, 100, 1000, 10000, 20000],
         "f12": [46, 100, 1000, 10000, 20000],
     }
 };
-
+function testDrum(code)
+{
+    console.log('send note', code)
+}
 function resetToDefault()
 {
     if(confirm('Are you sure you want to reset the config?'))
@@ -62,15 +76,16 @@ function resetToDefault()
 }
 function renderPad(padArr, config, selector) {
     let sel = _sl(selector);
-    for (let i = 0; i < padArr.length; i++)
+    for (let i = 0; i < padArr.length; i++) //NOSONAR
     {
         let row = padArr[i];
         let rw = document.createElement('div');
         rw.classList.add('row');
-        for (let j = 0; j < row.length; j++) {
+        for (let j = 0; j < row.length; j++) //NOSONAR
+        {
             let cl = document.createElement('div');
             cl.classList.add('pad-wrapper');
-            cl.setAttribute('data-ch', row[j]);
+            cl.attr('data-ch', row[j]);
             cl.appendChild(createButton(row[j], config));
             cl.appendChild(editor(row[j], config));
             rw.appendChild(cl);
@@ -86,8 +101,9 @@ function createButton(ch, config) {
     bt.classList.add('btn');
     bt.classList.add('btn-100');
     bt.classList.add('pad');
-    bt.setAttribute('type', 'button');
-    bt.setAttribute('id', id);
+    bt.attr('data-number', ch);
+    bt.attr('type', 'button');
+    bt.attr('id', id);
     setData(bt, data);
     return bt;
 }
@@ -95,11 +111,11 @@ function createButton(ch, config) {
 function setData(bt, data) {
     let isnt = data[0];
     bt.innerText = isnt;
-    bt.setAttribute('title', instrumentCode['f' + isnt][2]);
-    bt.setAttribute('data-code', isnt);
-    bt.setAttribute('data-threshold', data[1]);
-    bt.setAttribute('data-headroom', data[2]);
-    bt.setAttribute('data-duration', data[3]);
+    bt.attr('title', instrumentCode['f' + isnt][2]);
+    bt.attr('data-code', isnt);
+    bt.attr('data-threshold', data[1]);
+    bt.attr('data-headroom', data[2]);
+    bt.attr('data-duration', data[3]);
 }
 
 function editor(id, config) {
@@ -107,12 +123,12 @@ function editor(id, config) {
     ed.classList.add('editor');
     let a = document.createElement('a');
     a.classList.add('ctrl');
-    a.setAttribute('href', 'javascript:');
-    a.setAttribute('data-id', id);
+    a.attr('href', 'javascript:');
+    a.attr('data-id', id);
     a.addEventListener('click', function (e) {
         let data = getPadData(e);
         let pop = _sl('#popup-pad-setting');
-        _sl('#number').value = e.target.getAttribute('data-id');
+        _sl('#number').value = e.target.attr('data-id');
         _sl('#instrument').value = data['data-code'];
         _sl('#threshold').value = data['data-threshold'];
         _sl('#headroom').value = data['data-headroom'];
@@ -126,23 +142,24 @@ function getPadData(e)
 {
     let target = e.target.parentNode.parentNode.querySelector('.pad');
     return {
-        'data-code': target.getAttribute('data-code'),
-        'data-threshold': target.getAttribute('data-threshold'),
-        'data-headroom': target.getAttribute('data-headroom'),
-        'data-duration': target.getAttribute('data-duration')
+        'data-code': target.attr('data-code'),
+        'data-threshold': target.attr('data-threshold'),
+        'data-headroom': target.attr('data-headroom'),
+        'data-duration': target.attr('data-duration')
     };
 }
 function getFormData(container) {
     let cntr = _sl(container);
     let arr = cntr.querySelectorAll('button');
     let bld2 = [];
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) //NOSONAR
+    {
 
         let bld = [];
-        bld.push(arr[i].getAttribute('id') + '=' + arr[i].getAttribute('data-code'));
-        bld.push(arr[i].getAttribute('data-threshold'));
-        bld.push(arr[i].getAttribute('data-headroom'));
-        bld.push(arr[i].getAttribute('data-duration'));
+        bld.push(arr[i].attr('id') + '=' + arr[i].attr('data-code'));
+        bld.push(arr[i].attr('data-threshold'));
+        bld.push(arr[i].attr('data-headroom'));
+        bld.push(arr[i].attr('data-duration'));
         bld2.push(bld.join(','));
     }
     return bld2.join('&');

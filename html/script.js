@@ -18,6 +18,16 @@ Element.prototype.popupShow = function() {
     this.style.display = 'block';
     this.closest('.popup-shadow').style.display = 'block';
 }
+Element.prototype.attr = function(n, v) {
+  if(typeof v != 'undefined')
+  {
+    return this.setAttribute(n, v);
+  }
+  else
+  {
+    return this.getAttribute(n);
+  }
+}
 
 Element.prototype.popupHide = function() {
     this.style.display = 'none';
@@ -30,9 +40,10 @@ function _sl(s)
 {
     return document.querySelector(s);
 }
-
-
-
+function _sls(s)
+{
+    return document.querySelectorAll(s);
+}
 
 function saveSubData() {
   let e = _sl("#ssid_name").value,
@@ -199,7 +210,7 @@ function isValidIP(e) {
     let e = window.location.toString();
     -1 < e.indexOf("ap-configuration.html") && loadAPData(),
       -1 < e.indexOf("subscription-configuration.html") && loadSubData();
-    const t = document.querySelectorAll('input[type="ipaddress"]');
+    const t = _sls('input[type="ipaddress"]');
     if (t.length)
       for (let n = 0; n < t.length; n++)
         t[n].addEventListener("keyup", function (e) {

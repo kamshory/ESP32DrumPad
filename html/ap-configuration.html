@@ -13,7 +13,7 @@
 
 <body>
     <div class="all">
-        <form action="" method="post">
+        <form action="" method="post" onsubmit="return saveAPData();">
             <div class="form-item">
                 <div class="form-label">SSID</div>
                 <div class="form-input"> <input type="text" name="ssid_name" id="ssid_name" maxlength="20" required> </div>
@@ -45,8 +45,7 @@
             </div>
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save" value="Save"
-                            onclick="return saveAPData();"></div>
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"></div>
                     <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>

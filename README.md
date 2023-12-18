@@ -1,11 +1,11 @@
 # ESP32DrumPad
 
-ESP32DrumPad is drum pad MIDI controller. 
+ESP32DrumPad is drum pad MIDI controller.
 
 For those of you who are still new to MIDI, please read the following references:
 https://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html
 
-A MIDI controller is any hardware or software that generates and transmits Musical Instrument Digital Interface (MIDI) data to MIDI-enabled devices, typically to trigger sounds and control parameters of an electronic music performance. They most often use a musical keyboard to send data about the pitch of notes to play, although a MIDI controller may trigger lighting and other effects. A wind controller has a sensor that converts breath pressure to volume information and lip pressure to control pitch. Controllers for percussion and stringed instruments exist, as well as specialized and experimental devices. Some MIDI controllers are used in association with specific digital audio workstation software. The original MIDI specification has been extended to include a greater range of control features. 
+A MIDI controller is any hardware or software that generates and transmits Musical Instrument Digital Interface (MIDI) data to MIDI-enabled devices, typically to trigger sounds and control parameters of an electronic music performance. They most often use a musical keyboard to send data about the pitch of notes to play, although a MIDI controller may trigger lighting and other effects. A wind controller has a sensor that converts breath pressure to volume information and lip pressure to control pitch. Controllers for percussion and stringed instruments exist, as well as specialized and experimental devices. Some MIDI controllers are used in association with specific digital audio workstation software. The original MIDI specification has been extended to include a greater range of control features.
 
 Keyboards can be used to trigger drum sounds, but are impractical for playing repeated patterns such as rolls, due to the length of key travel. After keyboards, drum pads are the next most significant MIDI performance controllers. Drum controllers may be built into drum machines, may be standalone control surfaces, or may emulate the look and feel of acoustic percussion instruments. MIDI triggers can also be installed into acoustic drum and percussion instruments. The pads built into drum machines are typically too small and fragile to be played with sticks, and are played with fingers.
 
@@ -82,64 +82,63 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 ## MIDI Isntrument Code
 
-| Key  | Note | Drum Sound         |
-| ---- | ---- | ------------------ |
-| 35   | B1   | Acoustic Bass Drum |
-| 36   | C2   | Bass Drum 1        |
-| 37   | C#2  | Side Stick         |
-| 38   | D2   | Acoustic Snare     |
-| 39   | D#2  | Hand Clap          |
-| 40   | E2   | Electric Snare     |
-| 41   | F2   | Low Floor Tom      |
-| 42   | F#2  | Closed Hi Hat      |
-| 43   | G2   | High Floor Tom     |
-| 44   | G#2  | Pedal Hi-Hat       |
-| 45   | A2   | Low Tom            |
-| 46   | A#2  | Open Hi-Hat        |
-| 47   | B2   | Low-Mid Tom        |
-| 48   | C3   | Hi Mid Tom         |
-| 49   | C#3  | Crash Cymbal 1     |
-| 50   | D3   | High Tom           |
-| 51   | D#3  | Ride Cymbal 1      |
-| 52   | E3   | Chinese Cymbal     |
-| 53   | F3   | Ride Bell          |
-| 54   | F#3  | Tambourine         |
-| 55   | G3   | Splash Cymbal      |
-| 56   | G#3  | Cowbell            |
-| 57   | A3   | Crash Cymbal 2     |
-| 58   | A#3  | Vibraslap          |
-| 59   | B3   | Ride Cymbal 2      |
-| 60   | C4   | Hi Bongo           |
-| 61   | C#4  | Low Bongo          |
-| 62   | D4   | Mute Hi Conga      |
-| 63   | D#4  | Open Hi Conga      |
-| 64   | E4   | Low Conga          |
-| 65   | F4   | High Timbale       |
-| 66   | F#4  | Low Timbale        |
-| 67   | G4   | High Agogo         |
-| 68   | G#4  | Low Agogo          |
-| 69   | A4   | Cabasa             |
-| 70   | A#4  | Maracas            |
-| 71   | B4   | Short Whistle      |
-| 72   | C5   | Long Whistle       |
-| 73   | C#5  | Short Guiro        |
-| 74   | D5   | Long Guiro         |
-| 75   | D#5  | Claves             |
-| 76   | E5   | Hi Wood Block      |
-| 77   | F5   | Low Wood Block     |
-| 78   | F#5  | Mute Cuica         |
-| 79   | G5   | Open Cuica         |
-| 80   | G#5  | Mute Triangle      |
-| 81   | A5   | Open Triangle      |
-
+| Key | Note | Drum Sound         |
+| --- | ---- | ------------------ |
+| 35  | B1   | Acoustic Bass Drum |
+| 36  | C2   | Bass Drum 1        |
+| 37  | C#2  | Side Stick         |
+| 38  | D2   | Acoustic Snare     |
+| 39  | D#2  | Hand Clap          |
+| 40  | E2   | Electric Snare     |
+| 41  | F2   | Low Floor Tom      |
+| 42  | F#2  | Closed Hi Hat      |
+| 43  | G2   | High Floor Tom     |
+| 44  | G#2  | Pedal Hi-Hat       |
+| 45  | A2   | Low Tom            |
+| 46  | A#2  | Open Hi-Hat        |
+| 47  | B2   | Low-Mid Tom        |
+| 48  | C3   | Hi Mid Tom         |
+| 49  | C#3  | Crash Cymbal 1     |
+| 50  | D3   | High Tom           |
+| 51  | D#3  | Ride Cymbal 1      |
+| 52  | E3   | Chinese Cymbal     |
+| 53  | F3   | Ride Bell          |
+| 54  | F#3  | Tambourine         |
+| 55  | G3   | Splash Cymbal      |
+| 56  | G#3  | Cowbell            |
+| 57  | A3   | Crash Cymbal 2     |
+| 58  | A#3  | Vibraslap          |
+| 59  | B3   | Ride Cymbal 2      |
+| 60  | C4   | Hi Bongo           |
+| 61  | C#4  | Low Bongo          |
+| 62  | D4   | Mute Hi Conga      |
+| 63  | D#4  | Open Hi Conga      |
+| 64  | E4   | Low Conga          |
+| 65  | F4   | High Timbale       |
+| 66  | F#4  | Low Timbale        |
+| 67  | G4   | High Agogo         |
+| 68  | G#4  | Low Agogo          |
+| 69  | A4   | Cabasa             |
+| 70  | A#4  | Maracas            |
+| 71  | B4   | Short Whistle      |
+| 72  | C5   | Long Whistle       |
+| 73  | C#5  | Short Guiro        |
+| 74  | D5   | Long Guiro         |
+| 75  | D#5  | Claves             |
+| 76  | E5   | Hi Wood Block      |
+| 77  | F5   | Low Wood Block     |
+| 78  | F#5  | Mute Cuica         |
+| 79  | G5   | Open Cuica         |
+| 80  | G#5  | Mute Triangle      |
+| 81  | A5   | Open Triangle      |
 
 `1000nnnn0kkkkkkk0vvvvvvv` is note off event where nnnn is channel number (0 - 15), `kkkkkkk` is key (0 to 127), `vvvvvvv` is velocity (0 - 127).
 
 `1001nnnn0kkkkkkk0vvvvvvv` is note on event where nnnn is channel number (0 - 15), `kkkkkkk` is key (0 to 127), `vvvvvvv` is velocity (0 - 127).
 
-So, to send Bass Drum 1 with velocity 90 percent, MIDI controller will send `1001100100010010001110010` 
+So, to send Bass Drum 1 with velocity 90 percent, MIDI controller will send `1001100100010010001110010`
 
-where first `1001` represent note on, second `1001` represent channel number (channel 10), `00100100` represent Bass Drum 1 code (36), and `01110010` represent velocity 114 (90 percent). 
+where first `1001` represent note on, second `1001` represent channel number (channel 10), `00100100` represent Bass Drum 1 code (36), and `01110010` represent velocity 114 (90 percent).
 
 To send note off event, MIDI controller can send `1000100100010010001110010`.
 
@@ -251,7 +250,7 @@ The MIDI controller configuration is stored in EEPROM which ensures that the con
 
 Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.
 
-We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use. 
+We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use.
 
 With the internal EEPROM built in on the ESP32, we can map data addresses as follows:
 
@@ -297,12 +296,11 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetCh15             | 460    | 10     | String     | Channel 15                          |
 | offsetCh16             | 470    | 10     | String     | Channel 16                          |
 
-So far we do not need additional storage media in the form of an external EEPROM module or CF card module.
+So far we do not need additional storage media.
 
 If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
 
 ![AT24C256](https://github.com/kamshory/ESP32DrumPad/blob/main/images/at24C256.png)
-
 
 The wiring of AT24C256 is as follows:
 
@@ -326,17 +324,17 @@ We can use 8 AT24C256 simultaneously on the same bus. By configuring the address
 | 1  | 1  | 0  | 56          | 86      |
 | 1  | 1  | 1  | 57          | 87      |
 
-The AT24C128/256 has a hardware data protection scheme that allows the user to write protect the whole memory when the WP pin is at VCC. 
+The AT24C128/256 has a hardware data protection scheme that allows the user to write protect the whole memory when the WP pin is at VCC.
 
 ### Channel Configuration
 
-| Offset | Length | Type       | Range        | Usage                          |
-| ------ | ------ | ---------- | ------------ | ------------------------------ |
-| 0      | 1      | Byte       | 0-127        | Configuration flag             |
-| 1      | 1      | Byte       | 0-127        | Instrument code                |
-| 2      | 2      | Word       | 0-65535      | Threshold (minimum value)      |
-| 4      | 2      | Word       | 0-65535      | Head room                      |
-| 6      | 4      | DWord      | 0-4294967295 | Duration (micro second)        |
+| Offset | Length | Type  | Range        | Usage                     |
+| ------ | ------ | ----- | ------------ | ------------------------- |
+| 0      | 1      | Byte  | 0-127        | Configuration flag        |
+| 1      | 1      | Byte  | 0-127        | Instrument code           |
+| 2      | 2      | Word  | 0-65535      | Threshold (minimum value) |
+| 4      | 2      | Word  | 0-65535      | Head room                 |
+| 6      | 4      | DWord | 0-4294967295 | Duration (micro second)   |
 
 Configuration flag, instrument code, threshold, head room and duration are read separately by different functions. To read data with the `byte` type, the function will read one byte of data at the specified address. To read data with type `word`, the function will read two bytes of data starting from the specified address. To read data with `double word` type, the function will read four bytes of data starting from the specified address.
 
@@ -349,7 +347,7 @@ void readChannelConfig(int channel)
     uint16_t threshold = readWord(offset + 2);
     uint16_t headRoom = readWord(offset + 4);
     uint32_t duration = readDoubleWord(offset + 6);
-    
+  
     // add code here
 }
 
@@ -375,10 +373,9 @@ The duration must be set in such a way that when the next voltage is read, the v
 
 Default values which are test results must be provided by the application.
 
-
 ![Velocity](https://github.com/kamshory/ESP32DrumPad/blob/main/images/velocity.drawio.svg)
 
-The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity. 
+The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity.
 
 The average voltage is not the peak voltage but rather the average value taken from several samples when a voltage above the threshold is detected. This voltage may be far from the peak value depending on the sampling time. If the sampling time is close to the peak voltage, then the data-average voltage will be close to the peak voltage value. On the other hand, if the sampling time is far from the peak voltage, then the average data voltage will be far from the peak voltage value.
 

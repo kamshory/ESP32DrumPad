@@ -112,28 +112,44 @@ h3 {
     justify-content: space-between;
     position: relative;
 }
-.pad-wrapper::before
-{
-    content: attr(data-ch);
-    position: absolute;
-    left: 4px;
-    top: 10px;
-    font-size: 10px;
-}
 .pad
 {
+    position: relative;
     height: 60px;
     font-size: 14px;
     background-color: #ffb464;
     border: 1px solid #df994e;
     min-width: 20px;
 }
+.pad::before
+{
+    content: attr(data-number);
+    position: absolute;
+    display: block;
+    left: 4px;
+    top: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+.pad::after
+{
+    content: attr(title);
+    position: absolute;
+    display: block;
+    width: calc(100% - 8px);
+    left: 4px;
+    bottom: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
 .pad-wrapper .editor{
     display: block;
     width: 20px;
     height: 20px;
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     right: 0px;
 }
 a.ctrl{
@@ -157,7 +173,6 @@ a.ctrl::before{
     height: 100vh;
     top: 0;
     left: 0;
-    display: block;
     position: absolute;             
     background-color: rgba(0,0,0,0.4);
     color: #aaaaaa;

@@ -13,14 +13,14 @@
 
 <body>
     <div class="all">
-        <form action="" method="post">
+        <form action="" method="post" onsubmit="return false">
             <div class="form-item">
                 <div class="form-label">MIDI Channel</div>
-                <div class="form-input"> <input type="number" min="1" max="10" name="channel" id="channel" value="10" required> </div>
+                <div class="form-input"> <input type="number" min="1" max="16" name="channel" id="channel" value="10" required> </div>
             </div>
             <div class="form-item">
                 <div class="form-label">Read Interval</div>
-                <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" id="read_interval" required> </div>
+                <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" id="read_interval" value="1000" required> </div>
             </div>
             <div class="form-item">
                 <div class="form-label">Solo Pad</div>
@@ -32,8 +32,9 @@
             </div>
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save" value="Save"
-                            onclick="return saveAPData();"></div>
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"></div>
+                    <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
+                        value="Default" onclick="return resetToDefault();"></div>        
                     <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
