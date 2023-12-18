@@ -36,6 +36,10 @@ Element.prototype.popupHide = function() {
 
 let ajax = {};
 
+function _ce(s)
+{
+    return document.createElement(s);
+}
 function _sl(s)
 {
     return document.querySelector(s);
@@ -83,15 +87,14 @@ function loadSubData() {
     function (e) {
       try {
         let t = JSON.parse(e);
-        (_sl("#ssid_name").value = t.ssid_name),
-          (_sl("#ssid_password").value = t.ssid_password),
-          (_sl("#ws_host").value = t.ws_host),
-          (_sl("#ws_port").value = t.ws_port),
-          (_sl("#ws_path").value = t.ws_path),
-          (_sl("#ws_username").value = t.ws_username),
-          (_sl("#ws_password").value = t.ws_password),
-          (_sl("#ws_topic").value = t.ws_topic),
-          (_sl("#enable").value = t.enable);
+        _sl("#ssid_name").value = t.ssid_name;
+        _sl("#ssid_password").value = t.ssid_password;
+        _sl("#ws_host").value = t.ws_host;
+        _sl("#ws_port").value = t.ws_port;
+        _sl("#ws_path").value = t.ws_path;
+        _sl("#ws_username").value = t.ws_username;
+        _sl("#ws_password").value = t.ws_password;
+        _sl("#enable").value = t.enable;
       } catch (e) {}
     },
     !0
@@ -104,12 +107,12 @@ function loadAPData() {
     function (e) {
       try {
         let t = JSON.parse(e);
-        (_sl("#ssid_name").value = t.ssid_name),
-          (_sl("#ssid_password").value = t.ssid_password),
-          (_sl("#ip").value = t.ip),
-          (_sl("#gateway").value = t.gateway),
-          (_sl("#subnet").value = t.subnet),
-          (_sl("#hidden").value = t.hidden);
+        _sl("#ssid_name").value = t.ssid_name;
+          _sl("#ssid_password").value = t.ssid_password;
+          _sl("#ip").value = t.ip;
+          _sl("#gateway").value = t.gateway;
+          _sl("#subnet").value = t.subnet;
+          _sl("#hidden").value = t.hidden;
       } catch (e) {}
     },
     !0
