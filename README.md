@@ -11,6 +11,8 @@ Keyboards can be used to trigger drum sounds, but are impractical for playing re
 
 In this project, we will make a drum pad MIDI controller with piezoelectric ceramic as a transducer. This transducer will convert the pressure received into electrical voltage. The electric voltage is converted by an analog to digital converter (ADC) into an integer. This number will be operated with logic and mathematical formulas to get the velocity value of the blows received by the drum pad. Velocity values between 0 and 127 according to MIDI standards. A drum pad consists of several pads, each pad will represent a certain instrument such as kick drum, snare drum, hat, tom, cymbals, and so on.
 
+![Flow](https://github.com/kamshory/ESP32DrumPad/blob/main/images/flow.drawio.svg)
+
 ## Features
 
 1. 15 instument pads (16 for ESP32 S3). We will only develop MIDI controller with 12 pads
