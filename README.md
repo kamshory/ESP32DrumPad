@@ -406,6 +406,18 @@ uint8_t calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 
 Duration in general is the time calculated from the `note on` signal to the next `note off` signal on the same channel and instrument or note. When it comes to drum pads, duration is very important because this will affect the speed at which the player plays the drums. The default value of the duration must be provided by the application.
 
-## Need Support
+# TFT Display
+
+Drum pads can be equipped with TFT displays that allow users to see the status of the drum pad. However, the display is not an important feature considering the limited resources of the ESP 32.
+
+Some modules that can be used for displays are as follows:
+
+| Module  | Com | Resolution | Color | Touch | SD Card |
+| ------- | --- | ---------- | ----- | ----- | ------- |
+| OLED    | IIC | 128 x 64   | White | No    | No      |
+| ST7735  | SPI | 128 x 160  | RGB   | Yes   | Yes     |
+| ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
+
+# Need Support
 
 Please support our YouTube channel by subsribe it at https://www.youtube.com/@MusicPlanetbiru
