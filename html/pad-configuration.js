@@ -148,11 +148,12 @@ function getFormData(container) {
     for (let i = 0; i < arr.length; i++) //NOSONAR
     {
         let p = arr[i];
-        let bld = [];
-        bld.push(p.attr('id') + '=' + p.attr('data-code'));
-        bld.push(p.attr('data-threshold'));
-        bld.push(p.attr('data-headroom'));
-        bld.push(p.attr('data-duration'));        
+        let bld = [
+        p.attr('id') + '=' + p.attr('data-code'),
+        p.attr('data-threshold'),
+        p.attr('data-headroom'),
+        p.attr('data-duration')
+        ];        
         bld2.push(bld.join(','));
     }
     return bld2.join('&');

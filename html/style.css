@@ -191,15 +191,16 @@ a.ctrl::before {
 
 .popup {
     position: absolute;
-    color: #000000;
+    color: #333333;
     background-color: #ffffff;
+    border: 1px solid rgb(124, 153, 193);
+    display: none;
+
     width: 480px;
     left: 50%;
     margin-left: -240px;
     min-height: 100px;
     top: 20px;
-    border: 1px solid rgb(124, 153, 193);
-    display: none;
 }
 
 .popup-confirm {

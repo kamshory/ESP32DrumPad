@@ -17,6 +17,13 @@ if (!Element.prototype.closest) {
   };
 }
 
+if (!Element.prototype.remove) {
+  Element.prototype.remove = function (s) {
+    let el = this;
+    el.parentNode.removeChild(el);
+  };
+}
+
 Element.prototype.popupShow = function () {
   this.style.display = "block";
   this.closest(".popup-shadow").style.display = "block";
@@ -64,8 +71,23 @@ function customConfim(
   let confirmObject = _sl(selector);
   confirmObject.find(".popup-header").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
-  confirmObject.find(".btn-ok").innerText = btnTextOk;
-  confirmObject.find(".btn-cancel").innerText = btnTextCancel;
+  
+  confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
+  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
+  
+  let btnOk = _ce('button');
+  btnOk.attr('class', 'btn btn-success btn-ok');
+  btnOk.innerText = btnTextOk;
+  
+  let btnCancel = _ce('button');
+  btnCancel.attr('class', 'btn btn-warning btn-cancel');
+  btnCancel.innerText = btnTextCancel;  
+  let footer = confirmObject.find('.popup-footer');
+  
+  footer.appendChild(btnOk);
+  footer.appendChild (document.createTextNode (' '));
+  footer.appendChild(btnCancel);
+  
   confirmObject.popupShow();
   btnCallbackOk =
     btnCallbackOk ||
@@ -78,14 +100,14 @@ function customConfim(
       confirmObject.popupHide();
     };
   try {
-    confirmObject.find(".btn-ok").off("click");
-    confirmObject.find(".btn-cancel").off("click");
+    btnOk.off("click");
+    btnCancel.off("click");
   } catch (ex) {}
-  confirmObject.find(".btn-ok").on("click", function () {
+  btnOk.on("click", function () {
     btnCallbackOk();
     confirmObject.popupHide();
   });
-  confirmObject.find(".btn-cancel").on("click", function () {
+  btnCancel.on("click", function () {
     btnCallbackCancel();
     confirmObject.popupHide();
   });
