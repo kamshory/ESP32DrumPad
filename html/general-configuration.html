@@ -13,7 +13,7 @@
 
 <body>
     <div class="all">
-        <form action="" method="post" onsubmit="return false">
+        <form action="" method="post" onsubmit="return saveConfigGeneral()">
             <div class="form-item">
                 <div class="form-label">MIDI Channel</div>
                 <div class="form-input"> <input type="number" min="1" max="16" name="channel" id="channel" value="10" required> </div>
@@ -37,12 +37,27 @@
                 <div class="row">
                     <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"></div>
                     <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
-                        value="Default" onclick="return resetToDefault();"></div>        
+                        value="Default" onclick="return loadDefaultGeneral();"></div>        
                     <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
             </div>
         </form>
+    </div>
+    
+    <div class="popup-shadow">
+        <div class="popup popup-confirm">
+            <div class="popup-header">
+                Title
+            </div>
+            <div class="popup-body">
+                <p class="message"></p>
+            </div>
+            <div class="popup-footer">
+                <button type="button" class="btn btn-success btn-ok">OK</button>
+                <button type="button" class="btn btn-warning btn-cancel">Canel</button>
+            </div>
+        </div>
     </div>
 </body>
 

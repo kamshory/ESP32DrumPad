@@ -13,7 +13,7 @@
 
 <body>
     <div class="all">
-        <form action="" method="post">
+        <form action="" method="post" onsubmit="return saveWSData()">
             <div class="form-item">
                 <div class="form-label">Connect to Wifi</div>
                 <div class="form-input"><select name="wifi_enable" id="wifi_enable">
@@ -65,13 +65,28 @@
             </div>
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="button" name="save" id="save"
-                            value="Save" onclick="return saveSubData();"></div>
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save"
+                            value="Save"></div>
                     <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home"
                             value="Home" onclick="window.location='index.html';"></div>
                 </div>
             </div>
         </form>
+    </div>
+    
+    <div class="popup-shadow">
+        <div class="popup popup-confirm">
+            <div class="popup-header">
+                Title
+            </div>
+            <div class="popup-body">
+                <p class="message"></p>
+            </div>
+            <div class="popup-footer">
+                <button type="button" class="btn btn-success btn-ok">OK</button>
+                <button type="button" class="btn btn-warning btn-cancel">Canel</button>
+            </div>
+        </div>
     </div>
 </body>
 

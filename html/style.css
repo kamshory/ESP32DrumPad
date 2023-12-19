@@ -176,10 +176,12 @@ a.ctrl::before {
 
 .popup-shadow {
     z-index: 1001;
-    width: 100vw;
+    min-width: 100vw;
     min-height: 100vh;
     top: 0;
+    bottom: 0;
     left: 0;
+    right: 0;
     position: absolute;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
@@ -201,19 +203,29 @@ a.ctrl::before {
 }
 
 .popup-confirm {
+    position: fixed;
     width: 320px;
     left: 50%;
     margin-left: -160px;
     min-height: 100px;
-    top: 20px;
+    top: calc(50vh - 70px);
     z-index: 10;
 }
 
 @media screen and (max-width:520px) {
-    .popup {
+    .popup-w {
         width: calc(100vw - 40px);
         left: 0%;
         margin-left: 20px;
+    }
+    
+}
+@media screen and (max-width:360px) {
+    .popup-confirm {
+        width: calc(100vw - 40px);
+        left: 0%;
+        margin-left: 20px;
+        min-height: 100px;
     }
 }
 
@@ -226,9 +238,12 @@ a.ctrl::before {
 }
 
 .popup-body {
-    padding: 8px 12px;
+    padding: 5px 12px;
     min-height: 25px;
     background-color: #ffffff;
+}
+.popup-body p{
+    line-height: 1.5;
 }
 
 .popup-footer {

@@ -8,8 +8,7 @@ if (!Element.prototype.closest) {
   Element.prototype.closest = function (s) {
     let el = this;
     do {
-      if (Element.prototype.matches.call(el, s)) 
-      {
+      if (Element.prototype.matches.call(el, s)) {
         return el;
       }
       el = el.parentElement || el.parentNode;
@@ -102,31 +101,39 @@ function _sls(s) {
   return document.querySelectorAll(s);
 }
 
-function saveSubData() {
-  return (
-    ajax.post(
-      "save-subscription.html",
-      {
-        action: "save-subscription",
-        ssid_name: _sl("#ssid_name").value,
-        ssid_password: _sl("#ssid_password").value,
-        ws_host: _sl("#ws_host").value,
-        ws_port: _sl("#ws_port").value,
-        ws_path: _sl("#ws_path").value,
-        ws_username: _sl("#ws_username").value,
-        ws_password: _sl("#ws_password").value,
-        ws_topic: _sl("#ws_topic").value,
-        enable: _sl("#enable").value,
-      },
-      function (e) {},
-      !0
-    ),
-    !1
+function saveWSData() {
+  customConfim(
+    ".popup-confirm",
+    "Are you sure you want to save the config?",
+    "User Confirmation",
+    "Yes",
+    "No",
+    function () {
+      ajax.post(
+        "save-ws.html",
+        {
+          action: "save-subscription",
+          ssid_name: _sl("#ssid_name").value,
+          ssid_password: _sl("#ssid_password").value,
+          ws_host: _sl("#ws_host").value,
+          ws_port: _sl("#ws_port").value,
+          ws_path: _sl("#ws_path").value,
+          ws_username: _sl("#ws_username").value,
+          ws_password: _sl("#ws_password").value,
+          ws_topic: _sl("#ws_topic").value,
+          enable: _sl("#enable").value,
+        },
+        function (e) {},
+        true
+      );
+    },
+    null
   );
+  return false;
 }
-function loadConfWS() {
+function loadConfigWS() {
   ajax.get(
-    "subscription-configuration.json",
+    "ws-configuration.json",
     {},
     function (e) {
       try {
@@ -143,10 +150,11 @@ function loadConfWS() {
         _sl("#ws_password").value = t.ws_password;
       } catch (e) {}
     },
-    !0
+    true
   );
 }
-function loadConfAP() {
+
+function loadConfigAP() {
   ajax.get(
     "ap-configuration.json",
     {},
@@ -161,27 +169,91 @@ function loadConfAP() {
         _sl("#hidden").value = t.hidden;
       } catch (e) {}
     },
-    !0
+    true
   );
 }
 function saveAPData() {
-  return (
-    ajax.post(
-      "save-ap.html",
-      {
-        action: "save-ap",
-        ssid_name: _sl("#ssid_name").value,
-        ssid_password: _sl("#ssid_password").value,
-        ip: _sl("#ip").value,
-        gateway: _sl("#gateway").value,
-        subnet: _sl("#subnet").value,
-        hidden: _sl("#hidden").value,
-      },
-      function (e) {},
-      true
-    ),
-    false
+  customConfim(
+    ".popup-confirm",
+    "Are you sure you want to save the config?",
+    "User Confirmation",
+    "Yes",
+    "No",
+    function () {
+      ajax.post(
+        "save-ap.html",
+        {
+          action: "save-ap",
+          ssid_name: _sl("#ssid_name").value,
+          ssid_password: _sl("#ssid_password").value,
+          ip: _sl("#ip").value,
+          gateway: _sl("#gateway").value,
+          subnet: _sl("#subnet").value,
+          hidden: _sl("#hidden").value,
+        },
+        function (e) {},
+        true
+      );
+    },
+    null
   );
+  return false;
+}
+function loadConfigGeneral() {
+  ajax.get(
+    "general-configuration.json",
+    {},
+    function (e) {
+      try {
+        let t = JSON.parse(e);
+        _sl("#channel").value = t.channel;
+        _sl("#read_interval").value = t.read_interval;
+        _sl("#solo_pad").value = t.solo_pad;
+        _sl("#solo_pad_number").value = t.solo_pad_number;
+      } catch (e) {}
+    },
+    !0
+  );
+}
+function loadDefaultGeneral() {
+  customConfim(
+    ".popup-confirm",
+    "Are you sure you want to load default config?",
+    "User Confirmation",
+    "Yes",
+    "No",
+    function () {
+      _sl("#channel").value = 10;
+        _sl("#read_interval").value = 1000;
+        _sl("#solo_pad").value = 0;
+        _sl("#solo_pad_number").value = 1;
+    },
+    null
+  );
+}
+function saveConfigGeneral() {
+  customConfim(
+    ".popup-confirm",
+    "Are you sure you want to save the config?",
+    "User Confirmation",
+    "Yes",
+    "No",
+    function () {
+      ajax.post(
+        "save-general.html",
+        {
+          channel: _sl("#channel").value,
+          read_interval: _sl("#read_interval").value,
+          solo_pad: _sl("#solo_pad").value,
+          solo_pad_number: _sl("#solo_pad_number").value
+        },
+        function (e) {},
+        true
+      );
+    },
+    null
+  );
+  return false;
 }
 function handleIP(e) {
   e = e.target;
@@ -225,30 +297,33 @@ ajax.create = function () {
 };
 
 ajax.send = function (url, cbSuccess, type, a, asynchronous) {
-  void 0 === asynchronous && (asynchronous = !0);
-  let r = ajax.create();
-  r.open(type, url, asynchronous);
-  r.onreadystatechange = function () {
-    if (4 == r.readyState) {
-      cbSuccess(r.responseText);
+  asynchronous = asynchronous || false;
+  let request = ajax.create();
+
+  request.open(type, url, asynchronous);
+  request.onreadystatechange = function () {
+    if (4 == request.readyState) {
+      cbSuccess(request.responseText);
     }
   };
-
   if ("POST" == type) {
-    r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    r.send(a);
+    request.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+    );
   }
+  request.send(a);
 };
 
 ajax.get = function (url, data, cbSuccess, asynchronous) {
-  let o,
-    r = [];
-  for (o in data)
-    if (data.hasOwnProperty(o)) {
-      r.push(encodeURIComponent(o) + "=" + encodeURIComponent(data[o]));
+  let i,
+    params = [];
+  for (i in data)
+    if (data.hasOwnProperty(i)) {
+      params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
     }
   ajax.send(
-    url + (r.length ? "?" + r.join("&") : ""),
+    url + (params.length ? "?" + params.join("&") : ""),
     cbSuccess,
     "GET",
     null,
@@ -257,30 +332,33 @@ ajax.get = function (url, data, cbSuccess, asynchronous) {
 };
 
 ajax.post = function (url, data, cbSuccess, asynchronous) {
-  let o,
-    r = [];
-  for (o in data) {
-    if (data.hasOwnProperty(o)) {
-      r.push(encodeURIComponent(o) + "=" + encodeURIComponent(data[o]));
+  let i,
+    params = [];
+  for (i in data) {
+    if (data.hasOwnProperty(i)) {
+      params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
     }
   }
-  ajax.send(url, cbSuccess, "POST", r.join("&"), asynchronous);
+  ajax.send(url, cbSuccess, "POST", params.join("&"), asynchronous);
 };
 window.onload = function () {
-  let e = window.location.toString();
-  if (-1 < e.indexOf("ap-configuration.html")) {
-    loadConfAP();
+  let url = window.location.toString();
+  if (-1 < url.indexOf("ap-configuration.html")) {
+    loadConfigAP();
   }
-  if (-1 < e.indexOf("subscription-configuration.html")) {
-    loadConfWS();
+  if (-1 < url.indexOf("subscription-configuration.html")) {
+    loadConfigWS();
   }
-  const t = _sls('input[type="ipaddress"]');
-  if (t.length)
-    for (let n = 0; n < t.length; n++) {
-      t[n].on("keyup", function (e) {
+  if (-1 < url.indexOf("general-configuration.html")) {
+    loadConfigGeneral();
+  }
+  const elem = _sls('input[type="ipaddress"]');
+  if (elem.length)
+    for (let i = 0; i < elem.length; i++) {
+      elem[i].on("keyup", function (e) {
         handleIP(e);
       });
-      t[n].on("change", function (e) {
+      elem[i].on("change", function (e) {
         handleIP(e);
       });
     }
