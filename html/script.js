@@ -1,10 +1,11 @@
 if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector || 
-                              Element.prototype.webkitMatchesSelector;
+  Element.prototype.matches =
+    Element.prototype.msMatchesSelector ||
+    Element.prototype.webkitMatchesSelector;
 }
 
 if (!Element.prototype.closest) {
-  Element.prototype.closest = function(s) {
+  Element.prototype.closest = function (s) {
     let el = this;
     do {
       if (Element.prototype.matches.call(el, s)) return el;
@@ -14,35 +15,33 @@ if (!Element.prototype.closest) {
   };
 }
 
-Element.prototype.popupShow = function() {
-    this.style.display = 'block';
-    this.closest('.popup-shadow').style.display = 'block';
-}
-Element.prototype.attr = function(n, v) {
-  if(typeof v != 'undefined')
-  {
+Element.prototype.popupShow = function () {
+  this.style.display = "block";
+  this.closest(".popup-shadow").style.display = "block";
+};
+Element.prototype.attr = function (n, v) {
+  if (typeof v != "undefined") {
     return this.setAttribute(n, v);
-  }
-  else
-  {
+  } else {
     return this.getAttribute(n);
   }
-}
+};
 
-Element.prototype.popupHide = function() {
-    this.style.display = 'none';
-    this.closest('.popup-shadow').style.display = 'none';
-}
+Element.prototype.popupHide = function () {
+  this.style.display = "none";
+  this.closest(".popup-shadow").style.display = "none";
+};
 
 let ajax = {};
 
-function _sl(s)
-{
-    return document.querySelector(s);
+function _ce(s) {
+  return document.createElement(s);
 }
-function _sls(s)
-{
-    return document.querySelectorAll(s);
+function _sl(s) {
+  return document.querySelector(s);
+}
+function _sls(s) {
+  return document.querySelectorAll(s);
 }
 
 function saveSubData() {
@@ -83,15 +82,16 @@ function loadSubData() {
     function (e) {
       try {
         let t = JSON.parse(e);
-        (_sl("#ssid_name").value = t.ssid_name),
-          (_sl("#ssid_password").value = t.ssid_password),
-          (_sl("#ws_host").value = t.ws_host),
-          (_sl("#ws_port").value = t.ws_port),
-          (_sl("#ws_path").value = t.ws_path),
-          (_sl("#ws_username").value = t.ws_username),
-          (_sl("#ws_password").value = t.ws_password),
-          (_sl("#ws_topic").value = t.ws_topic),
-          (_sl("#enable").value = t.enable);
+        _sl("#wifi_enable").value = t.wifi_enable;
+        _sl("#ssid_name").value = t.ssid_name;
+        _sl("#ssid_password").value = t.ssid_password;
+        _sl("#ws_enable").value = t.ws_enable;
+        _sl("#ws_scheme").value = t.ws_scheme;
+        _sl("#ws_host").value = t.ws_host;
+        _sl("#ws_port").value = t.ws_port;
+        _sl("#ws_path").value = t.ws_path;
+        _sl("#ws_username").value = t.ws_username;
+        _sl("#ws_password").value = t.ws_password;
       } catch (e) {}
     },
     !0
@@ -104,12 +104,12 @@ function loadAPData() {
     function (e) {
       try {
         let t = JSON.parse(e);
-        (_sl("#ssid_name").value = t.ssid_name),
-          (_sl("#ssid_password").value = t.ssid_password),
-          (_sl("#ip").value = t.ip),
-          (_sl("#gateway").value = t.gateway),
-          (_sl("#subnet").value = t.subnet),
-          (_sl("#hidden").value = t.hidden);
+        _sl("#ssid_name").value = t.ssid_name;
+        _sl("#ssid_password").value = t.ssid_password;
+        _sl("#ip").value = t.ip;
+        _sl("#gateway").value = t.gateway;
+        _sl("#subnet").value = t.subnet;
+        _sl("#hidden").value = t.hidden;
       } catch (e) {}
     },
     !0

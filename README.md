@@ -11,6 +11,8 @@ Keyboards can be used to trigger drum sounds, but are impractical for playing re
 
 In this project, we will make a drum pad MIDI controller with piezoelectric ceramic as a transducer. This transducer will convert the pressure received into electrical voltage. The electric voltage is converted by an analog to digital converter (ADC) into an integer. This number will be operated with logic and mathematical formulas to get the velocity value of the blows received by the drum pad. Velocity values between 0 and 127 according to MIDI standards. A drum pad consists of several pads, each pad will represent a certain instrument such as kick drum, snare drum, hat, tom, cymbals, and so on.
 
+![Flow](https://github.com/kamshory/ESP32DrumPad/blob/main/images/flow.drawio.svg)
+
 ## Features
 
 1. 15 instument pads (16 for ESP32 S3). We will only develop MIDI controller with 12 pads
@@ -54,15 +56,17 @@ User can configure instrument, threshold, and velocity to each pads via web appl
 
 **Screenshot**
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
+![SS01](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss02.png)
+![SS02](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss02.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss03.png)
+![SS03](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss03.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss04.png)
+![SS04](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss04.png)
 
-![SS1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss05.png)
+![SS05](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss05.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss06.png)
 
 ### Support USB
 
@@ -406,6 +410,57 @@ uint8_t calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 
 Duration in general is the time calculated from the `note on` signal to the next `note off` signal on the same channel and instrument or note. When it comes to drum pads, duration is very important because this will affect the speed at which the player plays the drums. The default value of the duration must be provided by the application.
 
-## Need Support
+# TFT Display
+
+Drum pads can be equipped with TFT displays that allow users to see the status of the drum pad. However, the display is not an important feature considering the limited resources of the ESP 32.
+
+Some modules that can be used for displays are as follows:
+
+| Module  | Com | Resolution | Color | Touch | SD Card |
+| ------- | --- | ---------- | ----- | ----- | ------- |
+| OLED    | IIC | 128 x 64   | White | No    | No      |
+| ST7735  | SPI | 128 x 160  | RGB   | No    | Yes     |
+| ili9341 | SPI | 240 x 320  | RGB   | Yes   | Yes     |
+
+
+## Wiring
+
+### OLED
+
+| OLED     | ESP32         |
+| -------- | ------------- |
+| VCC      | VIN 3.3V      |
+| GND      | GND           |
+| SCL      | SCL (GPIO 22) |
+| SDA      | SDA (GPIO 21) |
+
+### ST7735
+
+| ST7735   | ESP32          |
+| -------- | -------------- |
+| LED      | VIN 3.3V       |
+| SCK      | CLK (GPIO 18)  |
+| SDA      | MOSI (GPIO 23) |
+| A0       | GPIO 4         |
+| RESET    | RESET          |
+| CS       | CSO (GPIO 5)   |
+| GND      | GND            |
+| VCC      | VIN 3.3V       |
+
+### ili9341
+
+| ili9341  | ESP32          |
+| -------- | -------------- |
+| LED      | VIN 3.3V       |
+| SCK      | CLK (GPIO 18)  |
+| MOSI     | MOSI (GPIO 23) |
+| MISO     | MISO (GPIO 19) |
+| D/C      | GPIO 4         |
+| RESET    | VIN 3.3V       |
+| CS       | CSO (GPIO 5)   |
+| GND      | GND            |
+| VCC      | VIN 3.3V       |
+
+# Need Support
 
 Please support our YouTube channel by subsribe it at https://www.youtube.com/@MusicPlanetbiru

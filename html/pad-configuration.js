@@ -1,9 +1,9 @@
 window.onload = function () {
-    renderPad(defaultConfigData.row, defaultConfigData.pad, '#container');
+    renderPad(defaultData.row, defaultData.pad, '#container');
     let opt = _sl('#instrument');
-    for(let i in instrumentCode)
+    for(let i in instCd)
     {
-        opt.appendChild(new Option(instrumentCode[i][0]+' - '+instrumentCode[i][2], instrumentCode[i][0]));
+        opt.appendChild(new Option(instCd[i][0]+' - '+instCd[i][2], instCd[i][0]));
     }
     let btnhide = _sls('.pupup-hide');
     for(let i = 0; i<btnhide.length; i++) //NOSONAR
@@ -34,7 +34,7 @@ window.onload = function () {
     }, false);
     
 }
-let defaultConfigData = {
+let defaultData = {
     "row": [
         [9, 10, 11, 12],
         [5, 6, 7, 8],
@@ -63,12 +63,12 @@ function resetToDefault()
 {
     if(confirm('Are you sure you want to reset the config?'))
     {
-        for(let i in defaultConfigData.pad)
+        for(let i in defaultData.pad)
         {
-            if(defaultConfigData.pad.hasOwnProperty(i))
+            if(defaultData.pad.hasOwnProperty(i))
             {
                 let bt = _sl('#'+i);
-                let data = defaultConfigData.pad[i];
+                let data = defaultData.pad[i];
                 setData(bt, data);
             }
         }
@@ -79,11 +79,11 @@ function renderPad(padArr, config, selector) {
     for (let i = 0; i < padArr.length; i++) //NOSONAR
     {
         let row = padArr[i];
-        let rw = document.createElement('div');
+        let rw = _ce('div');
         rw.classList.add('row');
         for (let j = 0; j < row.length; j++) //NOSONAR
         {
-            let cl = document.createElement('div');
+            let cl = _ce('div');
             cl.classList.add('pad-wrapper');
             cl.attr('data-ch', row[j]);
             cl.appendChild(createButton(row[j], config));
@@ -97,7 +97,7 @@ function createButton(ch, config) {
     let id = 'f' + ch;
     let data = config[id] || [35, 100, 1000, 10000, 20000];
 
-    let bt = document.createElement('button');
+    let bt = _ce('button');
     bt.classList.add('btn');
     bt.classList.add('btn-100');
     bt.classList.add('pad');
@@ -111,7 +111,7 @@ function createButton(ch, config) {
 function setData(bt, data) {
     let isnt = data[0];
     bt.innerText = isnt;
-    bt.attr('title', instrumentCode['f' + isnt][2]);
+    bt.attr('title', instCd['f' + isnt][2]);
     bt.attr('data-code', isnt);
     bt.attr('data-threshold', data[1]);
     bt.attr('data-headroom', data[2]);
@@ -119,14 +119,14 @@ function setData(bt, data) {
 }
 
 function editor(id, config) {
-    let ed = document.createElement('div');
+    let ed = _ce('div');
     ed.classList.add('editor');
-    let a = document.createElement('a');
+    let a = _ce('a');
     a.classList.add('ctrl');
     a.attr('href', 'javascript:');
     a.attr('data-id', id);
     a.addEventListener('click', function (e) {
-        let data = getPadData(e);
+        let data = getData(e);
         let pop = _sl('#popup-pad-setting');
         _sl('#number').value = e.target.attr('data-id');
         _sl('#instrument').value = data['data-code'];
@@ -138,7 +138,7 @@ function editor(id, config) {
     ed.appendChild(a);
     return ed;
 }
-function getPadData(e)
+function getData(e)
 {
     let target = e.target.parentNode.parentNode.querySelector('.pad');
     return {
@@ -154,12 +154,12 @@ function getFormData(container) {
     let bld2 = [];
     for (let i = 0; i < arr.length; i++) //NOSONAR
     {
-
+        let p = arr[i];
         let bld = [];
-        bld.push(arr[i].attr('id') + '=' + arr[i].attr('data-code'));
-        bld.push(arr[i].attr('data-threshold'));
-        bld.push(arr[i].attr('data-headroom'));
-        bld.push(arr[i].attr('data-duration'));
+        bld.push(p.attr('id') + '=' + p.attr('data-code'));
+        bld.push(p.attr('data-threshold'));
+        bld.push(p.attr('data-headroom'));
+        bld.push(p.attr('data-duration'));        
         bld2.push(bld.join(','));
     }
     return bld2.join('&');
@@ -173,7 +173,7 @@ function savePadConfig() {
     }
 }
 
-let instrumentCode = {
+let instCd = {
     "f35": ["35", "B1", "Acoustic Bass Drum"],
     "f36": ["36", "C2", "Bass Drum 1"],
     "f37": ["37", "C#2", "Side Stick"],
