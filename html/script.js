@@ -85,7 +85,7 @@ function customConfim(
   let footer = confirmObject.find('.popup-footer');
   
   footer.appendChild(btnOk);
-  footer.appendChild (document.createTextNode (' '));
+  footer.appendChild(document.createTextNode(' '));
   footer.appendChild(btnCancel);
   
   confirmObject.popupShow();
@@ -234,7 +234,7 @@ function loadConfigGeneral() {
         _sl("#solo_pad_number").value = t.solo_pad_number;
       } catch (e) {}
     },
-    !0
+    true
   );
 }
 function loadDefaultGeneral() {
@@ -284,15 +284,15 @@ function handleIP(e) {
     : (e.classList.remove("invalid-ip"), e.classList.add("invalid-ip"));
 }
 function isValidIP(e) {
-  if (0 == e.length) return !0;
+  if (0 == e.length) return true;
   let t,
     n = e.split(".");
-  if (4 != n.length) return !1;
+  if (4 != n.length) return false;
   for (t in n) {
-    if (isNaN(parseInt(n[t]))) return !1;
-    if (n[t] < 0 || 255 < n[t]) return !1;
+    if (isNaN(parseInt(n[t]))) return false;
+    if (n[t] < 0 || 255 < n[t]) return false;
   }
-  return !0;
+  return true;
 }
 
 ajax.create = function () {
