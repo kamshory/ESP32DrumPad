@@ -2,11 +2,11 @@
     "wifi_enable": "1",
     "ssid_name": "PlanetDrum",
     "ssid_password": "PlanetDrum",
+    "ws_enable": "1",
     "ws_scheme": "wss",
     "ws_host": "planetbiru.com",
     "ws_port": 8082,
-    "ws_path": "/ws/apa?apa=apa",
+    "ws_path": "/path1/part2?param=value",
     "ws_username": "user",
-    "ws_password": "pass",
-    "ws_enable": "1"
+    "ws_password": "pass"
 }

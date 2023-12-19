@@ -51,11 +51,13 @@ h3 {
 .form-input input[type="ipaddress"]:focus,
 .form-input select:focus {
     outline: none;
-    transition:border 0.3s ease-in-out;
+    transition: border 0.3s ease-in-out;
 }
 
-.form-input input[type="text"]:focus-visible, .form-input input[type="number"]:focus-visible, .form-input input[type="password"]:focus-visible, .form-input select:focus-visible
-{
+.form-input input[type="text"]:focus-visible,
+.form-input input[type="number"]:focus-visible,
+.form-input input[type="password"]:focus-visible,
+.form-input select:focus-visible {
     outline: none;
     border: 1px solid #4d80ce;
 }
@@ -70,7 +72,8 @@ h3 {
     color: #333;
     margin: 8px 0
 }
-.btn-100{
+
+.btn-100 {
     width: 100%;
 }
 
@@ -107,22 +110,23 @@ h3 {
     flex: 50%;
     justify-content: space-between;
 }
-.pad-wrapper{
+
+.pad-wrapper {
     flex: 50%;
     justify-content: space-between;
     position: relative;
 }
-.pad
-{
+
+.pad {
     position: relative;
     height: 60px;
     font-size: 14px;
-    background-color: #ffb464;
-    border: 1px solid #df994e;
+    background-color: #64ffc5;
+    border: 1px solid #4ddba6;
     min-width: 20px;
 }
-.pad::before
-{
+
+.pad::before {
     content: attr(data-number);
     position: absolute;
     display: block;
@@ -131,9 +135,9 @@ h3 {
     font-size: 10px;
     white-space: nowrap;
 }
-.pad::after
-{
-    content: attr(title);
+
+.pad::after {
+    content: attr(data-title);
     position: absolute;
     display: block;
     width: calc(100% - 8px);
@@ -144,7 +148,8 @@ h3 {
     text-overflow: ellipsis;
     overflow-x: hidden;
 }
-.pad-wrapper .editor{
+
+.pad-wrapper .editor {
     display: block;
     width: 20px;
     height: 20px;
@@ -152,13 +157,15 @@ h3 {
     top: 10px;
     right: 0px;
 }
-a.ctrl{
+
+a.ctrl {
     display: block;
     width: 20px;
     height: 20px;
     color: #333;
 }
-a.ctrl::before{
+
+a.ctrl::before {
     content: '\270E';
     color: #333;
     display: block;
@@ -174,8 +181,8 @@ a.ctrl::before{
     top: 0;
     left: 0;
     position: absolute;
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4);
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
     color: #aaaaaa;
     display: none;
 }
@@ -192,6 +199,7 @@ a.ctrl::before{
     border: 1px solid rgb(124, 153, 193);
     display: none;
 }
+
 .popup-confirm {
     width: 320px;
     left: 50%;
@@ -203,44 +211,45 @@ a.ctrl::before{
 
 @media screen and (max-width:520px) {
     .popup {
-    width: calc(100vw - 40px);
-    left: 0%;
-    margin-left: 20px;
+        width: calc(100vw - 40px);
+        left: 0%;
+        margin-left: 20px;
     }
 }
-.popup-header{
-    padding:4px 12px;
-    min-height:25px;
-    line-height:25px;
-    background-color:#3464ac;
-    color:white;
+
+.popup-header {
+    padding: 4px 12px;
+    min-height: 25px;
+    line-height: 25px;
+    background-color: #3464ac;
+    color: white;
 }
-.popup-body
-{
-    padding:8px 12px;
-    min-height:25px;
+
+.popup-body {
+    padding: 8px 12px;
+    min-height: 25px;
     background-color: #ffffff;
 }
-.popup-footer
-{
-    padding:6px 12px;
-    min-height:25px;
+
+.popup-footer {
+    padding: 6px 12px;
+    min-height: 25px;
     background-color: #eeeeee;
     text-align: end;
 }
 
-.popup-footer .btn{
+.popup-footer .btn {
     margin: 4px 0;
 }
 
-.two-side-table{
+.two-side-table {
     width: 100%;
 }
-.two-side-table td
-{
+
+.two-side-table td {
     padding: 2px 0;
 }
-.two-side-table tr > td:nth-child(1)
-{
+
+.two-side-table tr>td:nth-child(1) {
     width: 30%;
 }

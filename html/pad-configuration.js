@@ -1,35 +1,29 @@
 window.onload = function () {
     renderPad(defaultData.row, defaultData.pad, '#container');
     let opt = _sl('#instrument');
+    let btnhide = _sls('.pupup-hide');
+    let btnPad = _sls('.pad');
     for(let i in instCd)
     {
-        opt.appendChild(new Option(instCd[i][0]+' - '+instCd[i][2]+' / '+instCd[i][1], instCd[i][0]));
+        opt.appendChild(new Option(instCd[i][0]+' - '+instCd[i][2]+' ('+instCd[i][1]+')', instCd[i][0]));
     }
-    let btnhide = _sls('.pupup-hide');
     for(let i = 0; i<btnhide.length; i++) //NOSONAR
     {
-        btnhide[i].addEventListener('click', function(e){
+        btnhide[i].on('click', function(e){
             e.target.closest('.popup').popupHide();
         });
     }
-    let btnPad = _sls('.pad');
     for(let i = 0; i<btnPad.length; i++) //NOSONAR
     {
-        btnPad[i].addEventListener('click', function(e){
+        btnPad[i].on('click', function(e){
             testDrum(e.target.attr('data-code'));
         });
     }
-    _sl('.test-drum').addEventListener('click', function(e){
-        testDrum(e.target.closest('.popup').querySelector('#instrument').value)
+    _sl('.test-drum').on('click', function(e){
+        testDrum(e.target.closest('.popup').find('#instrument').value)
     });
-    _sl('.update-data').addEventListener('click', function(e){
-        let number = _sl('#number').value;
-        let isntrument = _sl('#instrument').value;
-        let threshold = _sl('#threshold').value;
-        let headroom = _sl('#headroom').value;
-        let duration = _sl('#duration').value;
-        let bt = _sl('#f'+number);
-        setData(bt, [isntrument, threshold, headroom, duration]);
+    _sl('.update-data').on('click', function(e){
+        setData(_sl('#f'+_sl('#number').value), [_sl('#instrument').value, _sl('#threshold').value, _sl('#headroom').value, _sl('#duration').value]);
         _sl('#popup-pad-setting').popupHide();
     }, false);
     
@@ -67,9 +61,7 @@ function resetToDefault()
         {
             if(defaultData.pad.hasOwnProperty(i))
             {
-                let bt = _sl('#'+i);
-                let data = defaultData.pad[i];
-                setData(bt, data);
+                setData(_sl('#'+i), defaultData.pad[i]);
             }
         }
     }, null);
@@ -111,7 +103,7 @@ function createButton(ch, config) {
 function setData(bt, data) {
     let isnt = data[0];
     bt.innerText = isnt;
-    bt.attr('title', instCd['f' + isnt][2]);
+    bt.attr('data-title', instCd['f' + isnt][2]);
     bt.attr('data-code', isnt);
     bt.attr('data-note', instCd['f' + isnt][1]);
     bt.attr('data-threshold', data[1]);
@@ -126,7 +118,7 @@ function editor(id, config) {
     a.classList.add('ctrl');
     a.attr('href', 'javascript:');
     a.attr('data-id', id);
-    a.addEventListener('click', function (e) {
+    a.on('click', function (e) {
         let data = getData(e);
         let pop = _sl('#popup-pad-setting');
         _sl('#number').value = e.target.attr('data-id');
@@ -141,7 +133,7 @@ function editor(id, config) {
 }
 function getData(e)
 {
-    let target = e.target.parentNode.parentNode.querySelector('.pad');
+    let target = e.target.parentNode.parentNode.find('.pad');
     return {
         'data-code': target.attr('data-code'),
         'data-threshold': target.attr('data-threshold'),
@@ -151,7 +143,7 @@ function getData(e)
 }
 function getFormData(container) {
     let cntr = _sl(container);
-    let arr = cntr.querySelectorAll('button');
+    let arr = cntr.findAll('button');
     let bld2 = [];
     for (let i = 0; i < arr.length; i++) //NOSONAR
     {

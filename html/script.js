@@ -8,7 +8,10 @@ if (!Element.prototype.closest) {
   Element.prototype.closest = function (s) {
     let el = this;
     do {
-      if (Element.prototype.matches.call(el, s)) return el;
+      if (Element.prototype.matches.call(el, s)) 
+      {
+        return el;
+      }
       el = el.parentElement || el.parentNode;
     } while (el !== null && el.nodeType === 1);
     return null;
@@ -31,43 +34,61 @@ Element.prototype.popupHide = function () {
   this.style.display = "none";
   this.closest(".popup-shadow").style.display = "none";
 };
+Element.prototype.on = function (a, b, c) {
+  return this.addEventListener(a, b, c);
+};
+Element.prototype.off = function (a, b, c) {
+  return this.removeEventListener(a, b, c);
+};
+Element.prototype.find = function (a) {
+  return this.querySelector(a);
+};
+Element.prototype.findAll = function (a) {
+  return this.querySelectorAll(a);
+};
 
 let ajax = {};
 
-function customConfim(sl, message, title, tok, tcancel, cbok, cbcancel)
-{
-  message = message || 'Are you sure?';
-  title = title || 'Confirm';
-  tok = tok || 'OK';
-  tcancel = tcancel || 'Cancel';
-  let obj = _sl(sl);
-  obj.querySelector('.popup-header').innerText = title;
-  obj.querySelector('.popup-body .message').innerText = message;
-  obj.querySelector('.btn-ok').innerText = tok;
-  obj.querySelector('.btn-cancel').innerText = tcancel;
-  obj.popupShow();
-  cbok = cbok || function() {
-    obj.popupHide();
-  };
-  cbcancel = cbcancel || function() {
-    obj.popupHide();
-  };
-  try
-  {
-    obj.querySelector('.btn-ok').removeEventListener('click');
-    obj.querySelector('.btn-cancel').removeEventListener('click');
-  }
-  catch(ex)
-  {
-    
-  }
-  obj.querySelector('.btn-ok').addEventListener('click', function(){
-    cbok();
-    obj.popupHide();
+function customConfim(
+  selector,
+  message,
+  title,
+  btnTextOk,
+  btnTextCancel,
+  btnCallbackOk,
+  btnCallbackCancel
+) {
+  message = message || "Are you sure?";
+  title = title || "Confirm";
+  btnTextOk = btnTextOk || "OK";
+  btnTextCancel = btnTextCancel || "Cancel";
+  let confirmObject = _sl(selector);
+  confirmObject.find(".popup-header").innerText = title;
+  confirmObject.find(".popup-body .message").innerText = message;
+  confirmObject.find(".btn-ok").innerText = btnTextOk;
+  confirmObject.find(".btn-cancel").innerText = btnTextCancel;
+  confirmObject.popupShow();
+  btnCallbackOk =
+    btnCallbackOk ||
+    function () {
+      confirmObject.popupHide();
+    };
+  btnCallbackCancel =
+    btnCallbackCancel ||
+    function () {
+      confirmObject.popupHide();
+    };
+  try {
+    confirmObject.find(".btn-ok").off("click");
+    confirmObject.find(".btn-cancel").off("click");
+  } catch (ex) {}
+  confirmObject.find(".btn-ok").on("click", function () {
+    btnCallbackOk();
+    confirmObject.popupHide();
   });
-  obj.querySelector('.btn-cancel').addEventListener('click', function(){
-    cbcancel();
-    obj.popupHide();
+  confirmObject.find(".btn-cancel").on("click", function () {
+    btnCallbackCancel();
+    confirmObject.popupHide();
   });
 }
 
@@ -82,29 +103,20 @@ function _sls(s) {
 }
 
 function saveSubData() {
-  let e = _sl("#ssid_name").value,
-    t = _sl("#ssid_password").value,
-    n = _sl("#ws_host").value,
-    a = _sl("#ws_port").value,
-    o = _sl("#ws_path").value,
-    r = _sl("#ws_username").value,
-    u = _sl("#ws_password").value,
-    s = _sl("#ws_topic").value,
-    c = _sl("#enable").value;
   return (
     ajax.post(
       "save-subscription.html",
       {
         action: "save-subscription",
-        ssid_name: e,
-        ssid_password: t,
-        ws_host: n,
-        ws_port: a,
-        ws_path: o,
-        ws_username: r,
-        ws_password: u,
-        ws_topic: s,
-        enable: c,
+        ssid_name: _sl("#ssid_name").value,
+        ssid_password: _sl("#ssid_password").value,
+        ws_host: _sl("#ws_host").value,
+        ws_port: _sl("#ws_port").value,
+        ws_path: _sl("#ws_path").value,
+        ws_username: _sl("#ws_username").value,
+        ws_password: _sl("#ws_password").value,
+        ws_topic: _sl("#ws_topic").value,
+        enable: _sl("#enable").value,
       },
       function (e) {},
       !0
@@ -112,7 +124,7 @@ function saveSubData() {
     !1
   );
 }
-function loadSubData() {
+function loadConfWS() {
   ajax.get(
     "subscription-configuration.json",
     {},
@@ -134,7 +146,7 @@ function loadSubData() {
     !0
   );
 }
-function loadAPData() {
+function loadConfAP() {
   ajax.get(
     "ap-configuration.json",
     {},
@@ -153,28 +165,22 @@ function loadAPData() {
   );
 }
 function saveAPData() {
-  let e = _sl("#ssid_name").value,
-    t = _sl("#ssid_password").value,
-    n = _sl("#ip").value,
-    a = _sl("#gateway").value,
-    o = _sl("#subnet").value,
-    r = _sl("#hidden").value;
   return (
     ajax.post(
       "save-ap.html",
       {
         action: "save-ap",
-        ssid_name: e,
-        ssid_password: t,
-        ip: n,
-        gateway: a,
-        subnet: o,
-        hidden: r,
+        ssid_name: _sl("#ssid_name").value,
+        ssid_password: _sl("#ssid_password").value,
+        ip: _sl("#ip").value,
+        gateway: _sl("#gateway").value,
+        subnet: _sl("#subnet").value,
+        hidden: _sl("#hidden").value,
       },
       function (e) {},
-      !0
+      true
     ),
-    !1
+    false
   );
 }
 function handleIP(e) {
@@ -194,11 +200,12 @@ function isValidIP(e) {
   }
   return !0;
 }
-(ajax.create = function () {
+
+ajax.create = function () {
   if ("undefined" != typeof XMLHttpRequest) return new XMLHttpRequest();
   for (
-    let e,
-      t = [
+    let httpRequest,
+      obj = [
         "MSXML2.XmlHttp.6.0",
         "MSXML2.XmlHttp.5.0",
         "MSXML2.XmlHttp.4.0",
@@ -207,53 +214,74 @@ function isValidIP(e) {
         "Microsoft.XmlHttp",
       ],
       n = 0;
-    n < t.length;
+    n < obj.length;
     n++
   )
     try {
-      e = new ActiveXObject(t[n]);
+      httpRequest = new ActiveXObject(obj[n]);
       break;
-    } catch (e) {}
-  return e;
-}),
-  (ajax.send = function (e, t, n, a, o) {
-    void 0 === o && (o = !0);
-    let r = ajax.create();
-    r.open(n, e, o),
-      (r.onreadystatechange = function () {
-        4 == r.readyState && t(r.responseText);
-      }),
-      "POST" == n &&
-        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
-      r.send(a);
-  }),
-  (ajax.get = function (e, t, n, a) {
-    let o,
-      r = [];
-    for (o in t)
-      t.hasOwnProperty(o) &&
-        r.push(encodeURIComponent(o) + "=" + encodeURIComponent(t[o]));
-    ajax.send(e + (r.length ? "?" + r.join("&") : ""), n, "GET", null, a);
-  }),
-  (ajax.post = function (e, t, n, a) {
-    let o,
-      r = [];
-    for (o in t)
-      t.hasOwnProperty(o) &&
-        r.push(encodeURIComponent(o) + "=" + encodeURIComponent(t[o]));
-    ajax.send(e, n, "POST", r.join("&"), a);
-  }),
-  (window.onload = function () {
-    let e = window.location.toString();
-    -1 < e.indexOf("ap-configuration.html") && loadAPData(),
-      -1 < e.indexOf("subscription-configuration.html") && loadSubData();
-    const t = _sls('input[type="ipaddress"]');
-    if (t.length)
-      for (let n = 0; n < t.length; n++)
-        t[n].addEventListener("keyup", function (e) {
-          handleIP(e);
-        }),
-          t[n].addEventListener("change", function (e) {
-            handleIP(e);
-          });
-  });
+    } catch (ex) {}
+  return httpRequest;
+};
+
+ajax.send = function (url, cbSuccess, type, a, asynchronous) {
+  void 0 === asynchronous && (asynchronous = !0);
+  let r = ajax.create();
+  r.open(type, url, asynchronous);
+  r.onreadystatechange = function () {
+    if (4 == r.readyState) {
+      cbSuccess(r.responseText);
+    }
+  };
+
+  if ("POST" == type) {
+    r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    r.send(a);
+  }
+};
+
+ajax.get = function (url, data, cbSuccess, asynchronous) {
+  let o,
+    r = [];
+  for (o in data)
+    if (data.hasOwnProperty(o)) {
+      r.push(encodeURIComponent(o) + "=" + encodeURIComponent(data[o]));
+    }
+  ajax.send(
+    url + (r.length ? "?" + r.join("&") : ""),
+    cbSuccess,
+    "GET",
+    null,
+    asynchronous
+  );
+};
+
+ajax.post = function (url, data, cbSuccess, asynchronous) {
+  let o,
+    r = [];
+  for (o in data) {
+    if (data.hasOwnProperty(o)) {
+      r.push(encodeURIComponent(o) + "=" + encodeURIComponent(data[o]));
+    }
+  }
+  ajax.send(url, cbSuccess, "POST", r.join("&"), asynchronous);
+};
+window.onload = function () {
+  let e = window.location.toString();
+  if (-1 < e.indexOf("ap-configuration.html")) {
+    loadConfAP();
+  }
+  if (-1 < e.indexOf("subscription-configuration.html")) {
+    loadConfWS();
+  }
+  const t = _sls('input[type="ipaddress"]');
+  if (t.length)
+    for (let n = 0; n < t.length; n++) {
+      t[n].on("keyup", function (e) {
+        handleIP(e);
+      });
+      t[n].on("change", function (e) {
+        handleIP(e);
+      });
+    }
+};
