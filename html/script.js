@@ -240,7 +240,7 @@ function loadConfigGeneral() {
 function loadDefaultGeneral() {
   customConfim(
     ".popup-confirm",
-    "Are you sure you want to load default config?",
+    "Are you sure you want to reset the config?",
     "User Confirmation",
     "Yes",
     "No",
