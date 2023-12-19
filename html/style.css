@@ -8,7 +8,7 @@ body {
 }
 
 h3 {
-    margin: 4px 0
+    margin: 4px 0;
 }
 
 .all {
@@ -170,10 +170,11 @@ a.ctrl::before{
 .popup-shadow {
     z-index: 1001;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     top: 0;
     left: 0;
-    position: absolute;             
+    position: absolute;
+    overflow: auto; 
     background-color: rgba(0,0,0,0.4);
     color: #aaaaaa;
     display: none;
