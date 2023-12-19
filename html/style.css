@@ -192,6 +192,14 @@ a.ctrl::before{
     border: 1px solid rgb(124, 153, 193);
     display: none;
 }
+.popup-confirm {
+    width: 320px;
+    left: 50%;
+    margin-left: -160px;
+    min-height: 100px;
+    top: 20px;
+    z-index: 10;
+}
 
 @media screen and (max-width:520px) {
     .popup {

@@ -899,9 +899,15 @@ void listenChannel(int channel)
             uint8_t velocity = calcVelocity((uint16_t) average, threshold, (uint16_t) channelHeadRoom[channel])
             
             int instrumentCode = channelInstrument[channel];
+            
             MIDI.sendNoteOn(instrumentCode, velocity, midiChannel);
-            delay(delayTime);
+            delayMicroseconds(delayTime);
             MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
+            
+            if(readInterval > 0)
+            {
+                delayMicroseconds(readInterval);
+            }
         }   
     } 
     while(true);

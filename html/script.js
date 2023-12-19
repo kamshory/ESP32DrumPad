@@ -34,6 +34,43 @@ Element.prototype.popupHide = function () {
 
 let ajax = {};
 
+function customConfim(sl, message, title, tok, tcancel, cbok, cbcancel)
+{
+  message = message || 'Are you sure?';
+  title = title || 'Confirm';
+  tok = tok || 'OK';
+  tcancel = tcancel || 'Cancel';
+  let obj = _sl(sl);
+  obj.querySelector('.popup-header').innerText = title;
+  obj.querySelector('.popup-body .message').innerText = message;
+  obj.querySelector('.btn-ok').innerText = tok;
+  obj.querySelector('.btn-cancel').innerText = tcancel;
+  obj.popupShow();
+  cbok = cbok || function() {
+    obj.popupHide();
+  };
+  cbcancel = cbcancel || function() {
+    obj.popupHide();
+  };
+  try
+  {
+    obj.querySelector('.btn-ok').removeEventListener('click');
+    obj.querySelector('.btn-cancel').removeEventListener('click');
+  }
+  catch(ex)
+  {
+    
+  }
+  obj.querySelector('.btn-ok').addEventListener('click', function(){
+    cbok();
+    obj.popupHide();
+  });
+  obj.querySelector('.btn-cancel').addEventListener('click', function(){
+    cbcancel();
+    obj.popupHide();
+  });
+}
+
 function _ce(s) {
   return document.createElement(s);
 }

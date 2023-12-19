@@ -24,9 +24,9 @@
             <div class="form-item">
                 <div class="row">
                     <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"
-                            onclick="return savePadConfig();"></div>
+                            onclick="savePadConfig(); return false;"></div>
                     <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
-                            value="Default" onclick="return resetToDefault();"></div>
+                            value="Default" onclick="resetToDefault(); return false;"></div>
                     <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
@@ -61,7 +61,7 @@
                                 <td><input type="number" name="headroom" id="headroom"></td>
                             </tr>
                             <tr>
-                                <td>Duration</td>
+                                <td>Duration (&micro;s)</td>
                                 <td><input type="number" name="duration" id="duration"></td>
                             </tr>
                         </tbody>
@@ -73,6 +73,21 @@
                 <button type="button" class="btn btn-primary test-drum">Test</button>
                 <button type="button" class="btn btn-success update-data">OK</button>
                 <button type="button" class="btn btn-warning pupup-hide">Canel</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="popup-shadow">
+        <div class="popup popup-confirm">
+            <div class="popup-header">
+                Title
+            </div>
+            <div class="popup-body">
+                <p class="message"></p>
+            </div>
+            <div class="popup-footer">
+                <button type="button" class="btn btn-success btn-ok">OK</button>
+                <button type="button" class="btn btn-warning btn-cancel">Canel</button>
             </div>
         </div>
     </div>

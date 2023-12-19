@@ -3,7 +3,7 @@ window.onload = function () {
     let opt = _sl('#instrument');
     for(let i in instCd)
     {
-        opt.appendChild(new Option(instCd[i][0]+' - '+instCd[i][2], instCd[i][0]));
+        opt.appendChild(new Option(instCd[i][0]+' - '+instCd[i][2]+' / '+instCd[i][1], instCd[i][0]));
     }
     let btnhide = _sls('.pupup-hide');
     for(let i = 0; i<btnhide.length; i++) //NOSONAR
@@ -61,7 +61,7 @@ function testDrum(code)
 }
 function resetToDefault()
 {
-    if(confirm('Are you sure you want to reset the config?'))
+    customConfim('.popup-confirm', 'Are you sure you want to reset the config?', 'User Confirmation', 'OK', 'Cancel', function()
     {
         for(let i in defaultData.pad)
         {
@@ -72,7 +72,7 @@ function resetToDefault()
                 setData(bt, data);
             }
         }
-    }
+    }, null);
 }
 function renderPad(padArr, config, selector) {
     let sel = _sl(selector);
@@ -113,6 +113,7 @@ function setData(bt, data) {
     bt.innerText = isnt;
     bt.attr('title', instCd['f' + isnt][2]);
     bt.attr('data-code', isnt);
+    bt.attr('data-note', instCd['f' + isnt][1]);
     bt.attr('data-threshold', data[1]);
     bt.attr('data-headroom', data[2]);
     bt.attr('data-duration', data[3]);
@@ -166,11 +167,11 @@ function getFormData(container) {
 }
 
 function savePadConfig() {
-    if(confirm('Are you sure you want to save the config?'))
+    customConfim('.popup-confirm', 'Are you sure you want to save the config?', 'User Confirmation', 'OK', 'Cancel', function()
     {
-        let fomData = getFormData('#container');
-        console.log(fomData);
-    }
+        let formData = getFormData('#container');
+        console.log(formData);
+    }, null);
 }
 
 let instCd = {
