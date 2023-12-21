@@ -68,6 +68,8 @@ HTML, CSS and JavaScript code must be written in such a way that it can be compr
 
 ![SS05](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss05.png)
 
+The arrangement of the pads on the configuration page depends on the arrangement set by the developer before the program is deployed into the ESP32. This arrangement is fixed and cannot be changed by the user. Users can only change the instrument, threshold, headroom and duration on each pad.
+
 ![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss06.png)
 
 ![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss07.png)
