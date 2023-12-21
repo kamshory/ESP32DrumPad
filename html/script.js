@@ -138,19 +138,19 @@ function saveConfigWS() {
       ajax.post(
         "save-ws.html",
         {
-          action: "save-subscription",
+          action: "save-ws",
           wifi_enable: _nm("wifi_enable").value,
           ssid_name: _nm("ssid_name").value,
           ssid_password: _nm("ssid_password").value,
+          ws_enable: _nm("ws_enable").value,
           ws_host: _nm("ws_host").value,
           ws_port: _nm("ws_port").value,
           ws_path: _nm("ws_path").value,
           ws_username: _nm("ws_username").value,
-          ws_password: _nm("ws_password").value,
-          ws_topic: _nm("ws_topic").value,
-          ws_enable: _nm("ws_enable").value
+          ws_password: _nm("ws_password").value
         },
         function (response, status, statusText) {
+          console.log(statusText)
         },
         true
       );
@@ -287,19 +287,19 @@ function saveConfigGeneral() {
   return false;
 }
 function handleIP(e) {
-  e = e.target;
-  isValidIP(e.value)
-    ? e.classList.remove("invalid-ip")
-    : (e.classList.remove("invalid-ip"), e.classList.add("invalid-ip"));
+  let el = e.target;
+  isValidIP(el.value)
+    ? el.classList.remove("invalid-ip")
+    : (el.classList.remove("invalid-ip"), el.classList.add("invalid-ip"));
 }
 function initIP() {
-  let elem = _sls('input[type="ipaddress"]');
-  if (elem != null && elem.length)
-    for (let i = 0; i < elem.length; i++) {
-      elem[i].on("keyup", function (e) {
+  let el = _sls('input[type="ipaddress"]');
+  if (el != null && el.length)
+    for (let i = 0; i < el.length; i++) {
+      el[i].on("keyup", function (e) {
         handleIP(e);
       });
-      elem[i].on("change", function (e) {
+      el[i].on("change", function (e) {
         handleIP(e);
       });
     }
@@ -345,7 +345,7 @@ ajax.send = function (url, cbSuccess, type, data, asynchronous) {
 
   request.open(type, url, asynchronous);
   request.onreadystatechange = function () {
-    if (4 == request.readyState) {
+    if (4 == request.readyState && cbSuccess != null && typeof cbSuccess == 'function') {
       let len = cbSuccess.length;
       if(len == 1)
       {

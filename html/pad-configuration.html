@@ -14,19 +14,18 @@
 
 <body>
     <div class="all">
-        <form action="" method="post">
+        <form action="save-pad.html" method="post" onsubmit="saveConfigPad();return false;">
             <div class="form-item">
-                <div id="container">
+                <div id="pad-container">
 
                 </div>
             </div>
 
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" value="Save"
-                            onclick="saveConfigPad();return false;"></div>
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" value="Save"></div>
                     <div class="column"><input class="btn btn-100 btn-primary" type="button" value="Default" onclick="resetToDefault();return false;"></div>
-                    <div class="column"><input class="btn btn-100 btn-danger" type="button"value="Home"
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
             </div>
@@ -79,7 +78,7 @@
     <div class="popup-shadow">
         <div class="popup popup-confirm">
             <div class="popup-header">
-                Title
+                Confirm
             </div>
             <div class="popup-body">
                 <p class="message"></p>

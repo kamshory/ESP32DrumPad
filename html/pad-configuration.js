@@ -1,5 +1,46 @@
+let defDt = {
+  "row": [
+      [9, 10, 11, 12],
+      [5, 6, 7, 8],
+      [1, 2, 3, 4]
+  ],
+  "pad": {
+      "f1": [35, 100, 1000, 10000],
+      "f2": [36, 100, 1000, 10000],
+      "f3": [37, 100, 1000, 10000],
+      "f4": [38, 100, 1000, 10000],
+      "f5": [39, 100, 1000, 10000],
+      "f6": [40, 100, 1000, 10000],
+      "f7": [41, 100, 1000, 10000],
+      "f8": [42, 100, 1000, 10000],
+      "f9": [43, 100, 1000, 10000],
+      "f10": [44, 100, 1000, 10000],
+      "f11": [45, 100, 1000, 10000],
+      "f12": [46, 100, 1000, 10000]
+  }
+};
+
 window.onload = function () {
-  renderPad(defaultData.row, defaultData.pad, "#container");
+  // use default first
+  renderPad(defDt.row, defDt.pad, "#pad-container");
+  
+  // use saved
+  ajax.get('pad-configuration.json', {}, function(response, status, statusText){
+    try
+    {
+    let loadedDt = JSON.parse(response);
+    // remove first
+    _sl("#pad-container").innerHTML = "";
+    // render
+    renderPad(loadedDt.row, loadedDt.pad, "#pad-container");
+    }
+    catch(e){
+      console.log(e);
+      console.log(response);
+    }
+  }, false);
+
+  
   let opt = _nm("instrument");
   let btnhide = _sls(".pupup-hide");
   let btnPad = _sls(".pad");
@@ -46,29 +87,10 @@ window.onload = function () {
     false
   );
 };
-let defaultData = {
-  row: [
-    [9, 10, 11, 12],
-    [5, 6, 7, 8],
-    [1, 2, 3, 4],
-  ],
-  pad: {
-    f1: [35, 100, 1000, 10000, 20000],
-    f2: [36, 100, 1000, 10000, 20000],
-    f3: [37, 100, 1000, 10000, 20000],
-    f4: [38, 100, 1000, 10000, 20000],
-    f5: [39, 100, 1000, 10000, 20000],
-    f6: [40, 100, 1000, 10000, 20000],
-    f7: [41, 100, 1000, 10000, 20000],
-    f8: [42, 100, 1000, 10000, 20000],
-    f9: [43, 100, 1000, 10000, 20000],
-    f10: [44, 100, 1000, 10000, 20000],
-    f11: [45, 100, 1000, 10000, 20000],
-    f12: [46, 100, 1000, 10000, 20000],
-  },
-};
-function testDrum(code) {
-  console.log("send note", code);
+
+function testDrum(note) {
+  ajax.get('hit-pad.html', {note:note}, function(response, status, statusText){
+  }, true);
 }
 function resetToDefault() {
   customConfim(
@@ -78,9 +100,9 @@ function resetToDefault() {
     "Yes",
     "No",
     function () {
-      for (let i in defaultData.pad) {
-        if (defaultData.pad.hasOwnProperty(i)) {
-          setData(_sl("#" + i), defaultData.pad[i]);
+      for (let i in defDt.pad) {
+        if (defDt.pad.hasOwnProperty(i)) {
+          setData(_sl("#" + i), defDt.pad[i]);
         }
       }
     },
@@ -88,7 +110,6 @@ function resetToDefault() {
   );
 }
 function renderPad(padArr, config, selector) {
-  let sel = _sl(selector);
   for (
     let i = 0;
     i < padArr.length;
@@ -109,12 +130,12 @@ function renderPad(padArr, config, selector) {
       cl.appendChild(editor(row[j], config));
       rw.appendChild(cl);
     }
-    sel.appendChild(rw);
+    _sl(selector).appendChild(rw);
   }
 }
 function createButton(ch, config) {
   let id = "f" + ch;
-  let data = config[id] || [35, 100, 1000, 10000, 20000];
+  let data = config[id] || [35, 100, 1000, 10000];
 
   let bt = _ce("button");
   bt.classList.add("btn");
@@ -171,9 +192,8 @@ function getData(e) {
     "data-dr": target.attr("data-dr"),
   };
 }
-function getBtnData(container) {
-  let cntr = _sl(container);
-  let arr = cntr.findAll("button");
+function getBtnData(selector) {
+  let arr = _sl(selector).findAll("button");
   let bld2 = [];
   for (
     let i = 0;
@@ -200,8 +220,7 @@ function saveConfigPad() {
     "Yes",
     "No",
     function () {
-      let formData = getBtnData("#container");
-      ajax.post('save-pad.html', formData, function(response, status, statusText){
+      ajax.post('save-pad.html', getBtnData("#pad-container"), function(response, status, statusText){
       }, true);
     },
     null

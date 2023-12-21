@@ -54,6 +54,8 @@ Web server is used to configure MIDI controller.
 
 User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller point.
 
+HTML, CSS and JavaScript code must be written in such a way that it can be compressed into the smallest possible size. One byte of resource on the ESP32 means so much that inefficient code becomes a very big problem, even fatal. Images, whether JPEG, GIF or PNG, are not permitted at all because they will take up so many resources unnecessarily.
+
 **Screenshot**
 
 ![SS01](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
