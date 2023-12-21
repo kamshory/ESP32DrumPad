@@ -1,6 +1,6 @@
 window.onload = function () {
   renderPad(defaultData.row, defaultData.pad, "#container");
-  let opt = _sl("#instrument");
+  let opt = _nm("instrument");
   let btnhide = _sls(".pupup-hide");
   let btnPad = _sls(".pad");
   for (let i in instCd) {
@@ -26,22 +26,22 @@ window.onload = function () {
     i++ //NOSONAR
   ) {
     btnPad[i].on("click", function (e) {
-      testDrum(e.target.attr("data-code"));
+      testDrum(e.target.attr("data-cd"));
     });
   }
   _sl(".test-drum").on("click", function (e) {
-    testDrum(e.target.closest(".popup").find("#instrument").value);
+    testDrum(e.target.closest(".popup").find('[name="instrument"]').value);
   });
   _sl(".update-data").on(
     "click",
     function (e) {
-      setData(_sl("#f" + _sl("#number").value), [
-        _sl("#instrument").value,
-        _sl("#threshold").value,
-        _sl("#headroom").value,
-        _sl("#duration").value,
+      setData(_sl("#f" + _nm("number").value), [
+        _nm("instrument").value,
+        _nm("threshold").value,
+        _nm("headroom").value,
+        _nm("duration").value,
       ]);
-      _sl("#popup-pad-setting").popupHide();
+      _sl("#pad-conf").popupHide();
     },
     false
   );
@@ -72,9 +72,9 @@ function testDrum(code) {
 }
 function resetToDefault() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to reset the config?",
-    "User Confirmation",
+    pSel,
+    rMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
@@ -130,12 +130,12 @@ function createButton(ch, config) {
 function setData(bt, data) {
   let isnt = data[0];
   bt.innerText = isnt;
-  bt.attr("data-title", instCd["f" + isnt][2]);
-  bt.attr("data-code", isnt);
-  bt.attr("data-note", instCd["f" + isnt][1]);
-  bt.attr("data-threshold", data[1]);
-  bt.attr("data-headroom", data[2]);
-  bt.attr("data-duration", data[3]);
+  bt.attr("data-tt", instCd["f" + isnt][2]);
+  bt.attr("data-cd", isnt);
+  bt.attr("data-nt", instCd["f" + isnt][1]);
+  bt.attr("data-th", data[1]);
+  bt.attr("data-hr", data[2]);
+  bt.attr("data-dr", data[3]);
 }
 
 function editor(id, config) {
@@ -149,12 +149,12 @@ function editor(id, config) {
     "click",
     function (e) {
       let data = getData(e);
-      let pop = _sl("#popup-pad-setting");
-      _sl("#number").value = e.target.attr("data-id");
-      _sl("#instrument").value = data["data-code"];
-      _sl("#threshold").value = data["data-threshold"];
-      _sl("#headroom").value = data["data-headroom"];
-      _sl("#duration").value = data["data-duration"];
+      let pop = _sl("#pad-conf");
+      _nm("number").value = e.target.attr("data-id");
+      _nm("instrument").value = data["data-cd"];
+      _nm("threshold").value = data["data-th"];
+      _nm("headroom").value = data["data-hr"];
+      _nm("duration").value = data["data-dr"];
       pop.popupShow();
     },
     false
@@ -165,13 +165,13 @@ function editor(id, config) {
 function getData(e) {
   let target = e.target.parentNode.parentNode.find(".pad");
   return {
-    "data-code": target.attr("data-code"),
-    "data-threshold": target.attr("data-threshold"),
-    "data-headroom": target.attr("data-headroom"),
-    "data-duration": target.attr("data-duration"),
+    "data-cd": target.attr("data-cd"),
+    "data-th": target.attr("data-th"),
+    "data-hr": target.attr("data-hr"),
+    "data-dr": target.attr("data-dr"),
   };
 }
-function getFormData(container) {
+function getBtnData(container) {
   let cntr = _sl(container);
   let arr = cntr.findAll("button");
   let bld2 = [];
@@ -182,26 +182,27 @@ function getFormData(container) {
   ) {
     let p = arr[i];
     let bld = [
-      p.attr("id") + "=" + p.attr("data-code"),
-      p.attr("data-threshold"),
-      p.attr("data-headroom"),
-      p.attr("data-duration"),
+      p.attr("id") + "=" + p.attr("data-cd"),
+      p.attr("data-th"),
+      p.attr("data-hr"),
+      p.attr("data-dr"),
     ];
     bld2.push(bld.join(","));
   }
   return bld2.join("&");
 }
 
-function savePadConfig() {
+function saveConfigPad() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to save the config?",
-    "User Confirmation",
+    pSel,
+    cMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
-      let formData = getFormData("#container");
-      console.log(formData);
+      let formData = getBtnData("#container");
+      ajax.post('save-pad.html', formData, function(response, status, statusText){
+      }, true);
     },
     null
   );

@@ -13,32 +13,32 @@
 
 <body>
     <div class="all">
-        <form action="" method="post" onsubmit="return saveConfigGeneral()">
+        <form action="save-general.html" method="post" onsubmit="return saveConfigGeneral()">
             <div class="form-item">
                 <div class="form-label">MIDI Channel</div>
-                <div class="form-input"> <input type="number" min="1" max="16" name="channel" id="channel" value="10" required> </div>
+                <div class="form-input"> <input type="number" min="1" max="16" name="channel" value="10" required> </div>
             </div>
             <div class="form-item">
                 <div class="form-label">Read Interval (&micro;s)</div>
-                <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" id="read_interval" value="1000" required> </div>
+                <div class="form-input"> <input type="number" min="0" max="65535" name="read_interval" value="1000" required> </div>
             </div>
             <div class="form-item">
                 <div class="form-label">Solo Pad</div>
-                <div class="form-input"><select name="solo_pad" id="solo_pad">
+                <div class="form-input"><select name="solo_pad">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select></div>
             </div>
             <div class="form-item">
                 <div class="form-label">Solo Pad Number</div>
-                <div class="form-input"> <input type="number" min="1" max="16" name="solo_pad_number" id="solo_pad_number"> </div>
+                <div class="form-input"> <input type="number" min="1" max="16" name="solo_pad_number"> </div>
             </div>
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"></div>
-                    <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" value="Save"></div>
+                    <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default"
                         value="Default" onclick="return loadDefaultGeneral();"></div>        
-                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
             </div>
@@ -58,6 +58,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            loadConfigGeneral();
+        };
+    </script>
 </body>
 
 </html>

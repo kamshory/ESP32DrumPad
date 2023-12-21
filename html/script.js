@@ -3,7 +3,6 @@ if (!Element.prototype.matches) {
     Element.prototype.msMatchesSelector ||
     Element.prototype.webkitMatchesSelector;
 }
-
 if (!Element.prototype.closest) {
   Element.prototype.closest = function (s) {
     let el = this;
@@ -16,14 +15,12 @@ if (!Element.prototype.closest) {
     return null;
   };
 }
-
 if (!Element.prototype.remove) {
   Element.prototype.remove = function (s) {
     let el = this;
     el.parentNode.removeChild(el);
   };
 }
-
 Element.prototype.popupShow = function () {
   this.style.display = "block";
   this.closest(".popup-shadow").style.display = "block";
@@ -35,7 +32,6 @@ Element.prototype.attr = function (n, v) {
     return this.getAttribute(n);
   }
 };
-
 Element.prototype.popupHide = function () {
   this.style.display = "none";
   this.closest(".popup-shadow").style.display = "none";
@@ -52,8 +48,24 @@ Element.prototype.find = function (a) {
 Element.prototype.findAll = function (a) {
   return this.querySelectorAll(a);
 };
+function _ce(s) {
+  return document.createElement(s);
+}
+function _nm(s) {
+  return document.getElementsByName(s)[0];
+}
+function _sl(s) {
+  return document.querySelector(s);
+}
+function _sls(s) {
+  return document.querySelectorAll(s);
+}
 
 let ajax = {};
+let cMsg = "Are you sure you want to save the config?";
+let rMsg = "Are you sure you want to reset the config?";
+let pSel = ".popup-confirm";
+let pTtl = "User Confirmation";
 
 function customConfim(
   selector,
@@ -71,23 +83,24 @@ function customConfim(
   let confirmObject = _sl(selector);
   confirmObject.find(".popup-header").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
-  
+
   confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
-  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
-  
-  let btnOk = _ce('button');
-  btnOk.attr('class', 'btn btn-success btn-ok');
+  confirmObject.find(".btn-cancel") &&
+  confirmObject.find(".btn-cancel").remove();
+
+  let btnOk = _ce("button");
+  btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
   btnOk.innerText = btnTextOk;
-  
-  let btnCancel = _ce('button');
-  btnCancel.attr('class', 'btn btn-warning btn-cancel');
-  btnCancel.innerText = btnTextCancel;  
-  let footer = confirmObject.find('.popup-footer');
-  
+
+  let btnCancel = _ce("button");
+  btnCancel.attr("class", "btn btn-warning btn-cancel");
+  btnCancel.innerText = btnTextCancel;
+  let footer = confirmObject.find(".popup-footer");
+
   footer.appendChild(btnOk);
-  footer.appendChild(document.createTextNode(' '));
+  footer.appendChild(document.createTextNode(" "));
   footer.appendChild(btnCancel);
-  
+
   confirmObject.popupShow();
   btnCallbackOk =
     btnCallbackOk ||
@@ -113,21 +126,12 @@ function customConfim(
   });
 }
 
-function _ce(s) {
-  return document.createElement(s);
-}
-function _sl(s) {
-  return document.querySelector(s);
-}
-function _sls(s) {
-  return document.querySelectorAll(s);
-}
 
-function saveWSData() {
+function saveConfigWS() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to save the config?",
-    "User Confirmation",
+    pSel,
+    cMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
@@ -135,17 +139,19 @@ function saveWSData() {
         "save-ws.html",
         {
           action: "save-subscription",
-          ssid_name: _sl("#ssid_name").value,
-          ssid_password: _sl("#ssid_password").value,
-          ws_host: _sl("#ws_host").value,
-          ws_port: _sl("#ws_port").value,
-          ws_path: _sl("#ws_path").value,
-          ws_username: _sl("#ws_username").value,
-          ws_password: _sl("#ws_password").value,
-          ws_topic: _sl("#ws_topic").value,
-          enable: _sl("#enable").value,
+          wifi_enable: _nm("wifi_enable").value,
+          ssid_name: _nm("ssid_name").value,
+          ssid_password: _nm("ssid_password").value,
+          ws_host: _nm("ws_host").value,
+          ws_port: _nm("ws_port").value,
+          ws_path: _nm("ws_path").value,
+          ws_username: _nm("ws_username").value,
+          ws_password: _nm("ws_password").value,
+          ws_topic: _nm("ws_topic").value,
+          ws_enable: _nm("ws_enable").value
         },
-        function (e) {},
+        function (response, status, statusText) {
+        },
         true
       );
     },
@@ -157,19 +163,19 @@ function loadConfigWS() {
   ajax.get(
     "ws-configuration.json",
     {},
-    function (e) {
+    function (response, status, statusText) {
       try {
-        let t = JSON.parse(e);
-        _sl("#wifi_enable").value = t.wifi_enable;
-        _sl("#ssid_name").value = t.ssid_name;
-        _sl("#ssid_password").value = t.ssid_password;
-        _sl("#ws_enable").value = t.ws_enable;
-        _sl("#ws_scheme").value = t.ws_scheme;
-        _sl("#ws_host").value = t.ws_host;
-        _sl("#ws_port").value = t.ws_port;
-        _sl("#ws_path").value = t.ws_path;
-        _sl("#ws_username").value = t.ws_username;
-        _sl("#ws_password").value = t.ws_password;
+        let t = JSON.parse(response);
+        _nm("wifi_enable").value = t.wifi_enable;
+        _nm("ssid_name").value = t.ssid_name;
+        _nm("ssid_password").value = t.ssid_password;
+        _nm("ws_enable").value = t.ws_enable;
+        _nm("ws_scheme").value = t.ws_scheme;
+        _nm("ws_host").value = t.ws_host;
+        _nm("ws_port").value = t.ws_port;
+        _nm("ws_path").value = t.ws_path;
+        _nm("ws_username").value = t.ws_username;
+        _nm("ws_password").value = t.ws_password;
       } catch (e) {}
     },
     true
@@ -180,25 +186,25 @@ function loadConfigAP() {
   ajax.get(
     "ap-configuration.json",
     {},
-    function (e) {
+    function (response, status, statusText) {
       try {
-        let t = JSON.parse(e);
-        _sl("#ssid_name").value = t.ssid_name;
-        _sl("#ssid_password").value = t.ssid_password;
-        _sl("#ip").value = t.ip;
-        _sl("#gateway").value = t.gateway;
-        _sl("#subnet").value = t.subnet;
-        _sl("#hidden").value = t.hidden;
+        let t = JSON.parse(response);
+        _nm("ssid_name").value = t.ssid_name;
+        _nm("ssid_password").value = t.ssid_password;
+        _nm("ip").value = t.ip;
+        _nm("gateway").value = t.gateway;
+        _nm("subnet").value = t.subnet;
+        _nm("hidden").value = t.hidden;
       } catch (e) {}
     },
     true
   );
 }
-function saveAPData() {
+function saveConfigAP() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to save the config?",
-    "User Confirmation",
+    pSel,
+    cMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
@@ -206,14 +212,16 @@ function saveAPData() {
         "save-ap.html",
         {
           action: "save-ap",
-          ssid_name: _sl("#ssid_name").value,
-          ssid_password: _sl("#ssid_password").value,
-          ip: _sl("#ip").value,
-          gateway: _sl("#gateway").value,
-          subnet: _sl("#subnet").value,
-          hidden: _sl("#hidden").value,
+          ssid_name: _nm("ssid_name").value,
+          ssid_password: _nm("ssid_password").value,
+          ip: _nm("ip").value,
+          gateway: _nm("gateway").value,
+          subnet: _nm("subnet").value,
+          hidden: _nm("hidden").value,
         },
-        function (e) {},
+        function (response, status, statusText) {
+          
+        },
         true
       );
     },
@@ -225,13 +233,13 @@ function loadConfigGeneral() {
   ajax.get(
     "general-configuration.json",
     {},
-    function (e) {
+    function (response, status, statusText) {
       try {
-        let t = JSON.parse(e);
-        _sl("#channel").value = t.channel;
-        _sl("#read_interval").value = t.read_interval;
-        _sl("#solo_pad").value = t.solo_pad;
-        _sl("#solo_pad_number").value = t.solo_pad_number;
+        let t = JSON.parse(response);
+        _nm("channel").value = t.channel;
+        _nm("read_interval").value = t.read_interval;
+        _nm("solo_pad").value = t.solo_pad;
+        _nm("solo_pad_number").value = t.solo_pad_number;
       } catch (e) {}
     },
     true
@@ -239,37 +247,38 @@ function loadConfigGeneral() {
 }
 function loadDefaultGeneral() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to reset the config?",
-    "User Confirmation",
+    pSel,
+    rMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
-      _sl("#channel").value = 10;
-        _sl("#read_interval").value = 1000;
-        _sl("#solo_pad").value = 0;
-        _sl("#solo_pad_number").value = 1;
+      _nm("channel").value = 10;
+      _nm("read_interval").value = 1000;
+      _nm("solo_pad").value = 0;
+      _nm("solo_pad_number").value = 1;
     },
     null
   );
 }
 function saveConfigGeneral() {
   customConfim(
-    ".popup-confirm",
-    "Are you sure you want to save the config?",
-    "User Confirmation",
+    pSel,
+    cMsg,
+    pTtl,
     "Yes",
     "No",
     function () {
       ajax.post(
         "save-general.html",
         {
-          channel: _sl("#channel").value,
-          read_interval: _sl("#read_interval").value,
-          solo_pad: _sl("#solo_pad").value,
-          solo_pad_number: _sl("#solo_pad_number").value
+          channel: _nm("channel").value,
+          read_interval: _nm("read_interval").value,
+          solo_pad: _nm("solo_pad").value,
+          solo_pad_number: _nm("solo_pad_number").value,
         },
-        function (e) {},
+        function (response, status, statusText) {
+        },
         true
       );
     },
@@ -282,6 +291,18 @@ function handleIP(e) {
   isValidIP(e.value)
     ? e.classList.remove("invalid-ip")
     : (e.classList.remove("invalid-ip"), e.classList.add("invalid-ip"));
+}
+function initIP() {
+  let elem = _sls('input[type="ipaddress"]');
+  if (elem != null && elem.length)
+    for (let i = 0; i < elem.length; i++) {
+      elem[i].on("keyup", function (e) {
+        handleIP(e);
+      });
+      elem[i].on("change", function (e) {
+        handleIP(e);
+      });
+    }
 }
 function isValidIP(e) {
   if (0 == e.length) return true;
@@ -318,14 +339,26 @@ ajax.create = function () {
   return httpRequest;
 };
 
-ajax.send = function (url, cbSuccess, type, a, asynchronous) {
+ajax.send = function (url, cbSuccess, type, data, asynchronous) {
   asynchronous = asynchronous || false;
   let request = ajax.create();
 
   request.open(type, url, asynchronous);
   request.onreadystatechange = function () {
     if (4 == request.readyState) {
-      cbSuccess(request.responseText);
+      let len = cbSuccess.length;
+      if(len == 1)
+      {
+        cbSuccess(request.responseText);
+      }
+      else if(len == 2)
+      {
+        cbSuccess(request.responseText, request.status);
+      }
+      else if(len == 3)
+      {
+        cbSuccess(request.responseText, request.status, request.statusText);
+      }
     }
   };
   if ("POST" == type) {
@@ -334,7 +367,7 @@ ajax.send = function (url, cbSuccess, type, a, asynchronous) {
       "application/x-www-form-urlencoded"
     );
   }
-  request.send(a);
+  request.send(data);
 };
 
 ajax.get = function (url, data, cbSuccess, asynchronous) {
@@ -362,26 +395,4 @@ ajax.post = function (url, data, cbSuccess, asynchronous) {
     }
   }
   ajax.send(url, cbSuccess, "POST", params.join("&"), asynchronous);
-};
-window.onload = function () {
-  let url = window.location.toString();
-  if (-1 < url.indexOf("ap-configuration.html")) {
-    loadConfigAP();
-  }
-  if (-1 < url.indexOf("subscription-configuration.html")) {
-    loadConfigWS();
-  }
-  if (-1 < url.indexOf("general-configuration.html")) {
-    loadConfigGeneral();
-  }
-  const elem = _sls('input[type="ipaddress"]');
-  if (elem.length)
-    for (let i = 0; i < elem.length; i++) {
-      elem[i].on("keyup", function (e) {
-        handleIP(e);
-      });
-      elem[i].on("change", function (e) {
-        handleIP(e);
-      });
-    }
 };

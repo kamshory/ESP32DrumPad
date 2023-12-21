@@ -23,11 +23,10 @@
 
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save" value="Save"
-                            onclick="savePadConfig(); return false;"></div>
-                    <div class="column"><input class="btn btn-100 btn-primary" type="button" name="default" id="default"
-                            value="Default" onclick="resetToDefault(); return false;"></div>
-                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home" value="Home"
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" value="Save"
+                            onclick="saveConfigPad();return false;"></div>
+                    <div class="column"><input class="btn btn-100 btn-primary" type="button" value="Default" onclick="resetToDefault();return false;"></div>
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button"value="Home"
                             onclick="window.location='index.html';"></div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
     
     
     <div class="popup-shadow">
-        <div class="popup popup-w" id="popup-pad-setting">
+        <div class="popup popup-w" id="pad-conf">
             <div class="popup-header">
                 Pad Setting
             </div>
@@ -46,23 +45,23 @@
                         <tbody>
                             <tr>
                                 <td>Pad Number</td>
-                                <td><input type="number" name="number" id="number" readonly></td>
+                                <td><input type="number" name="number" readonly></td>
                             </tr>
                             <tr>
                                 <td>Instrument</td>
-                                <td><select name="instrument" id="instrument"></select></td>
+                                <td><select name="instrument"></select></td>
                             </tr>
                             <tr>
                                 <td>Threshold</td>
-                                <td><input type="number" name="threshold" id="threshold"></td>
+                                <td><input type="number" name="threshold"></td>
                             </tr>
                             <tr>
                                 <td>Headroom</td>
-                                <td><input type="number" name="headroom" id="headroom"></td>
+                                <td><input type="number" name="headroom"></td>
                             </tr>
                             <tr>
                                 <td>Duration (&micro;s)</td>
-                                <td><input type="number" name="duration" id="duration"></td>
+                                <td><input type="number" name="duration"></td>
                             </tr>
                         </tbody>
                     </table>

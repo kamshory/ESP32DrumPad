@@ -13,61 +13,61 @@
 
 <body>
     <div class="all">
-        <form action="" method="post" onsubmit="return saveWSData()">
+        <form action="" method="post" onsubmit="return saveConfigWS()">
             <div class="form-item">
                 <div class="form-label">Connect to Wifi</div>
-                <div class="form-input"><select name="wifi_enable" id="wifi_enable">
+                <div class="form-input"><select name="wifi_enable">
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select></div>
             </div>
             <div class="form-item">
                 <div class="form-label">Wifi SSID</div>
-                <div class="form-input"><input type="text" name="ssid_name" id="ssid_name"></div>
+                <div class="form-input"><input type="text" name="ssid_name"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">Wifi Password</div>
-                <div class="form-input"><input type="password" name="ssid_password" id="ssid_password"></div>
+                <div class="form-input"><input type="password" name="ssid_password"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">Connect to WebSocket</div>
-                <div class="form-input"><select name="ws_enable" id="ws_enable">
+                <div class="form-input"><select name="ws_enable">
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Scheme</div>
-                <div class="form-input"><select name="ws_scheme" id="ws_scheme">
+                <div class="form-input"><select name="ws_scheme">
                         <option value="ws">ws</option>
                         <option value="wss">wss</option>
                     </select></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Host</div>
-                <div class="form-input"><input type="text" name="ws_host" id="ws_host"></div>
+                <div class="form-input"><input type="text" name="ws_host"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Port</div>
-                <div class="form-input"><input type="text" name="ws_port" id="ws_port"></div>
+                <div class="form-input"><input type="text" name="ws_port"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Path</div>
-                <div class="form-input"><input type="text" name="ws_path" id="ws_path"></div>
+                <div class="form-input"><input type="text" name="ws_path"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Username</div>
-                <div class="form-input"><input type="text" name="ws_username" id="ws_username"></div>
+                <div class="form-input"><input type="text" name="ws_username"></div>
             </div>
             <div class="form-item">
                 <div class="form-label">WebSocket Password</div>
-                <div class="form-input"><input type="password" name="ws_password" id="ws_password"></div>
+                <div class="form-input"><input type="password" name="ws_password"></div>
             </div>
             <div class="form-item">
                 <div class="row">
-                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save" id="save"
+                    <div class="column"><input class="btn btn-100 btn-success" type="submit" name="save"
                             value="Save"></div>
-                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save" id="home"
+                    <div class="column"><input class="btn btn-100 btn-danger" type="button" name="save"
                             value="Home" onclick="window.location='index.html';"></div>
                 </div>
             </div>
@@ -87,6 +87,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            loadConfigWS();
+        };
+    </script>
 </body>
 
 </html>
