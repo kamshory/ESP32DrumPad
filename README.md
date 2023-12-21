@@ -70,6 +70,18 @@ HTML, CSS and JavaScript code must be written in such a way that it can be compr
 
 ![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss06.png)
 
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss07.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss08.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss09.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss10.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss11.png)
+
+![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss12.png)
+
 ### Support USB
 
 ESP32 can send MIDI signal over USB and it recognized as MIDI controller.
