@@ -56,6 +56,8 @@ User can configure instrument, threshold, and velocity to each pads via web appl
 
 HTML, CSS and JavaScript code must be written in such a way that it can be compressed into the smallest possible size. One byte of resource on the ESP32 means so much that inefficient code becomes a very big problem, even fatal. Images, whether JPEG, GIF or PNG, are not permitted at all because they will take up so many resources unnecessarily.
 
+The favicon format is SVG so it is easier to create compared to raster formats such as JPEG, PNG, ICO, or GIF. Better image quality with smaller file size.
+
 **Screenshot**
 
 ![SS01](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
