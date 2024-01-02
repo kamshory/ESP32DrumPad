@@ -278,9 +278,9 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | ---------------------- | ------ | ------ | ---------- | ----------------------------------- |
 | offsetAPSSID           | 0      | 30     | String     | SSID AP                             |
 | offsetAPSSIDPassword   | 30     | 30     | String     | Password AP                         |
-| offsetAPIP             | 60     | 4      | IP Address | IP Address AP                       |
-| offsetAPGateway        | 64     | 4      | IP Address | Gateway AP                          |
-| offsetAPSubnet         | 68     | 4      | IP Address | Subnet AP                           |
+| offsetAPIP             | 60     | 4      | IPAddress  | IP Address AP                       |
+| offsetAPGateway        | 64     | 4      | IPAddress  | Gateway AP                          |
+| offsetAPSubnet         | 68     | 4      | IPAddress  | Subnet AP                           |
 | offsetAPHidden         | 72     | 1      | Byte       | Hidden AP                           |
 | offsetWifiEnable       | 73     | 1      | Byte       | Enable Wifi                         |
 | offsetWifiSSID         | 74     | 30     | String     | SSID Wifi                           |
@@ -315,6 +315,7 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetCh14             | 450    | 10     | String     | Channel 14                          |
 | offsetCh15             | 460    | 10     | String     | Channel 15                          |
 | offsetCh16             | 470    | 10     | String     | Channel 16                          |
+| offsetTestVelocity     | 480    | 1      | Byte       | Channel 16                          |
 
 So far we do not need additional storage media.
 
