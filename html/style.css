@@ -126,6 +126,10 @@ h3 {
     min-width: 20px;
 }
 
+.pad:active{
+    background-image: radial-gradient(#98ffd9, #64ffc5);
+}
+
 .pad::before {
     content: attr(data-number);
     position: absolute;
