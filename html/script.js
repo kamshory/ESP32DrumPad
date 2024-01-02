@@ -62,8 +62,8 @@ function _sls(s) {
 }
 
 let ajax = {};
-let cMsg = "Are you sure you want to save the config?";
-let rMsg = "Are you sure you want to reset the config?";
+let cMsg = "Are you sure you want to save the configuration?";
+let rMsg = "Are you sure you want to reset the configuration?";
 let pSel = ".popup-confirm";
 let pTtl = "User Confirmation";
 

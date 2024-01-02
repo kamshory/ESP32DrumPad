@@ -230,7 +230,7 @@ a.ctrl::before {
     left: 50%;
     margin-left: -160px;
     min-height: 100px;
-    top: calc(50vh - 70px);
+    top: calc(50vh - 88px);
     z-index: 10;
 }
 
