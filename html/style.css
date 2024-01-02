@@ -70,15 +70,12 @@ h3 {
     border: 1px solid #bdbcbc;
     background-color: #c7c6c6;
     color: #333;
-    margin: 8px 0
+    margin: 8px 0;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 .btn-100 {
     width: 100%;
-}
-
-.btn {
-    transition: background-color ease-in-out 0.3s;
 }
 
 .btn-success {
