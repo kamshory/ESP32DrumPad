@@ -76,8 +76,9 @@ h3 {
 .btn-100 {
     width: 100%;
 }
-.btn{
-    transition: background-color ease-in-out 0.3s;    
+
+.btn {
+    transition: background-color ease-in-out 0.3s;
 }
 
 .btn-success {
@@ -85,7 +86,8 @@ h3 {
     border: 1px solid #46992d;
     background-color: #419129;
 }
-.btn-success:hover{
+
+.btn-success:hover {
     background-color: #3e8827
 }
 
@@ -94,7 +96,8 @@ h3 {
     border: 1px solid #2c5a9e;
     background-color: #3464ac
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: #2c5a9e
 }
 
@@ -103,6 +106,7 @@ h3 {
     border: 1px solid #f8bb05;
     background-color: #ffc107
 }
+
 .btn-warning:hover {
     background-color: #f8bb05
 }
@@ -112,6 +116,7 @@ h3 {
     border: 1px solid #dc3545;
     background-color: #dc3545
 }
+
 .btn-danger:hover {
     background-color: #d63343
 }
@@ -141,7 +146,7 @@ h3 {
     min-width: 20px;
 }
 
-.pad:active{
+.pad:active {
     background-image: radial-gradient(#98ffd9, #64ffc5);
 }
 
@@ -238,8 +243,9 @@ a.ctrl::before {
         left: 0%;
         margin-left: 20px;
     }
-    
+
 }
+
 @media screen and (max-width:360px) {
     .popup-confirm {
         width: calc(100vw - 40px);
@@ -262,7 +268,8 @@ a.ctrl::before {
     min-height: 25px;
     background-color: #ffffff;
 }
-.popup-body p{
+
+.popup-body p {
     line-height: 1.5;
 }
 
