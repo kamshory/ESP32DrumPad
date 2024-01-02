@@ -86,7 +86,7 @@ function customConfim(
 
   confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
   confirmObject.find(".btn-cancel") &&
-  confirmObject.find(".btn-cancel").remove();
+    confirmObject.find(".btn-cancel").remove();
 
   let btnOk = _ce("button");
   btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
@@ -126,7 +126,6 @@ function customConfim(
   });
 }
 
-
 function saveConfigWS() {
   customConfim(
     pSel,
@@ -147,10 +146,10 @@ function saveConfigWS() {
           ws_port: _nm("ws_port").value,
           ws_path: _nm("ws_path").value,
           ws_username: _nm("ws_username").value,
-          ws_password: _nm("ws_password").value
+          ws_password: _nm("ws_password").value,
         },
         function (response, status, statusText) {
-          console.log(statusText)
+          console.log(statusText);
         },
         true
       );
@@ -219,9 +218,7 @@ function saveConfigAP() {
           subnet: _nm("subnet").value,
           hidden: _nm("hidden").value,
         },
-        function (response, status, statusText) {
-          
-        },
+        function (response, status, statusText) {},
         true
       );
     },
@@ -277,8 +274,7 @@ function saveConfigGeneral() {
           solo_pad: _nm("solo_pad").value,
           solo_pad_number: _nm("solo_pad_number").value,
         },
-        function (response, status, statusText) {
-        },
+        function (response, status, statusText) {},
         true
       );
     },
@@ -340,23 +336,24 @@ ajax.create = function () {
 };
 
 ajax.send = function (url, cbSuccess, type, data, asynchronous) {
-  asynchronous = asynchronous || false;
+  if (typeof asynchronous == "undefined") {
+    asynchronous = true;
+  }
   let request = ajax.create();
 
   request.open(type, url, asynchronous);
   request.onreadystatechange = function () {
-    if (4 == request.readyState && cbSuccess != null && typeof cbSuccess == 'function') {
+    if (
+      4 == request.readyState &&
+      cbSuccess != null &&
+      typeof cbSuccess == "function"
+    ) {
       let len = cbSuccess.length;
-      if(len == 1)
-      {
+      if (len == 1) {
         cbSuccess(request.responseText);
-      }
-      else if(len == 2)
-      {
+      } else if (len == 2) {
         cbSuccess(request.responseText, request.status);
-      }
-      else if(len == 3)
-      {
+      } else if (len == 3) {
         cbSuccess(request.responseText, request.status, request.statusText);
       }
     }
@@ -371,12 +368,14 @@ ajax.send = function (url, cbSuccess, type, data, asynchronous) {
 };
 
 ajax.get = function (url, data, cbSuccess, asynchronous) {
-  let i,
-    params = [];
-  for (i in data)
-    if (data.hasOwnProperty(i)) {
-      params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
-    }
+  let i;
+  let params = [];
+  if (typeof data != "undefined") {
+    for (i in data)
+      if (data.hasOwnProperty(i)) {
+        params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
+      }
+  }
   ajax.send(
     url + (params.length ? "?" + params.join("&") : ""),
     cbSuccess,
@@ -387,11 +386,13 @@ ajax.get = function (url, data, cbSuccess, asynchronous) {
 };
 
 ajax.post = function (url, data, cbSuccess, asynchronous) {
-  let i,
-    params = [];
-  for (i in data) {
-    if (data.hasOwnProperty(i)) {
-      params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
+  let i;
+  let params = [];
+  if (typeof data != "undefined") {
+    for (i in data) {
+      if (data.hasOwnProperty(i)) {
+        params.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
+      }
     }
   }
   ajax.send(url, cbSuccess, "POST", params.join("&"), asynchronous);

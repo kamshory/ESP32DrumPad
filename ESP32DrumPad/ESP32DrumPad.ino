@@ -6,119 +6,116 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
-int onboardLED             = 2;
-char *ssid                 = "PlanetbiruMusic";
-char *password             = "PlanetbiruMusic";
-char *ssid2                = "PlanetbiruMusic";
-char *password2            = "PlanetbiruMusic";
+int onboardLED = 2;
+char *ssid = "PlanetbiruMusic";
+char *password = "PlanetbiruMusic";
+char *ssid2 = "PlanetbiruMusic";
+char *password2 = "PlanetbiruMusic";
 
-int sizeofString50         = 50;
-int sizeofString20         = 20;
-int sizeofInteger15        = 15;
-int sizeofInteger10        = 10;
-int sizeofBoolean          = 1;
+int sizeofString50 = 50;
+int sizeofString20 = 20;
+int sizeofInteger15 = 15;
+int sizeofInteger10 = 10;
+int sizeofBoolean = 1;
 
+int offsetAPSSID = 0;             //	30	String	SSID AP
+int offsetAPSSIDPassword = 30;    //	30	String	Password AP
+int offsetAPIP = 60;              //	4	IPAddress	IP Address AP
+int offsetAPGateway = 64;         //	4	IPAddress	Gateway AP
+int offsetAPSubnet = 68;          //	4	IPAddress	Subnet AP
+int offsetAPHidden = 72;          //	1	Byte	Hidden AP
+int offsetWifiEnable = 73;        //	1	Byte	Enable Wifi
+int offsetWifiSSID = 74;          //	30	String	SSID Wifi
+int offsetWifiSSIDPassword = 104; //	30	String	Password Wifi
+int offsetWSEnable 134;           //	1	Byte	Enable WS
+int offsetWSScheme = 135;         //	5	String	Scheme WS
+int offsetWSHost = 140;           //	40	String	Host WS
+int offsetWSPort = 180;           //	2	Word	Port WS
+int offsetWSPath = 182;           //	50	String	Path WS
+int offsetWSUsername = 232;       //	20	String	Username WS
+int offsetWSPassword = 252;       //	20	String	Password WS
+int offsetConfigured = 272;       //	1	Byte	Flag that controller was configured
+int offsetSolo = 273;             //	1	Byte	Flag solo channel
+int offsetSoloChannel = 274;      //	1	Byte	Solo channel number
+int offsetMCUser = 275;           //	20	String	MIDI Controller username
+int offsetMCPassword = 295;       //	20	String	MIDI Controller password
+int midiChannel = 315;            //	1	Byte	MIDI channel
+int readInterval = 316;           //	4	DWord	Read analog interval
+int offsetCh1 = 320;              //	10	String	Channel 1
+int offsetCh2 = 330;              //	10	String	Channel 2
+int offsetCh3 = 340;              //	10	String	Channel 3
+int offsetCh4 = 350;              //	10	String	Channel 4
+int offsetCh5 = 360;              //	10	String	Channel 5
+int offsetCh6 = 370;              //	10	String	Channel 6
+int offsetCh7 = 380;              //	10	String	Channel 7
+int offsetCh8 = 390;              //	10	String	Channel 8
+int offsetCh9 = 400;              //	10	String	Channel 9
+int offsetCh10 = 410;             //	10	String	Channel 10
+int offsetCh11 = 420;             //	10	String	Channel 11
+int offsetCh12 = 430;             //	10	String	Channel 12
+int offsetCh13 = 440;             //	10	String	Channel 13
+int offsetCh14 = 450;             //	10	String	Channel 14
+int offsetCh15 = 460;             //	10	String	Channel 15
+int offsetCh16 = 470;             //	10	String	Channel 16
+int offsetTestVelocity = 480;     //	1	byte	Test velocity
 
-int	offsetAPSSID	=	0	; //	30	String	SSID AP
-int	offsetAPSSIDPassword	=	30	; //	30	String	Password AP
-int	offsetAPIP	=	60	; //	4	IP Address	IP Address AP
-int	offsetAPGateway	=	64	; //	4	IP Address	Gateway AP
-int	offsetAPSubnet	=	68	; //	4	IP Address	Subnet AP
-int	offsetAPHidden	=	72	; //	1	Byte	Hidden AP
-int	offsetWifiEnable	=	73	;//	1	Byte	Enable Wifi
-int	offsetWifiSSID	=	74	; //	30	String	SSID Wifi
-int	offsetWifiSSIDPassword	=	104	; //	30	String	Password Wifi
-int	offsetWSEnable		134	; //	1	Byte	Enable WS
-int	offsetWSScheme	=	135	; //	5	String	Scheme WS
-int	offsetWSHost	=	140	; //	40	String	Host WS
-int	offsetWSPort	=	180	; //	2	Word	Port WS
-int	offsetWSPath	=	182	; //	50	String	Path WS
-int	offsetWSUsername	=	232	; //	20	String	Username WS
-int	offsetWSPassword	=	252	; //	20	String	Password WS
-int	offsetConfigured	=	272	; //	1	Byte	Flag that controller was configured
-int	offsetSolo	=	273	; //	1	Byte	Flag solo channel
-int	offsetSoloChannel	=	274	; //	1	Byte	Solo channel number
-int	offsetMCUser	=	275	; //	20	String	MIDI Controller username
-int	offsetMCPassword	=	295	; //	20	String	MIDI Controller password
-int	midiChannel	=	315	; //	1	Byte	MIDI channel
-int	readInterval	=	316	; //	4	DWord	Read analog interval
-int	offsetCh1	=	320	; //	10	String	Channel 1
-int	offsetCh2	=	330	; //	10	String	Channel 2
-int	offsetCh3	=	340	; //	10	String	Channel 3
-int	offsetCh4	=	350	; //	10	String	Channel 4
-int	offsetCh5	=	360	; //	10	String	Channel 5
-int	offsetCh6	=	370	; //	10	String	Channel 6
-int	offsetCh7	=	380	; //	10	String	Channel 7
-int	offsetCh8	=	390	; //	10	String	Channel 8
-int	offsetCh9	=	400	; //	10	String	Channel 9
-int	offsetCh10	=	410	; //	10	String	Channel 10
-int	offsetCh11	=	420	; //	10	String	Channel 11
-int	offsetCh12	=	430	; //	10	String	Channel 12
-int	offsetCh13	=	440	; //	10	String	Channel 13
-int	offsetCh14	=	450	; //	10	String	Channel 14
-int	offsetCh15	=	460	; //	10	String	Channel 15
-int	offsetCh16	=	470	; //	10	String	Channel 16
-
-
-
-
-
-
-
-int memOffset              = offsetCh1;
-int memSize                = 10;
+int memOffset = offsetCh1;
+int memSize = 10;
 
 int solo = 0;
 int soloChannel == 0;
 
+String savedWSPath = "";
+String savedWSUsername = "";
+String savedWSPassword = "";
+String savedWSTopic = "";
+String savedWSHost = "";
+String savedWSPort = "";
+String savedEnable = "";
 
-String savedWSPath         = "";
-String savedWSUsername     = "";
-String savedWSPassword     = "";
-String savedWSTopic        = "";
-String savedWSHost         = "";
-String savedWSPort         = "";
-String savedEnable         = "";
-
-String sysEnable           = "0"; 
-boolean connected          = false;
-boolean lastState          = false;
-long lastDisconnected      = millis();
+String sysEnable = "0";
+boolean connected = false;
+boolean lastState = false;
+long lastDisconnected = millis();
 long reconnectWiFiTreshold = 10000;
 
-const char * gTopic        = "";
-const char * gMessage      = "";
-String ssidUsed            = "";
+const char *gTopic = "";
+const char *gMessage = "";
+String ssidUsed = "";
 
 // ESP32 has only 12 pin ADC but we will only develop MIDI controller with 12 pads
 int maxCh = 12;
 
 // we need maxCh + 1 because channel begin with 1
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-byte channelInstrument[]     = {0, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-uint16_t channelHeadRoom[]   = {0,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000,  1000};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16
+byte channelInstrument[] = {0, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16
+uint16_t channelHeadRoom[] = {0, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000};
 
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15  
-uint16_t channelThreshold[]  = {0,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100,  100};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15
+uint16_t channelThreshold[] = {0, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-int channelPin[]             = {0, 36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13,  4,  2, 15, 0};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16
+int channelPin[] = {0, 36, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13, 4, 2, 15, 0};
 
-//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16  
-int channelDelay[]           = {0,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5};
+//                                  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16
+int channelDelay[] = {0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
+
+int solo = 0;
+int soloChannel = 0;
+int testVelocity = 0;
 
 
 class ChannelConfig
 {
     /* data */
-    public:
+public:
     byte configured;
     byte instrumentCode;
     uint16_t threshold;
     uint16_t scale;
-    uint32_t duration; 
-    
+    uint32_t duration;
+
     ChannelConfig()
     {
         instrumentCode = 0;
@@ -126,7 +123,7 @@ class ChannelConfig
         scale = 1;
         duration = 1;
     }
-    
+
     ChannelConfig(byte c, byte i, uint16_t t, uint16_t s, uint32_t d)
     {
         configured = c;
@@ -135,42 +132,40 @@ class ChannelConfig
         scale = s;
         duration = d;
     }
-    
+
     ChannelConfig(int channel)
     {
         int offset = getChannelOffset(channel);
         byte c = readByte(offset);
         byte i = readByte(offset + 1);
-        uint16_t t = readWord(offset + 2); 
+        uint16_t t = readWord(offset + 2);
         uint16_t s = readWord(offset + 4);
         uint32_t d = readDoubleWord(offset + 6);
-        
+
         configured = c;
         instrumentCode = i;
         threshold = t;
         scale = s;
         duration = d;
     }
-    
+
     void readChannelConfig(int channel)
     {
         int offset = getChannelOffset(channel);
         byte configured2 = readByte(offset);
         byte instrumentCode2 = readByte(offset + 1);
-        uint16_t threshold2 = readWord(offset + 2); 
+        uint16_t threshold2 = readWord(offset + 2);
         uint16_t scale2 = readWord(offset + 4);
         uint32_t duration2 = readDoubleWord(offset + 6);
-        
+
         // add code here
         return channelConfig(configured2, instrumentCode2, threshold2, scale2, duration2);
     }
-
 };
 
-
-IPAddress apLocalID(192,168,4,1);
-IPAddress apGateway(192,168,4,2);
-IPAddress apSubnet(255,255,255,0);
+IPAddress apLocalID(192, 168, 4, 1);
+IPAddress apGateway(192, 168, 4, 2);
+IPAddress apSubnet(255, 255, 255, 0);
 WebServer server(80);
 WebSocketsClient webSocket;
 
@@ -180,20 +175,20 @@ void Task2(void *pvParameters);
 int calcVelocity(uint16_t inp, uint16_t thd, uint16_t headRoom)
 {
     uint16_t inp2 = inp >= thd ? inp - thd : 0;
-    float outp2 = 127 * (float) inp2 / (float)(headRoom - thd);
-    if(outp2 > 127)
+    float outp2 = 127 * (float)inp2 / (float)(headRoom - thd);
+    if (outp2 > 127)
     {
         outp2 = 127;
-    } 
-    return (uint16_t) round(outp2);
+    }
+    return (uint16_t)round(outp2);
 }
 
 void loadMidiConfig()
 {
-    for(int channel = 1; channel <= maxCh; channel++)
+    for (int channel = 1; channel <= maxCh; channel++)
     {
         ChannelConfig cc(channel);
-        if(cc.configured)
+        if (cc.configured)
         {
             channelInstrument[channel] = cc.instrumentCode;
             channelThreshold[channel] = cc.threshold;
@@ -203,32 +198,32 @@ void loadMidiConfig()
     }
 }
 
-
 String urlDecode(String str)
 {
     String encodedString = "";
     char c;
     char code0;
     char code1;
-    for (int i =0; i < str.length(); i++)
+    for (int i = 0; i < str.length(); i++)
     {
-        c=str.charAt(i);
+        c = str.charAt(i);
         if (c == '+')
         {
-            encodedString+=' ';  
+            encodedString += ' ';
         }
-        else if (c == '%') 
+        else if (c == '%')
         {
             i++;
-            code0=str.charAt(i);
+            code0 = str.charAt(i);
             i++;
-            code1=str.charAt(i);
+            code1 = str.charAt(i);
             c = (h2int(code0) << 4) | h2int(code1);
-            encodedString+=c;
-        } else 
+            encodedString += c;
+        }
+        else
         {
-            encodedString+=c;  
-        }   
+            encodedString += c;
+        }
         yield();
     }
     return encodedString;
@@ -236,66 +231,66 @@ String urlDecode(String str)
 
 String urlEncode(String str)
 {
-    String encodedString="";
+    String encodedString = "";
     char c;
     char code0;
     char code1;
     char code2;
-    for (int i =0; i < str.length(); i++) 
+    for (int i = 0; i < str.length(); i++)
     {
-        c=str.charAt(i);
-        if (c == ' ') 
+        c = str.charAt(i);
+        if (c == ' ')
         {
-            encodedString+= '+';
-        } 
-        else if (isalnum(c)) 
+            encodedString += '+';
+        }
+        else if (isalnum(c))
         {
-            encodedString+=c;
-        } 
-        else 
+            encodedString += c;
+        }
+        else
         {
-            code1=(c & 0xf)+'0';
+            code1 = (c & 0xf) + '0';
             if ((c & 0xf) > 9)
             {
-                code1=(c & 0xf) - 10 + 'A';
+                code1 = (c & 0xf) - 10 + 'A';
             }
-            c=(c>>4)&0xf;
-            code0=c+'0';
+            c = (c >> 4) & 0xf;
+            code0 = c + '0';
             if (c > 9)
             {
-                code0=c - 10 + 'A';
+                code0 = c - 10 + 'A';
             }
-            code2='\0';
-            encodedString+='%';
-            encodedString+=code0;
-            encodedString+=code1;
-            //encodedString+=code2;
+            code2 = '\0';
+            encodedString += '%';
+            encodedString += code0;
+            encodedString += code1;
+            // encodedString+=code2;
         }
         yield();
     }
-    return encodedString; 
+    return encodedString;
 }
 
 unsigned char h2int(char c)
 {
-    if (c >= '0' && c <='9')
+    if (c >= '0' && c <= '9')
     {
-        return((unsigned char)c - '0');
+        return ((unsigned char)c - '0');
     }
-    if (c >= 'a' && c <='f')
+    if (c >= 'a' && c <= 'f')
     {
-        return((unsigned char)c - 'a' + 10);
+        return ((unsigned char)c - 'a' + 10);
     }
-    if (c >= 'A' && c <='F')
+    if (c >= 'A' && c <= 'F')
     {
-        return((unsigned char)c - 'A' + 10);
+        return ((unsigned char)c - 'A' + 10);
     }
-    return(0);
+    return (0);
 }
 
 void writeIp(int address, String ip)
 {
-    if(countSplitCharacters(ip, '.') == 4)
+    if (countSplitCharacters(ip, '.') == 4)
     {
         String[] value = splitString(ip, '.');
         byte one = value[0].toInt() & 0xFF;
@@ -303,21 +298,21 @@ void writeIp(int address, String ip)
         byte three = value[2].toInt() & 0xFF;
         byte four = value[3].toInt() & 0xFF;
         EEPROM.write(address, one);
-        EEPROM.write(address+1, two);
-        EEPROM.write(address+2, three);
-        EEPROM.write(address+3, four);
+        EEPROM.write(address + 1, two);
+        EEPROM.write(address + 2, three);
+        EEPROM.write(address + 3, four);
         EEPROM.commit();
     }
 }
 
-string readIp(int address) {
+string readIp(int address)
+{
     byte one = EEPROM.read(address) & 0xFF;
     byte two = EEPROM.read(address + 1) & 0xFF;
     byte three = EEPROM.read(address + 2) & 0xFF;
     byte four = EEPROM.read(address + 3) & 0xFF;
     return sprintf("%d.%d.%d.%d", one, two, three, four);
 }
-
 
 void writeByte(int address, uint8_t value)
 {
@@ -326,7 +321,8 @@ void writeByte(int address, uint8_t value)
     EEPROM.commit();
 }
 
-byte readByte(int address) {
+byte readByte(int address)
+{
     byte one = EEPROM.read(address);
     return (one & 0xFF);
 }
@@ -341,7 +337,8 @@ uint16_t writeWord(int address, uint16_t value)
     EEPROM.commit();
 }
 
-uint16_t readWord(int address) {
+uint16_t readWord(int address)
+{
     byte two = EEPROM.read(address);
     byte one = EEPROM.read(address + 1);
 
@@ -362,7 +359,8 @@ void writeDoubleWord(int address, uint32_t value)
     EEPROM.commit();
 }
 
-uint32_t readDoubleWord(int address) {
+uint32_t readDoubleWord(int address)
+{
     byte four = EEPROM.read(address);
     byte three = EEPROM.read(address + 1);
     byte two = EEPROM.read(address + 2);
@@ -404,7 +402,7 @@ String readData(int offset, int length)
     return result;
 }
 
-String readDataString(int offset, int length)
+String readString(int offset, int length)
 {
     int max = offset + length;
     String result = "";
@@ -423,12 +421,12 @@ String readDataString(int offset, int length)
 // /ap-configuration.json
 void getAPData()
 {
-    String savedSSID = readDataString(offsetSSID1, sizeofString20);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword1, sizeofString20);
-    String savedIP = readDataString(offsetAPIP, sizeofString15);
-    String savedGateway = readDataString(offsetAPGateway, sizeofString15);
-    String savedSubnet = readDataString(offsetAPSubnet, sizeofString15);
-    String savedHidden = readDataString(offsetAPHidden, sizeofBoolean);
+    String savedSSID = readString(offsetSSID1, sizeofString20);
+    String savedSSIDPassword = readString(offsetSSIDPassword1, sizeofString20);
+    String savedIP = readString(offsetAPIP, sizeofString15);
+    String savedGateway = readString(offsetAPGateway, sizeofString15);
+    String savedSubnet = readString(offsetAPSubnet, sizeofString15);
+    String savedHidden = readString(offsetAPHidden, sizeofBoolean);
     String response = "";
     response += "{\"ssid_name\":\"";
     response += savedSSID;
@@ -463,8 +461,7 @@ void saveConfigAP()
         writeData(offsetAPSubnet, sizeofString20, savedSubnet);
         String savedHidden = server.arg("hidden");
         writeData(offsetAPHidden, sizeofBoolean, savedHidden);
-        writeData(offsetConfigured, sizeofBoolean, "1");  
-
+        writeData(offsetConfigured, sizeofBoolean, "1");
     }
     String message = "{\"status\":\"OK\"}";
     server.send(200, "application/json", message);
@@ -475,10 +472,10 @@ void getMidiConfiguration()
 {
     response += "{";
     int i = 0;
-    for(int i = 1; i<=maxCh; i++)
+    for (int i = 1; i <= maxCh; i++)
     {
         int offset = memOffset + ((i - 1) * memSize);
-        String config = readDataString(offset, memSize);     
+        String config = readString(offset, memSize);
         String str = sprintf("\"ch%02d\":\"%s\",", i, config);
         response += str;
     }
@@ -492,7 +489,7 @@ void saveMidiConfiguration()
     if (server.method() == HTTP_POST)
     {
         int i = 0;
-        for(int i = 1; i<=maxCh; i++)
+        for (int i = 1; i <= maxCh; i++)
         {
             int offset = memOffset + ((i - 1) * memSize);
             String par = sprintf("ch%02d", i);
@@ -532,15 +529,15 @@ void resetSTA()
 void getSubData()
 {
     String response = "";
-    String savedSSID = readDataString(offsetSSID2, sizeofString20);
-    String savedSSIDPassword = readDataString(offsetSSIDPassword2, sizeofString20);
-    String savedWSHost = readDataString(offsetWSHost, sizeofString40);
+    String savedSSID = readString(offsetSSID2, sizeofString20);
+    String savedSSIDPassword = readString(offsetSSIDPassword2, sizeofString20);
+    String savedWSHost = readString(offsetWSHost, sizeofString40);
     uint16_t savedWSPort = readWord(offsetWSPort);
-    String savedWSPath = readDataString(offsetWSPath, sizeofString50);
-    String savedWSUsername = readDataString(offsetWSUsername, sizeofString20);
-    String savedWSPassword = readDataString(offsetWSPassword, sizeofString20);
-    String savedWSTopic = readDataString(offsetWSTopic, sizeofString50);
-    String savedEnable = readDataString(offsetEnable, sizeofBoolean);
+    String savedWSPath = readString(offsetWSPath, sizeofString50);
+    String savedWSUsername = readString(offsetWSUsername, sizeofString20);
+    String savedWSPassword = readString(offsetWSPassword, sizeofString20);
+    String savedWSTopic = readString(offsetWSTopic, sizeofString50);
+    String savedEnable = readString(offsetEnable, sizeofBoolean);
 
     response += "{\"ssid_name\":\"";
     response += savedSSID;
@@ -613,11 +610,11 @@ void saveConfigWS()
 
 void getWSConfig()
 {
-    savedWSPath = readDataString(offsetWSPath, sizeofString50);
-    savedWSUsername = readDataString(offsetWSUsername, sizeofString50);
-    savedWSPassword = readDataString(offsetWSPassword, sizeofString50);
-    savedWSHost = readDataString(offsetWSHost, sizeofString50);
-    savedWSPort = readDataString(offsetWSPort, sizeofInteger10);
+    savedWSPath = readString(offsetWSPath, sizeofString50);
+    savedWSUsername = readString(offsetWSUsername, sizeofString50);
+    savedWSPassword = readString(offsetWSPassword, sizeofString50);
+    savedWSHost = readString(offsetWSHost, sizeofString50);
+    savedWSPort = readString(offsetWSPort, sizeofInteger10);
 }
 
 void webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
@@ -628,10 +625,10 @@ void webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
         connected = false;
         break;
     case WStype_CONNECTED:
-        {
+    {
         connected = true;
-        }
-        break;
+    }
+    break;
     case WStype_TEXT:
         handleMessage(payload, length);
 
@@ -660,7 +657,7 @@ void handleMessage(uint8_t *payload, size_t length)
     int i = 0;
     for (i = 0; i < length; i++)
     {
-        request += (char) payload[i];
+        request += (char)payload[i];
     }
     DynamicJsonDocument json(1024);
     deserializeJson(json, request);
@@ -680,7 +677,7 @@ void writePinState(int pin, int value)
     writeData(offset, 2, str);
 }
 
-void sendResponse(const char * responseTopic, String response, int callbackDelay)
+void sendResponse(const char *responseTopic, String response, int callbackDelay)
 {
     String path = savedWSPath;
 
@@ -691,17 +688,17 @@ void sendResponse(const char * responseTopic, String response, int callbackDelay
     int i;
     long lastUpdate = millis();
 
-    while(lastUpdate + callbackDelay >= millis() || WiFi.status() != WL_CONNECTED)
+    while (lastUpdate + callbackDelay >= millis() || WiFi.status() != WL_CONNECTED)
     {
         webSocket2.loop();
-        if(webSocket2.sendPing())
+        if (webSocket2.sendPing())
         {
             break;
         }
         delay(7);
     }
     i = 0;
-    while(!webSocket2.sendTXT(response) && i < 10)
+    while (!webSocket2.sendTXT(response) && i < 10)
     {
         webSocket2.loop();
         delay(10);
@@ -724,15 +721,15 @@ void wsReconnect()
 
 void Task1(void *pvParameters)
 {
-    (void) pvParameters;
+    (void)pvParameters;
     for (;;)
     {
         if (sysEnable == "1")
         {
             webSocket.loop();
-            if(lastState != connected)
+            if (lastState != connected)
             {
-                if(connected)
+                if (connected)
                 {
                     digitalWrite(onboardLED, HIGH);
                 }
@@ -750,37 +747,37 @@ void Task1(void *pvParameters)
 
 void Task2(void *pvParameters)
 {
-    (void) pvParameters;
+    (void)pvParameters;
     for (;;)
-    {   
-        if(sysEnable == "1" && !connected)
+    {
+        if (sysEnable == "1" && !connected)
         {
-            if(millis() - lastDisconnected > reconnectWiFiTreshold && WiFi.status() != WL_CONNECTED)
+            if (millis() - lastDisconnected > reconnectWiFiTreshold && WiFi.status() != WL_CONNECTED)
             {
                 Serial.println("Reconnecting to WiFi...");
                 WiFi.disconnect();
                 boolean res = WiFi.reconnect();
-                if(res)
+                if (res)
                 {
                     int j = 0;
-                    while(WiFi.status() != WL_CONNECTED && j < 10)
+                    while (WiFi.status() != WL_CONNECTED && j < 10)
                     {
                         delay(500);
                         j++;
                     }
-                    if(j < 10)
+                    if (j < 10)
                     {
                         Serial.println("");
                         Serial.print("Connected to ");
                         Serial.println(ssidUsed);
                         Serial.print("IP address: ");
-                        Serial.println(WiFi.localIP());    
+                        Serial.println(WiFi.localIP());
                         Serial.println("");
-                    }         
+                    }
                     lastDisconnected = millis();
                 }
             }
-        }   
+        }
         vTaskDelay(5000);
     }
 }
@@ -824,7 +821,7 @@ void Listen06(void *pvParameters)
 // Drum Pad 7
 void Listen07(void *pvParameters)
 {
-    listenChannel(7);    
+    listenChannel(7);
 }
 
 // Drum Pad 8
@@ -887,119 +884,122 @@ void listenChannel(int channel)
     {
         int pin = channelPin[channel];
         int input = analogRead(pin);
-        float total = (float) input;
-        
+        float total = (float)input;
+
         uint16_t threshold = channelThreshold[channel];
         uint32_t delayTime = channelDuration[channel];
-        if(input > threshold && solo == 0 && channel == soloChannel)
+        if (input > threshold && solo == 0 && channel == soloChannel)
         {
-            total += (float) adcRead(pin, 3);      
+            total += (float)adcRead(pin, 3);
             float average = total / 4;
-            
-            uint8_t velocity = calcVelocity((uint16_t) average, threshold, (uint16_t) channelHeadRoom[channel])
-            
-            int instrumentCode = channelInstrument[channel];
-            
+
+            uint8_t velocity = calcVelocity((uint16_t)average, threshold, (uint16_t)channelHeadRoom[channel])
+
+                int instrumentCode = channelInstrument[channel];
+
             MIDI.sendNoteOn(instrumentCode, velocity, midiChannel);
             delayMicroseconds(delayTime);
             MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
-            
-            if(readInterval > 0)
+
+            if (readInterval > 0)
             {
                 delayMicroseconds(readInterval);
             }
-        }   
-    } 
-    while(true);
+        }
+    } while (true);
 }
 
 int adcRead(int pin, int count)
 {
     int total = 0;
-    while(count > 0)
+    while (count > 0)
     {
         int int2 = analogRead(pin);
-        total+=int2;
+        total += int2;
         count--;
     }
     return total;
 }
 
-
 void readMidiConfig(int channel, String config)
 {
     int cnt = countSplitCharacters(config, ',');
-    if(cnt > 2)
+    if (cnt > 2)
     {
         // Example: 120,100,1.2345678901
         // 120 is instrument code
         // 100 is delay. For percussion, delay is less than 1000 milli seconds
         // 1.2345678901 is scale. This scale is used to calculate the velocity. Please note that scale length is less than or equals 12
         String[] configs = splitStringMax(config, ',', cnt);
-        
-        String codeStr = configs[0]; 
+
+        String codeStr = configs[0];
         int code = codeStr.toInt();
         channelInstrument[channel] = code;
-        
-        String delayStr = configs[1]; 
+
+        String delayStr = configs[1];
         int delay = delayStr.toInt();
         channelDelay[channel] = delay;
-        
+
         String scaleStr = configs[2];
         float scale = scaleStr.toFloat();
         channelHeadRoom[channel] = scale;
     }
-    String soloStr = readDataString(offsetSolo, 1);
-    String soloChannelStr = readDataString(offsetSoloChannel, 2);
-    
-    int solo = soloStr.toInt();
-    int soloChannel == soloChannelStr.toInt();
+    solo = readByte(offsetSolo);
+    soloChannel = readByte(offsetSoloChannel);
+    testVelocity = readByte(offsetSoloChannel);
 }
 
-int countSplitCharacters(String text, char splitChar) {
+
+int countSplitCharacters(String text, char splitChar)
+{
     int returnValue = 0;
     int index = -1;
 
-    while (index > -1) {
+    while (index > -1)
+    {
         index = text.indexOf(splitChar, index + 1);
-        if(index > -1) 
+        if (index > -1)
         {
-            returnValue+=1;
+            returnValue += 1;
         }
     }
 
     return returnValue;
-} 
+}
 
-String[] splitString(String text, char splitChar) 
+String[] splitString(String text, char splitChar)
 {
     int splitCount = countSplitCharacters(text, splitChar);
     String returnValue[splitCount];
     int index = -1;
     int index2;
 
-    for(int i = 0; i < splitCount - 1; i++) {
+    for (int i = 0; i < splitCount - 1; i++)
+    {
         index = text.indexOf(splitChar, index + 1);
         index2 = text.indexOf(splitChar, index + 1);
 
-        if(index2 < 0) index2 = text.length() - 1;
+        if (index2 < 0)
+            index2 = text.length() - 1;
         returnValue[i] = text.substring(index, index2);
     }
 
     return returnValue;
 }
 
-String[] splitStringMax(String text, char splitChar, int splitCount) 
+String[] splitStringMax(String text, char splitChar, int splitCount)
 {
     String returnValue[splitCount];
     int index = -1;
     int index2;
 
-    for(int i = 0; i < splitCount - 1; i++) {
+    for (int i = 0; i < splitCount - 1; i++)
+    {
         index = text.indexOf(splitChar, index + 1);
         index2 = text.indexOf(splitChar, index + 1);
 
-        if(index2 < 0) index2 = text.length() - 1;
+        if (index2 < 0)
+            index2 = text.length() - 1;
         returnValue[i] = text.substring(index, index2);
     }
 
@@ -1065,21 +1065,20 @@ void handleNotFound()
     server.send(404, "text/plain", message);
 }
 
-
 void setup(void)
 {
     EEPROM.begin(1024);
     Serial.begin(115200);
-    
-    loadMidiConfig();    
 
-    String configured = readDataString(offsetConfigured, sizeofBoolean);
-    if(configured != "1")
+    loadMidiConfig();
+
+    String configured = readString(offsetConfigured, sizeofBoolean);
+    if (configured != "1")
     {
         resetAP();
     }
 
-    sysEnable = readDataString(offsetEnable, sizeofBoolean);
+    sysEnable = readString(offsetEnable, sizeofBoolean);
 
     if (sysEnable == "1")
     {
@@ -1089,34 +1088,28 @@ void setup(void)
     }
 
     // Configuration WiFi as Access Point
-    String ssidAPS = readDataString(offsetSSID1, sizeofString50);
-    String passwordAPS = readDataString(offsetSSIDPassword1, sizeofString50);
-    Serial.println("ssidAPS     = "+ssidAPS);
-    Serial.println("passwordAPS = "+passwordAPS);
+    String ssidAPS = readString(offsetSSID1, sizeofString50);
+    String passwordAPS = readString(offsetSSIDPassword1, sizeofString50);
+    Serial.println("ssidAPS     = " + ssidAPS);
+    Serial.println("passwordAPS = " + passwordAPS);
 
     if (ssidAPS.length() > 0)
     {
-        String sip = readDataString(offsetAPIP, sizeofString20);
-        String sgw = readDataString(offsetAPGateway, sizeofString20);
-        String ssn = readDataString(offsetAPSubnet, sizeofString20);
-        String shd = readDataString(offsetAPHidden, sizeofBoolean);
+        String sip = readString(offsetAPIP, sizeofString20);
+        String sgw = readString(offsetAPGateway, sizeofString20);
+        String ssn = readString(offsetAPSubnet, sizeofString20);
+        String shd = readString(offsetAPHidden, sizeofBoolean);
 
-        IPAddress test1(10,10,10,10);
+        IPAddress test1(10, 10, 10, 10);
 
-        if(sip.length()>6 
-            && sgw.length()>6 
-            && ssn.length()>6 
-            && test1.fromString(sip) 
-            && test1.fromString(sgw) 
-            && test1.fromString(ssn)
-        )
+        if (sip.length() > 6 && sgw.length() > 6 && ssn.length() > 6 && test1.fromString(sip) && test1.fromString(sgw) && test1.fromString(ssn))
         {
             apLocalID.fromString(sip);
             apGateway.fromString(sgw);
             apSubnet.fromString(ssn);
         }
 
-        WiFi.softAP(ssidAPS.c_str(), passwordAPS.c_str(), 1, (int) shd.toInt(), 10);
+        WiFi.softAP(ssidAPS.c_str(), passwordAPS.c_str(), 1, (int)shd.toInt(), 10);
         WiFi.softAPConfig(apLocalID, apGateway, apSubnet);
     }
     else
@@ -1125,21 +1118,17 @@ void setup(void)
         WiFi.softAPConfig(apLocalID, apGateway, apSubnet);
     }
 
-
-
     IPAddress IP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
     Serial.println(IP);
 
-
     Serial.println("");
-
 
     if (sysEnable == "1")
     {
         // Configuration WiFi as Workstation
-        String ssidStaS = readDataString(offsetSSID2, sizeofString50);
-        String passwordStaS = readDataString(offsetSSIDPassword2, sizeofString50);
+        String ssidStaS = readString(offsetSSID2, sizeofString50);
+        String passwordStaS = readString(offsetSSIDPassword2, sizeofString50);
         const char *ssidSta = ssidStaS.c_str();
         const char *passwordSta = passwordStaS.c_str();
         if (ssidStaS.length() > 0)
@@ -1163,7 +1152,7 @@ void setup(void)
             trying++;
             if (trying > 20)
             {
-            break;
+                break;
             }
         }
         Serial.println("");
@@ -1194,37 +1183,34 @@ void setup(void)
     server.on("/test-note.html", handleTestNote);
     server.on("/hit-pad.html", handleHitPad);
     server.on("/inline", []()
-    {
-        server.send(200, "text/plain", "this works as well");
-    });
+              { server.send(200, "text/plain", "this works as well"); });
     server.onNotFound(handleNotFound);
     server.begin();
 
     getWSConfig();
 
-
     // Now set up two tasks to run independently.
-    xTaskCreate(    
-        Task1
-        , "Task1"  // A name just for humans
-        , 32768    // This stack size can be checked & adjusted by reading the Stack Highwater
-        , NULL
-        , 3        // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-        , NULL
-    );
+    xTaskCreate(
+        Task1, "Task1" // A name just for humans
+        ,
+        32768 // This stack size can be checked & adjusted by reading the Stack Highwater
+        ,
+        NULL, 3 // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+        ,
+        NULL);
 
-    xTaskCreate(    
-        Task2
-        , "Task2"  // A name just for humans
-        , 5120    // This stack size can be checked & adjusted by reading the Stack Highwater
-        , NULL
-        , 2        // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-        , NULL
-    );
+    xTaskCreate(
+        Task2, "Task2" // A name just for humans
+        ,
+        5120 // This stack size can be checked & adjusted by reading the Stack Highwater
+        ,
+        NULL, 2 // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+        ,
+        NULL);
 
     pinMode(onboardLED, OUTPUT);
 
-    if(sysEnable == "1")
+    if (sysEnable == "1")
     {
         wsReconnect();
     }
@@ -1239,9 +1225,7 @@ void handleTestNote()
     {
         String noteStr = server.arg("note");
         int instrumentCode = noteStr.toInt();
-        String velocityStr = server.arg("velocity");
-        int velocity = velocityStr.toInt();
-        Midi.on(instrumentCode, (int) velocity);     
+        Midi.on(instrumentCode, (int)testVelocity);
         delay(delay);
         Midi.off(instrumentCode);
     }
@@ -1254,10 +1238,8 @@ void handleHitPad()
     {
         String padStr = server.arg("pad");
         int channel = padStr.toInt();
-        String velocityStr = server.arg("velocity");
-        int velocity = velocityStr.toInt();
         int instrumentCode = channelInstrument[channel];
-        Midi.on(instrumentCode, (int) velocity);     
+        Midi.on(instrumentCode, (int)testVelocity);
         delay(delay);
         Midi.off(instrumentCode);
     }

@@ -89,7 +89,7 @@ window.onload = function () {
 };
 
 function testDrum(note) {
-  ajax.get('test-note.html', {note:note, velocity:120}, function(response, status, statusText){
+  ajax.get('test-note.html', {note:note}, function(response, status, statusText){
   }, true);
 }
 function resetToDefault() {
