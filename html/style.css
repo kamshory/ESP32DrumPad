@@ -76,29 +76,44 @@ h3 {
 .btn-100 {
     width: 100%;
 }
+.btn{
+    transition: background-color ease-in-out 0.3s;    
+}
 
 .btn-success {
     color: #FFF;
     border: 1px solid #46992d;
-    background-color: #419129
+    background-color: #419129;
+}
+.btn-success:hover{
+    background-color: #3e8827
 }
 
 .btn-primary {
     color: #FFF;
-    border: 1px solid #2d5899;
+    border: 1px solid #2c5a9e;
     background-color: #3464ac
+}
+.btn-primary:hover{
+    background-color: #2c5a9e
 }
 
 .btn-warning {
     color: #212529;
-    border: 1px solid #ffc107;
+    border: 1px solid #f8bb05;
     background-color: #ffc107
+}
+.btn-warning:hover {
+    background-color: #f8bb05
 }
 
 .btn-danger {
     color: #FFF;
     border: 1px solid #dc3545;
     background-color: #dc3545
+}
+.btn-danger:hover {
+    background-color: #d63343
 }
 
 .row {
