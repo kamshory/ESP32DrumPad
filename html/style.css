@@ -63,9 +63,9 @@ h3 {
 }
 
 .btn {
-    min-width: 60px;
+    min-width: 54px;
     box-sizing: border-box;
-    padding: 6px 10px;
+    padding: 6px 6px;
     border-radius: 3px;
     border: 1px solid #bdbcbc;
     background-color: #c7c6c6;
@@ -214,9 +214,9 @@ a.ctrl::before {
     position: absolute;
     color: #333333;
     background-color: #ffffff;
+    box-shadow: 0 2px 3px #0000001c;
     border: 1px solid rgb(124, 153, 193);
     display: none;
-
     width: 480px;
     left: 50%;
     margin-left: -240px;
@@ -310,6 +310,7 @@ a.ctrl::before {
 
 .popup-footer .btn {
     margin: 4px 0;
+    min-width: 64px;
 }
 
 .two-side-table {
