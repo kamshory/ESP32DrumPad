@@ -25,17 +25,12 @@ Element.prototype.popupShow = function () {
   this.style.display = "block";
   this.closest(".popup-shadow").style.display = "block";
 };
-Element.prototype.attr = function (n, v) {
-  if (typeof v != "undefined") {
-    return this.setAttribute(n, v);
-  } else {
-    return this.getAttribute(n);
-  }
-};
+
 Element.prototype.popupHide = function () {
   this.style.display = "none";
   this.closest(".popup-shadow").style.display = "none";
 };
+
 Element.prototype.on = function (a, b, c) {
   return this.addEventListener(a, b, c);
 };
@@ -47,6 +42,13 @@ Element.prototype.find = function (a) {
 };
 Element.prototype.findAll = function (a) {
   return this.querySelectorAll(a);
+};
+Element.prototype.attr = function (n, v) {
+  if (typeof v != "undefined") {
+    return this.setAttribute(n, v);
+  } else {
+    return this.getAttribute(n);
+  }
 };
 function _ce(s) {
   return document.createElement(s);
@@ -67,6 +69,14 @@ let rMsg = "Are you sure you want to reset the configuration?";
 let pSel = ".popup-confirm";
 let pTtl = "User Confirmation";
 
+function initPopUp() {
+  _sls(".popup-closer").forEach((a) => {
+    a.on("click", () => {
+      a.closest(".popup").popupHide();
+    });
+  });
+}
+
 function customConfim(
   selector,
   message,
@@ -81,9 +91,8 @@ function customConfim(
   btnTextOk = btnTextOk || "OK";
   btnTextCancel = btnTextCancel || "Cancel";
   let confirmObject = _sl(selector);
-  confirmObject.find(".popup-header").innerText = title;
+  confirmObject.find(".popup-header-text").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
-
   confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
   confirmObject.find(".btn-cancel") &&
     confirmObject.find(".btn-cancel").remove();

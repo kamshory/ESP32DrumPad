@@ -260,6 +260,39 @@ a.ctrl::before {
     color: white;
 }
 
+.popup-closer
+{
+    background-color: rgb(161, 0, 0);
+    border: none;
+    float: inline-end;
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    position: relative;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.popup-closer::before, .popup-closer::after{
+    width: 2px;
+    height: 12px;
+    background-color: white;
+    display: block;
+    content: "";
+    position: absolute;
+}
+
+.popup-closer::after{
+    transform: rotate(45deg);
+    top: 3px;
+    left: 8px;
+}
+.popup-closer::before{
+    transform: rotate(-45deg);
+    top: 3px;
+    left: 8px;
+}
+
 .popup-body {
     padding: 5px 12px;
     min-height: 25px;

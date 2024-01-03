@@ -86,6 +86,8 @@ window.onload = function () {
     },
     false
   );
+  
+  initPopUp();
 };
 
 function testDrum(note) {

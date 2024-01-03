@@ -78,7 +78,8 @@
     <div class="popup-shadow">
         <div class="popup popup-confirm">
             <div class="popup-header">
-                Confirm
+                <button class="popup-closer"></button>
+                <div class="popup-header-text">Confirm</div>
             </div>
             <div class="popup-body">
                 <p class="message"></p>
@@ -91,6 +92,7 @@
     <script type="text/javascript">
         window.onload = function () {
             loadConfigWS();
+            initPopUp();
         };
     </script>
 </body>
