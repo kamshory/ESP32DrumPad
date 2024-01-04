@@ -40,11 +40,11 @@ ESP32 read each ADC asynchronously so it has low latency.
 
 ### WIFI Access Point
 
-WIFI access poin is used to connect to ESP32 before it connected to other WIFI.
+WIFI access point is used to connect to ESP32 before it connected to other WIFI. User can also configure MIDI controller via this access point by accessing MIDI controller IP address.
 
 ### WIFI Client
 
-ESP32 can connect to other WIFI so it can send MIDI signal over internet.
+ESP32 can connect to other WIFI so it can send MIDI signal over internet. User can also configure MIDI controller by accessing MIDI controller IP address.
 
 ### Built-In Web Server
 
