@@ -260,8 +260,7 @@ a.ctrl::before {
     color: white;
 }
 
-.popup-closer
-{
+.popup-closer {
     background-color: transparent;
     border: none;
     float: inline-end;
@@ -273,7 +272,8 @@ a.ctrl::before {
     cursor: pointer;
 }
 
-.popup-closer::before, .popup-closer::after{
+.popup-closer::before,
+.popup-closer::after {
     width: 2px;
     height: 12px;
     background-color: white;
@@ -284,10 +284,11 @@ a.ctrl::before {
     left: 8px;
 }
 
-.popup-closer::after{
+.popup-closer::after {
     transform: rotate(45deg);
 }
-.popup-closer::before{
+
+.popup-closer::before {
     transform: rotate(-45deg);
 }
 

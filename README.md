@@ -11,7 +11,7 @@ Keyboards can be used to trigger drum sounds, but are impractical for playing re
 
 In this project, we will make a drum pad MIDI controller with piezoelectric ceramic as a transducer. This transducer will convert the pressure received into electrical voltage. The electric voltage is converted by an analog to digital converter (ADC) into an integer. This number will be operated with logic and mathematical formulas to get the velocity value of the blows received by the drum pad. Velocity values between 0 and 127 according to MIDI standards. A drum pad consists of several pads, each pad will represent a certain instrument such as kick drum, snare drum, hat, tom, cymbals, and so on.
 
-![Flow](https://github.com/kamshory/ESP32DrumPad/blob/main/images/flow.drawio.svg)
+![Flow](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/flow.drawio.svg)
 
 ## Features
 
@@ -60,31 +60,31 @@ The favicon format is SVG so it is easier to create compared to raster formats s
 
 **Screenshot**
 
-![SS01](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss01.png)
+![SS01](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss01.png)
 
-![SS02](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss02.png)
+![SS02](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss02.png)
 
-![SS03](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss03.png)
+![SS03](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss03.png)
 
-![SS04](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss04.png)
+![SS04](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss04.png)
 
-![SS05](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss05.png)
+![SS05](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss05.png)
 
 The arrangement of the pads on the configuration page depends on the arrangement set by the developer before the program is deployed into the ESP32. This arrangement is fixed and cannot be changed by the user. Users can only change the instrument, threshold, headroom and duration on each pad.
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss06.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss06.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss07.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss07.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss08.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss08.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss09.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss09.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss10.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss10.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss11.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss11.png)
 
-![SS06](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ss12.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss12.png)
 
 ### Support USB
 
@@ -100,7 +100,7 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 ## Diagram
 
-![Diagram](https://github.com/kamshory/ESP32DrumPad/blob/main/images/ESP32Drum.drawio.svg)
+![Diagram](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ESP32Drum.drawio.svg)
 
 ## MIDI Isntrument Code
 
@@ -168,11 +168,11 @@ To send note off event, MIDI controller can send `1000100100010010001110010`.
 
 We need an ESP32 expansion board so that we have enough pins for the piezoelectric sensor with minimal effort. Each piezoelectric sensor will be connected to the expansion board with two cables. Because GND and analog input are separated by VCC, we need 3x1 dupont headers for each piezoelectric sensor.
 
-![Image1](https://github.com/kamshory/ESP32DrumPad/blob/main/images/esp32-expansion-board-1.jpg)
+![Image1](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/esp32-expansion-board-1.jpg)
 
-![Image2](https://github.com/kamshory/ESP32DrumPad/blob/main/images/esp32-expansion-board-2.jpg)
+![Image2](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/esp32-expansion-board-2.jpg)
 
-![Image3](https://github.com/kamshory/ESP32DrumPad/blob/main/images/piezoelectric-sensor.jpg)
+![Image3](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/piezoelectric-sensor.jpg)
 
 We do not need the VCC pin to supply power to the piezoelectric sensor because the piezoelectric sensor will generate an electrical voltage of itself when it receives enough vibrations. Thus, we can remove the VCC jumper pin. However, if we want to add another device, for example a sound generator that will be integrated with the MIDI controller that we are going to make, we can choose to use a jumper and set it according to the voltage we need.
 
@@ -215,7 +215,7 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 | 36   | OK        |        | CH 1   | input only                                                                     |
 | 39   | OK        |        | CH 2   | input only                                                                     |
 
-![Wiring](https://github.com/kamshory/ESP32DrumPad/blob/main/images/wiring.drawio.svg)
+![Wiring](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/wiring.drawio.svg)
 
 The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC.
 
@@ -323,7 +323,7 @@ So far we do not need additional storage media.
 
 If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.
 
-![AT24C256](https://github.com/kamshory/ESP32DrumPad/blob/main/images/at24C256.png)
+![AT24C256](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/at24C256.png)
 
 The wiring of AT24C256 is as follows:
 
@@ -396,7 +396,7 @@ The duration must be set in such a way that when the next voltage is read, the v
 
 Default values which are test results must be provided by the application.
 
-![Velocity](https://github.com/kamshory/ESP32DrumPad/blob/main/images/velocity.drawio.svg)
+![Velocity](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/velocity.drawio.svg)
 
 The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity.
 
