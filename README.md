@@ -60,31 +60,31 @@ The favicon format is SVG so it is easier to create compared to raster formats s
 
 **Screenshot**
 
-![SS01](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss01.png)
+![SS01](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/001.png)
 
-![SS02](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss02.png)
+![SS02](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/002.png)
 
-![SS03](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss03.png)
+![SS03](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/003.png)
 
-![SS04](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss04.png)
+![SS04](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/004.png)
 
-![SS05](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss05.png)
+![SS05](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/005.png)
 
 The arrangement of the pads on the configuration page depends on the arrangement set by the developer before the program is deployed into the ESP32. This arrangement is fixed and cannot be changed by the user. Users can only change the instrument, threshold, headroom and duration on each pad.
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss06.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/006.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss07.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/007.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss08.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/008.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss09.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/009.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss10.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/010.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss11.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/011.png)
 
-![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ss12.png)
+![SS06](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/012.png)
 
 ### Support USB
 

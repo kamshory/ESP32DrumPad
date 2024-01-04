@@ -105,7 +105,6 @@ int solo = 0;
 int soloChannel = 0;
 int testVelocity = 0;
 
-
 class ChannelConfig
 {
     /* data */
@@ -369,7 +368,7 @@ uint32_t readDoubleWord(int address)
     return ((four << 0) & 0xFF) + ((three << 8) & 0xFFFF) + ((two << 16) & 0xFFFFFF) + ((one << 24) & 0xFFFFFFFF);
 }
 
-void writeData(int offset, int length, String value)
+void writeString(int offset, int length, String value)
 {
     int max2 = length;
     int max1 = value.length();
@@ -421,12 +420,12 @@ String readString(int offset, int length)
 // /ap-configuration.json
 void getAPData()
 {
-    String savedSSID = readString(offsetSSID1, sizeofString20);
-    String savedSSIDPassword = readString(offsetSSIDPassword1, sizeofString20);
-    String savedIP = readString(offsetAPIP, sizeofString15);
-    String savedGateway = readString(offsetAPGateway, sizeofString15);
-    String savedSubnet = readString(offsetAPSubnet, sizeofString15);
-    String savedHidden = readString(offsetAPHidden, sizeofBoolean);
+    String savedSSID = readString(offsetSSID1, sizeofString30);
+    String savedSSIDPassword = readString(offsetSSIDPassword1, sizeofString30);
+    String savedIP = readIp(offsetAPIP);
+    String savedGateway = readIp(offsetAPGateway);
+    String savedSubnet = readIp(offsetAPSubnet);
+    String savedHidden = readByte(offsetAPHidden);
     String response = "";
     response += "{\"ssid_name\":\"";
     response += savedSSID;
@@ -450,18 +449,17 @@ void saveConfigAP()
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
-        writeData(offsetSSID1, sizeofString50, savedSSID);
+        writeString(offsetSSID1, sizeofString30, savedSSID);
         String savedSSIDPassword = server.arg("ssid_password");
-        writeData(offsetSSIDPassword1, sizeofString50, savedSSIDPassword);
+        writeString(offsetSSIDPassword1, sizeofString30, savedSSIDPassword);
         String savedIP = server.arg("ip");
-        writeData(offsetAPIP, sizeofString20, savedIP);
+        writeIp(offsetAPIP, savedIP);
         String savedGateway = server.arg("gateway");
-        writeData(offsetAPGateway, sizeofString20, savedGateway);
+        writeIp(offsetAPGateway, savedGateway);
         String savedSubnet = server.arg("subnet");
-        writeData(offsetAPSubnet, sizeofString20, savedSubnet);
-        String savedHidden = server.arg("hidden");
-        writeData(offsetAPHidden, sizeofBoolean, savedHidden);
-        writeData(offsetConfigured, sizeofBoolean, "1");
+        writeIp(offsetAPSubnet, savedSubnet);
+        byye savedHidden = (byte) server.arg("hidden").toInt();
+        writeByte(offsetAPHidden, savedHidden);
     }
     String message = "{\"status\":\"OK\"}";
     server.send(200, "application/json", message);
@@ -494,7 +492,7 @@ void saveMidiConfiguration()
             int offset = memOffset + ((i - 1) * memSize);
             String par = sprintf("ch%02d", i);
             String value = server.arg("ssid_password");
-            writeData(offset, memSize, value);
+            writeString(offset, memSize, value);
         }
     }
     String message = "{\"status\":\"OK\"}";
@@ -504,25 +502,26 @@ void saveMidiConfiguration()
 void resetAP()
 {
     String savedSSID = "PlanetbiruMusic";
-    writeData(offsetSSID1, sizeofString50, savedSSID);
     String savedSSIDPassword = "PlanetbiruMusic";
-    writeData(offsetSSIDPassword1, sizeofString50, savedSSIDPassword);
-    String savedIP = "";
-    writeData(offsetAPIP, sizeofString20, savedIP);
-    String savedGateway = "";
-    writeData(offsetAPGateway, sizeofString20, savedGateway);
-    String savedSubnet = "";
-    writeData(offsetAPSubnet, sizeofString20, savedSubnet);
-    String savedHidden = "0";
-    writeData(offsetAPHidden, sizeofBoolean, savedHidden);
+    
+    writeString(offsetSSID1, sizeofString30, savedSSID);
+    writeString(offsetSSIDPassword1, sizeofString30, savedSSIDPassword);
+    String savedIP = "0.0.0.0";
+    writeIp(offsetAPIP, savedIP);
+    String savedGateway = "0.0.0.0";
+    writeIp(offsetAPGateway, savedGateway);
+    String savedSubnet = "0.0.0.0";
+    writeIp(offsetAPSubnet, savedSubnet);
+    byte savedHidden = 0;
+    writeByte(offsetAPHidden, savedHidden);
 }
 
 void resetSTA()
 {
     String savedSSID = "PlanetbiruMusic";
     String savedSSIDPassword = "PlanetbiruMusic";
-    writeData(offsetSSID2, sizeofString20, savedSSID);
-    writeData(offsetSSIDPassword2, sizeofString20, savedSSIDPassword);
+    writeString(offsetSSID2, sizeofString20, savedSSID);
+    writeString(offsetSSIDPassword2, sizeofString20, savedSSIDPassword);
 }
 
 // /ws-configuration.json
@@ -573,35 +572,35 @@ void saveConfigWS()
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
-        writeData(offsetSSID2, sizeofString50, savedSSID);
+        writeString(offsetSSID2, sizeofString50, savedSSID);
         delay(1);
 
         String savedSSIDPassword = server.arg("ssid_password");
-        writeData(offsetSSIDPassword2, sizeofString50, savedSSIDPassword);
+        writeString(offsetSSIDPassword2, sizeofString50, savedSSIDPassword);
         delay(1);
 
         String savedWSHost = server.arg("ws_host");
-        writeData(offsetWSHost, sizeofString50, savedWSHost);
+        writeString(offsetWSHost, sizeofString50, savedWSHost);
         delay(1);
 
         String savedWSPort = server.arg("ws_port");
-        writeData(offsetWSPort, sizeofInteger10, savedWSPort);
+        writeString(offsetWSPort, sizeofInteger10, savedWSPort);
         delay(1);
 
         String savedWSPath = server.arg("ws_path");
-        writeData(offsetWSPath, sizeofString50, savedWSPath);
+        writeString(offsetWSPath, sizeofString50, savedWSPath);
         delay(1);
 
         String savedWSUsername = server.arg("ws_username");
-        writeData(offsetWSUsername, sizeofString50, savedWSUsername);
+        writeString(offsetWSUsername, sizeofString50, savedWSUsername);
         delay(1);
 
         String savedWSPassword = server.arg("ws_password");
-        writeData(offsetWSPassword, sizeofString50, savedWSPassword);
+        writeString(offsetWSPassword, sizeofString50, savedWSPassword);
         delay(1);
 
         String savedEnable = server.arg("enable");
-        writeData(offsetEnable, sizeofBoolean, savedEnable);
+        writeString(offsetEnable, sizeofBoolean, savedEnable);
         delay(1);
     }
     String message = "{\"status\":\"OK\"}";
@@ -674,7 +673,7 @@ void writePinState(int pin, int value)
     sprintf(val, "%d", value);
     int offset = 700 + (pin * 2);
     String str = String(val);
-    writeData(offset, 2, str);
+    writeString(offset, 2, str);
 }
 
 void sendResponse(const char *responseTopic, String response, int callbackDelay)
@@ -948,7 +947,6 @@ void readMidiConfig(int channel, String config)
     soloChannel = readByte(offsetSoloChannel);
     testVelocity = readByte(offsetSoloChannel);
 }
-
 
 int countSplitCharacters(String text, char splitChar)
 {
