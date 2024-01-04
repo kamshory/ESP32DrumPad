@@ -39,8 +39,8 @@ int offsetSolo = 273;             //	1	Byte	Flag solo channel
 int offsetSoloChannel = 274;      //	1	Byte	Solo channel number
 int offsetMCUser = 275;           //	20	String	MIDI Controller username
 int offsetMCPassword = 295;       //	20	String	MIDI Controller password
-int midiChannel = 315;            //	1	Byte	MIDI channel
-int readInterval = 316;           //	4	DWord	Read analog interval
+int offsetMidiChannel = 315;      //	1	Byte	MIDI channel
+int offsetReadInterval = 316;     //	4	DWord	Read analog interval
 int offsetCh1 = 320;              //	10	String	Channel 1
 int offsetCh2 = 330;              //	10	String	Channel 2
 int offsetCh3 = 340;              //	10	String	Channel 3
@@ -897,13 +897,13 @@ void listenChannel(int channel)
 
                 int instrumentCode = channelInstrument[channel];
 
-            MIDI.sendNoteOn(instrumentCode, velocity, midiChannel);
+            MIDI.sendNoteOn(instrumentCode, velocity, offsetMidiChannel);
             delayMicroseconds(delayTime);
-            MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
+            MIDI.sendNoteOff(instrumentCode, 0, offsetMidiChannel);
 
-            if (readInterval > 0)
+            if (offsetReadInterval > 0)
             {
-                delayMicroseconds(readInterval);
+                delayMicroseconds(offsetReadInterval);
             }
         }
     } while (true);
