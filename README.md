@@ -52,7 +52,7 @@ Web server is used to configure MIDI controller.
 
 ### Configurable via Web Application
 
-User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller point.
+User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller access point.
 
 HTML, CSS and JavaScript code must be written in such a way that it can be compressed into the smallest possible size. One byte of resource on the ESP32 means so much that inefficient code becomes a very big problem, even fatal. Images, whether JPEG, GIF or PNG, are not permitted at all because they will take up so many resources unnecessarily.
 
@@ -217,7 +217,7 @@ We still use the built-in USB on the ESP32 board to connect it to the PC because
 
 ![Wiring](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/wiring.drawio.svg)
 
-The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC.
+The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC. In this project, we will only use 12 channel of ADC due it's limitation. So, channel 13, 14 and 15 will be removed.
 
 When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.
 
@@ -299,8 +299,8 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetSoloChannel      | 274    | 1      | Byte       | Solo channel number                 |
 | offsetMCUser           | 275    | 20     | String     | MIDI Controller username            |
 | offsetMCPassword       | 295    | 20     | String     | MIDI Controller password            |
-| midiChannel            | 315    | 1      | Byte       | MIDI channel                        |
-| readInterval           | 316    | 4      | DWord      | Read analog interval                |
+| offsetMidiChannel      | 315    | 1      | Byte       | MIDI channel                        |
+| offsetReadInterval     | 316    | 4      | DWord      | Read analog interval                |
 | offsetCh1              | 320    | 10     | String     | Channel 1                           |
 | offsetCh2              | 330    | 10     | String     | Channel 2                           |
 | offsetCh3              | 340    | 10     | String     | Channel 3                           |
