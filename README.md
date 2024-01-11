@@ -382,7 +382,7 @@ int getChannelOffset(int channel)
 
 ### Convert Voltage to Velocity
 
-To convert average stress into velocity, the calculation uses the following parameters:
+To convert average pressure into velocity, the calculation uses the following parameters:
 
 1. 12 bit voltage input (0 - 4095) is obtained from the average voltage on the ADC PIN
 2. 12 bit threshold (0 - 4095) which will reduce the original average voltage to prevent vibrations from one pad propagating to other pads. The smaller the threshold, the weaker the strike will produce vibrations on other pads that are not hit. The greater the threshold, the less sensitive the pad is, which causes the player to have to hit faster to get high velocity.
