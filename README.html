@@ -1,0 +1,1387 @@
+<!DOCTYPE html><html><head>
+      <title>README</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\kamshory\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.11\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="esp32drumpad">ESP32DrumPad </h1>
+<p>ESP32DrumPad is drum pad MIDI controller.</p>
+<p>For those of you who are still new to MIDI, please read the following references:<br>
+<a href="https://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html">https://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html</a></p>
+<p>A MIDI controller is any hardware or software that generates and transmits Musical Instrument Digital Interface (MIDI) data to MIDI-enabled devices, typically to trigger sounds and control parameters of an electronic music performance. They most often use a musical keyboard to send data about the pitch of notes to play, although a MIDI controller may trigger lighting and other effects. A wind controller has a sensor that converts breath pressure to volume information and lip pressure to control pitch. Controllers for percussion and stringed instruments exist, as well as specialized and experimental devices. Some MIDI controllers are used in association with specific digital audio workstation software. The original MIDI specification has been extended to include a greater range of control features.</p>
+<p>Keyboards can be used to trigger drum sounds, but are impractical for playing repeated patterns such as rolls, due to the length of key travel. After keyboards, drum pads are the next most significant MIDI performance controllers. Drum controllers may be built into drum machines, may be standalone control surfaces, or may emulate the look and feel of acoustic percussion instruments. MIDI triggers can also be installed into acoustic drum and percussion instruments. The pads built into drum machines are typically too small and fragile to be played with sticks, and are played with fingers.</p>
+<p>In this project, we will make a drum pad MIDI controller with piezoelectric ceramic as a transducer. This transducer will convert the pressure received into electrical voltage. The electric voltage is converted by an analog to digital converter (ADC) into an integer. This number will be operated with logic and mathematical formulas to get the velocity value of the blows received by the drum pad. Velocity values between 0 and 127 according to MIDI standards. A drum pad consists of several pads, each pad will represent a certain instrument such as kick drum, snare drum, hat, tom, cymbals, and so on.</p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/flow.drawio.svg" alt="Flow"></p>
+<h2 id="features">Features </h2>
+<ol>
+<li>15 instument pads (16 for ESP32 S3). We will only develop MIDI controller with 12 pads</li>
+<li>enable velocity</li>
+<li>low latency</li>
+<li>WIFI access point</li>
+<li>WIFI client</li>
+<li>built-in web server</li>
+<li>configurable via web application</li>
+<li>support USB</li>
+<li>support websocket</li>
+<li>support bluetooth low energy (BLE)</li>
+</ol>
+<h3 id="15-instrument-pad">15 Instrument Pad </h3>
+<p>ESP32 has 15 pin ADC and each pin can read analog signal to be converted into velocity.</p>
+<h3 id="enable-velocity">Enable Velocity </h3>
+<p>ESP32 read signal as analog so it can be converted into velocity. ESP32 maybe read more than one sample of signal to get more accurate value.</p>
+<h3 id="low-latency">Low Latency </h3>
+<p>ESP32 read each ADC asynchronously so it has low latency.</p>
+<h3 id="wifi-access-point">WIFI Access Point </h3>
+<p>WIFI access point is used to connect to ESP32 before it connected to other WIFI. User can also configure MIDI controller via this access point by accessing MIDI controller IP address.</p>
+<h3 id="wifi-client">WIFI Client </h3>
+<p>ESP32 can connect to other WIFI so it can send MIDI signal over internet. User can also configure MIDI controller by accessing MIDI controller IP address.</p>
+<h3 id="built-in-web-server">Built-In Web Server </h3>
+<p>Web server is used to configure MIDI controller.</p>
+<h3 id="configurable-via-web-application">Configurable via Web Application </h3>
+<p>User can configure instrument, threshold, and velocity to each pads via web application. User can access an URL after connected to access MIDI controller access point.</p>
+<p>HTML, CSS and JavaScript code must be written in such a way that it can be compressed into the smallest possible size. One byte of resource on the ESP32 means so much that inefficient code becomes a very big problem, even fatal. Images, whether JPEG, GIF or PNG, are not permitted at all because they will take up so many resources unnecessarily.</p>
+<p>The favicon format is SVG so it is easier to create compared to raster formats such as JPEG, PNG, ICO, or GIF. SVG has better image quality with smaller file size.</p>
+<p><strong>Screenshot</strong></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/001.png" alt="SS01"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/002.png" alt="SS02"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/003.png" alt="SS03"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/004.png" alt="SS04"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/005.png" alt="SS05"></p>
+<p>The arrangement of the pads on the configuration page depends on the arrangement set by the developer before the program is deployed into the ESP32. This arrangement is fixed and cannot be changed by the user. Users can only change the instrument, threshold, headroom and duration on each pad.</p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/006.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/007.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/008.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/009.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/010.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/011.png" alt="SS06"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/012.png" alt="SS06"></p>
+<h3 id="support-usb">Support USB </h3>
+<p>ESP32 can send MIDI signal over USB and it recognized as MIDI controller.</p>
+<h3 id="support-websocket">Support WebSocket </h3>
+<p>ESP32 can send MIDI signal over LAN using WebSocket protocol.</p>
+<h3 id="support-ble">Support BLE </h3>
+<p>ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.</p>
+<h2 id="diagram">Diagram </h2>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ESP32Drum.drawio.svg" alt="Diagram"></p>
+<h2 id="midi-isntrument-code">MIDI Isntrument Code </h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Note</th>
+<th>Drum Sound</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>35</td>
+<td>B1</td>
+<td>Acoustic Bass Drum</td>
+</tr>
+<tr>
+<td>36</td>
+<td>C2</td>
+<td>Bass Drum 1</td>
+</tr>
+<tr>
+<td>37</td>
+<td>C#2</td>
+<td>Side Stick</td>
+</tr>
+<tr>
+<td>38</td>
+<td>D2</td>
+<td>Acoustic Snare</td>
+</tr>
+<tr>
+<td>39</td>
+<td>D#2</td>
+<td>Hand Clap</td>
+</tr>
+<tr>
+<td>40</td>
+<td>E2</td>
+<td>Electric Snare</td>
+</tr>
+<tr>
+<td>41</td>
+<td>F2</td>
+<td>Low Floor Tom</td>
+</tr>
+<tr>
+<td>42</td>
+<td>F#2</td>
+<td>Closed Hi Hat</td>
+</tr>
+<tr>
+<td>43</td>
+<td>G2</td>
+<td>High Floor Tom</td>
+</tr>
+<tr>
+<td>44</td>
+<td>G#2</td>
+<td>Pedal Hi-Hat</td>
+</tr>
+<tr>
+<td>45</td>
+<td>A2</td>
+<td>Low Tom</td>
+</tr>
+<tr>
+<td>46</td>
+<td>A#2</td>
+<td>Open Hi-Hat</td>
+</tr>
+<tr>
+<td>47</td>
+<td>B2</td>
+<td>Low-Mid Tom</td>
+</tr>
+<tr>
+<td>48</td>
+<td>C3</td>
+<td>Hi Mid Tom</td>
+</tr>
+<tr>
+<td>49</td>
+<td>C#3</td>
+<td>Crash Cymbal 1</td>
+</tr>
+<tr>
+<td>50</td>
+<td>D3</td>
+<td>High Tom</td>
+</tr>
+<tr>
+<td>51</td>
+<td>D#3</td>
+<td>Ride Cymbal 1</td>
+</tr>
+<tr>
+<td>52</td>
+<td>E3</td>
+<td>Chinese Cymbal</td>
+</tr>
+<tr>
+<td>53</td>
+<td>F3</td>
+<td>Ride Bell</td>
+</tr>
+<tr>
+<td>54</td>
+<td>F#3</td>
+<td>Tambourine</td>
+</tr>
+<tr>
+<td>55</td>
+<td>G3</td>
+<td>Splash Cymbal</td>
+</tr>
+<tr>
+<td>56</td>
+<td>G#3</td>
+<td>Cowbell</td>
+</tr>
+<tr>
+<td>57</td>
+<td>A3</td>
+<td>Crash Cymbal 2</td>
+</tr>
+<tr>
+<td>58</td>
+<td>A#3</td>
+<td>Vibraslap</td>
+</tr>
+<tr>
+<td>59</td>
+<td>B3</td>
+<td>Ride Cymbal 2</td>
+</tr>
+<tr>
+<td>60</td>
+<td>C4</td>
+<td>Hi Bongo</td>
+</tr>
+<tr>
+<td>61</td>
+<td>C#4</td>
+<td>Low Bongo</td>
+</tr>
+<tr>
+<td>62</td>
+<td>D4</td>
+<td>Mute Hi Conga</td>
+</tr>
+<tr>
+<td>63</td>
+<td>D#4</td>
+<td>Open Hi Conga</td>
+</tr>
+<tr>
+<td>64</td>
+<td>E4</td>
+<td>Low Conga</td>
+</tr>
+<tr>
+<td>65</td>
+<td>F4</td>
+<td>High Timbale</td>
+</tr>
+<tr>
+<td>66</td>
+<td>F#4</td>
+<td>Low Timbale</td>
+</tr>
+<tr>
+<td>67</td>
+<td>G4</td>
+<td>High Agogo</td>
+</tr>
+<tr>
+<td>68</td>
+<td>G#4</td>
+<td>Low Agogo</td>
+</tr>
+<tr>
+<td>69</td>
+<td>A4</td>
+<td>Cabasa</td>
+</tr>
+<tr>
+<td>70</td>
+<td>A#4</td>
+<td>Maracas</td>
+</tr>
+<tr>
+<td>71</td>
+<td>B4</td>
+<td>Short Whistle</td>
+</tr>
+<tr>
+<td>72</td>
+<td>C5</td>
+<td>Long Whistle</td>
+</tr>
+<tr>
+<td>73</td>
+<td>C#5</td>
+<td>Short Guiro</td>
+</tr>
+<tr>
+<td>74</td>
+<td>D5</td>
+<td>Long Guiro</td>
+</tr>
+<tr>
+<td>75</td>
+<td>D#5</td>
+<td>Claves</td>
+</tr>
+<tr>
+<td>76</td>
+<td>E5</td>
+<td>Hi Wood Block</td>
+</tr>
+<tr>
+<td>77</td>
+<td>F5</td>
+<td>Low Wood Block</td>
+</tr>
+<tr>
+<td>78</td>
+<td>F#5</td>
+<td>Mute Cuica</td>
+</tr>
+<tr>
+<td>79</td>
+<td>G5</td>
+<td>Open Cuica</td>
+</tr>
+<tr>
+<td>80</td>
+<td>G#5</td>
+<td>Mute Triangle</td>
+</tr>
+<tr>
+<td>81</td>
+<td>A5</td>
+<td>Open Triangle</td>
+</tr>
+</tbody>
+</table>
+<p><code>1000nnnn0kkkkkkk0vvvvvvv</code> is note off event where nnnn is channel number (0 - 15), <code>kkkkkkk</code> is key (0 to 127), <code>vvvvvvv</code> is velocity (0 - 127).</p>
+<p><code>1001nnnn0kkkkkkk0vvvvvvv</code> is note on event where nnnn is channel number (0 - 15), <code>kkkkkkk</code> is key (0 to 127), <code>vvvvvvv</code> is velocity (0 - 127).</p>
+<p>So, to send Bass Drum 1 with velocity 90 percent, MIDI controller will send <code>1001100100010010001110010</code></p>
+<p>where first <code>1001</code> represent note on, second <code>1001</code> represent channel number (channel 10), <code>00100100</code> represent Bass Drum 1 code (36), and <code>01110010</code> represent velocity 114 (90 percent).</p>
+<p>To send note off event, MIDI controller can send <code>1000100100010010001110010</code>.</p>
+<h2 id="materials-needed">Materials Needed </h2>
+<p>We need an ESP32 expansion board so that we have enough pins for the piezoelectric sensor with minimal effort. Each piezoelectric sensor will be connected to the expansion board with two cables. Because GND and analog input are separated by VCC, we need 3x1 dupont headers for each piezoelectric sensor.</p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/esp32-expansion-board-1.jpg" alt="Image1"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/esp32-expansion-board-2.jpg" alt="Image2"></p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/piezoelectric-sensor.jpg" alt="Image3"></p>
+<p>We do not need the VCC pin to supply power to the piezoelectric sensor because the piezoelectric sensor will generate an electrical voltage of itself when it receives enough vibrations. Thus, we can remove the VCC jumper pin. However, if we want to add another device, for example a sound generator that will be integrated with the MIDI controller that we are going to make, we can choose to use a jumper and set it according to the voltage we need.</p>
+<p>We still use the built-in USB on the ESP32 board to connect it to the PC because we will use this USB as a MIDI controller. The USB on the expansion board is only used as a power supply if needed or in scenarios using BLE (Bluetooth Low Energy) to transmit MIDI signals to the PC.</p>
+<h2 id="wiring">Wiring </h2>
+<table>
+<thead>
+<tr>
+<th>GPIO</th>
+<th>Input</th>
+<th>Output</th>
+<th>Pad CH</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>pulled up</td>
+<td>OK</td>
+<td></td>
+<td>outputs PWM signal at boot, must be LOW to enter flashing mode</td>
+</tr>
+<tr>
+<td>1</td>
+<td>TX pin</td>
+<td>OK</td>
+<td></td>
+<td>debug output at boot</td>
+</tr>
+<tr>
+<td>2</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 14</td>
+<td>connected to on-board LED, must be left floating or LOW to enter flashing mode</td>
+</tr>
+<tr>
+<td>3</td>
+<td>OK</td>
+<td>RX pin</td>
+<td></td>
+<td>HIGH at boot</td>
+</tr>
+<tr>
+<td>4</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 15</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>outputs PWM signal at boot, strapping pin</td>
+</tr>
+<tr>
+<td>6</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>7</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>8</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>9</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>10</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>11</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>connected to the integrated SPI flash</td>
+</tr>
+<tr>
+<td>12</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 11</td>
+<td>boot fails if pulled high, strapping pin</td>
+</tr>
+<tr>
+<td>13</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 12</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 10</td>
+<td>outputs PWM signal at boot</td>
+</tr>
+<tr>
+<td>15</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 13</td>
+<td>outputs PWM signal at boot, strapping pin</td>
+</tr>
+<tr>
+<td>16</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(U2_RXD)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(U2_TXD)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(SCK / VSPI_SCL)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(MISO)</td>
+</tr>
+<tr>
+<td>21</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(SDA)</td>
+</tr>
+<tr>
+<td>22</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(SCL)</td>
+</tr>
+<tr>
+<td>23</td>
+<td>OK</td>
+<td>OK</td>
+<td></td>
+<td>(MOSI)</td>
+</tr>
+<tr>
+<td>25</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 7</td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 8</td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 9</td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 5</td>
+<td></td>
+</tr>
+<tr>
+<td>33</td>
+<td>OK</td>
+<td>OK</td>
+<td>CH 6</td>
+<td></td>
+</tr>
+<tr>
+<td>34</td>
+<td>OK</td>
+<td></td>
+<td>CH 3</td>
+<td>input only</td>
+</tr>
+<tr>
+<td>35</td>
+<td>OK</td>
+<td></td>
+<td>CH 4</td>
+<td>input only</td>
+</tr>
+<tr>
+<td>36</td>
+<td>OK</td>
+<td></td>
+<td>CH 1</td>
+<td>input only</td>
+</tr>
+<tr>
+<td>39</td>
+<td>OK</td>
+<td></td>
+<td>CH 2</td>
+<td>input only</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/wiring.drawio.svg" alt="Wiring"></p>
+<p>The ESP32 WROOM-32 only allows us to create drum pads with 15 channels. This is because there are only 15 pins that can function as ADC (Analog to Digital Converter). However, our application allows the use of an ESP32 S3 which has a 16 pin ADC. In this project, we will only use 12 channel of ADC due it's limitation. So, channel 13, 14 and 15 will be removed.</p>
+<p>When using the ESP32 WROOM-32, the application must be limited so that it does not scan pin 16, causing the application to become unstable. This setting is hard coded in the application before flashing it to the ESP32.</p>
+<p>Keep in mind that GPIO 2 is connected to the onboard LED. The onboard LED can no longer be used as an indicator because it is already used as an ADC input. In addition, reading the ADC input must also be done after the ESP32 has finished booting. We also have to remove the onboard LED so that GPIO 2 can be used effectively for the ADC thereby preventing a voltage drop entering the ADC and causing reading errors.</p>
+<h2 id="pad-pin-mapping">Pad Pin Mapping </h2>
+<h3 id="full-pin-usage">Full pin Usage </h3>
+<table>
+<thead>
+<tr>
+<th>Pad</th>
+<th>Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GPIO 36</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GPIO 39</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GPIO 34</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GPIO 35</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GPIO 32</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GPIO 33</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GPIO 25</td>
+</tr>
+<tr>
+<td>8</td>
+<td>GPIO 26</td>
+</tr>
+<tr>
+<td>9</td>
+<td>GPIO 27</td>
+</tr>
+<tr>
+<td>10</td>
+<td>GPIO 14</td>
+</tr>
+<tr>
+<td>11</td>
+<td>GPIO 12</td>
+</tr>
+<tr>
+<td>12</td>
+<td>GPIO 13</td>
+</tr>
+<tr>
+<td>13</td>
+<td>GPIO 15</td>
+</tr>
+<tr>
+<td>14</td>
+<td>GPIO 2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>GPIO 4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minimum-pin-usage">Minimum Pin Usage </h3>
+<table>
+<thead>
+<tr>
+<th>Pad</th>
+<th>Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GPIO 36</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GPIO 39</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GPIO 34</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GPIO 35</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GPIO 32</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GPIO 33</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GPIO 25</td>
+</tr>
+<tr>
+<td>8</td>
+<td>GPIO 26</td>
+</tr>
+<tr>
+<td>9</td>
+<td>GPIO 27</td>
+</tr>
+<tr>
+<td>10</td>
+<td>GPIO 14</td>
+</tr>
+<tr>
+<td>11</td>
+<td>GPIO 12</td>
+</tr>
+<tr>
+<td>12</td>
+<td>GPIO 13</td>
+</tr>
+</tbody>
+</table>
+<p>With 12 pads, we can use GPIO 2 as a system indicator and don't need to remove the onboard LED.</p>
+<h2 id="eeprom-data-structure">EEPROM Data Structure </h2>
+<p>The MIDI controller configuration is stored in EEPROM which ensures that the configuration is maintained even if the MIDI controller is not powered. This data will be read every time the MIDI controller is turned on and when the configuration is required by the software. The configuration will be rewritten to EEPROM every time the user makes configuration changes.</p>
+<h3 id="eeprom-data-offset">EEPROM Data Offset </h3>
+<p>Each channel has an EEPROM address allocation to store the channel configuration. Even though the perchannel configuration data type is string, this data is divided into several segments that have different data types.</p>
+<p>We only have 512 bytes (4096 bits) of EEPROM space as storage media. We have to manage it so that it can accommodate dozens of data of various types and sizes. This allocation is not ideal for normal use.</p>
+<p>With the internal EEPROM built in on the ESP32, we can map data addresses as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Offset</th>
+<th>Length</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>offsetAPSSID</td>
+<td>0</td>
+<td>30</td>
+<td>String</td>
+<td>SSID AP</td>
+</tr>
+<tr>
+<td>offsetAPSSIDPassword</td>
+<td>30</td>
+<td>30</td>
+<td>String</td>
+<td>Password AP</td>
+</tr>
+<tr>
+<td>offsetAPIP</td>
+<td>60</td>
+<td>4</td>
+<td>IPAddress</td>
+<td>IP Address AP</td>
+</tr>
+<tr>
+<td>offsetAPGateway</td>
+<td>64</td>
+<td>4</td>
+<td>IPAddress</td>
+<td>Gateway AP</td>
+</tr>
+<tr>
+<td>offsetAPSubnet</td>
+<td>68</td>
+<td>4</td>
+<td>IPAddress</td>
+<td>Subnet AP</td>
+</tr>
+<tr>
+<td>offsetAPHidden</td>
+<td>72</td>
+<td>1</td>
+<td>Byte</td>
+<td>Hidden AP</td>
+</tr>
+<tr>
+<td>offsetWifiEnable</td>
+<td>73</td>
+<td>1</td>
+<td>Byte</td>
+<td>Enable Wifi</td>
+</tr>
+<tr>
+<td>offsetWifiSSID</td>
+<td>74</td>
+<td>30</td>
+<td>String</td>
+<td>SSID Wifi</td>
+</tr>
+<tr>
+<td>offsetWifiSSIDPassword</td>
+<td>104</td>
+<td>30</td>
+<td>String</td>
+<td>Password Wifi</td>
+</tr>
+<tr>
+<td>offsetWSEnable</td>
+<td>134</td>
+<td>1</td>
+<td>Byte</td>
+<td>Enable WS</td>
+</tr>
+<tr>
+<td>offsetWSScheme</td>
+<td>135</td>
+<td>5</td>
+<td>String</td>
+<td>Scheme WS</td>
+</tr>
+<tr>
+<td>offsetWSHost</td>
+<td>140</td>
+<td>40</td>
+<td>String</td>
+<td>Host WS</td>
+</tr>
+<tr>
+<td>offsetWSPort</td>
+<td>180</td>
+<td>2</td>
+<td>Word</td>
+<td>Port WS</td>
+</tr>
+<tr>
+<td>offsetWSPath</td>
+<td>182</td>
+<td>50</td>
+<td>String</td>
+<td>Path WS</td>
+</tr>
+<tr>
+<td>offsetWSUsername</td>
+<td>232</td>
+<td>20</td>
+<td>String</td>
+<td>Username WS</td>
+</tr>
+<tr>
+<td>offsetWSPassword</td>
+<td>252</td>
+<td>20</td>
+<td>String</td>
+<td>Password WS</td>
+</tr>
+<tr>
+<td>offsetConfigured</td>
+<td>272</td>
+<td>1</td>
+<td>Byte</td>
+<td>Flag that controller was configured</td>
+</tr>
+<tr>
+<td>offsetSolo</td>
+<td>273</td>
+<td>1</td>
+<td>Byte</td>
+<td>Flag solo channel</td>
+</tr>
+<tr>
+<td>offsetSoloChannel</td>
+<td>274</td>
+<td>1</td>
+<td>Byte</td>
+<td>Solo channel number</td>
+</tr>
+<tr>
+<td>offsetMCUser</td>
+<td>275</td>
+<td>20</td>
+<td>String</td>
+<td>MIDI Controller username</td>
+</tr>
+<tr>
+<td>offsetMCPassword</td>
+<td>295</td>
+<td>20</td>
+<td>String</td>
+<td>MIDI Controller password</td>
+</tr>
+<tr>
+<td>offsetMidiChannel</td>
+<td>315</td>
+<td>1</td>
+<td>Byte</td>
+<td>MIDI channel</td>
+</tr>
+<tr>
+<td>offsetReadInterval</td>
+<td>316</td>
+<td>4</td>
+<td>DWord</td>
+<td>Read analog interval</td>
+</tr>
+<tr>
+<td>offsetCh1</td>
+<td>320</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 1</td>
+</tr>
+<tr>
+<td>offsetCh2</td>
+<td>330</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 2</td>
+</tr>
+<tr>
+<td>offsetCh3</td>
+<td>340</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 3</td>
+</tr>
+<tr>
+<td>offsetCh4</td>
+<td>350</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 4</td>
+</tr>
+<tr>
+<td>offsetCh5</td>
+<td>360</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 5</td>
+</tr>
+<tr>
+<td>offsetCh6</td>
+<td>370</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 6</td>
+</tr>
+<tr>
+<td>offsetCh7</td>
+<td>380</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 7</td>
+</tr>
+<tr>
+<td>offsetCh8</td>
+<td>390</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 8</td>
+</tr>
+<tr>
+<td>offsetCh9</td>
+<td>400</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 9</td>
+</tr>
+<tr>
+<td>offsetCh10</td>
+<td>410</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 10</td>
+</tr>
+<tr>
+<td>offsetCh11</td>
+<td>420</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 11</td>
+</tr>
+<tr>
+<td>offsetCh12</td>
+<td>430</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 12</td>
+</tr>
+<tr>
+<td>offsetCh13</td>
+<td>440</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 13</td>
+</tr>
+<tr>
+<td>offsetCh14</td>
+<td>450</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 14</td>
+</tr>
+<tr>
+<td>offsetCh15</td>
+<td>460</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 15</td>
+</tr>
+<tr>
+<td>offsetCh16</td>
+<td>470</td>
+<td>10</td>
+<td>String</td>
+<td>Channel 16</td>
+</tr>
+<tr>
+<td>offsetTestVelocity</td>
+<td>480</td>
+<td>1</td>
+<td>Byte</td>
+<td>Test velocity</td>
+</tr>
+</tbody>
+</table>
+<p>So far we do not need additional storage media.</p>
+<p>If we want ideal space for storage, we can add an external EEPROM module connected to the ESP32 via SPI or I2C. For example, the AT24C256 Module can provide a much larger storage capacity of up to 256 kilo bytes with I2C communication.</p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/at24C256.png" alt="AT24C256"></p>
+<p>The wiring of AT24C256 is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>AT24C256</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>VIN 3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>SCL (GPIO 22)</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>SDA (GPIO 21)</td>
+</tr>
+</tbody>
+</table>
+<p>We can use 8 AT24C256 simultaneously on the same bus. By configuring the address pins, we can determine the AT24C256 addresses ranging from 80 to 87 with the following configuration:</p>
+<table>
+<thead>
+<tr>
+<th>A2</th>
+<th>A1</th>
+<th>A0</th>
+<th>Hexadecimal</th>
+<th>Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>50</td>
+<td>80</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>51</td>
+<td>81</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>52</td>
+<td>82</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>53</td>
+<td>83</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>54</td>
+<td>84</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>55</td>
+<td>85</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>56</td>
+<td>86</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>57</td>
+<td>87</td>
+</tr>
+</tbody>
+</table>
+<p>The AT24C128/256 has a hardware data protection scheme that allows the user to write protect the whole memory when the WP pin is at VCC.</p>
+<h3 id="channel-configuration">Channel Configuration </h3>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Length</th>
+<th>Type</th>
+<th>Range</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>Byte</td>
+<td>0-127</td>
+<td>Configuration flag</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Byte</td>
+<td>0-127</td>
+<td>Instrument code</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>Word</td>
+<td>0-65535</td>
+<td>Threshold (minimum value)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>Word</td>
+<td>0-65535</td>
+<td>Head room</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>DWord</td>
+<td>0-4294967295</td>
+<td>Duration (micro second)</td>
+</tr>
+</tbody>
+</table>
+<p>Configuration flag, instrument code, threshold, head room and duration are read separately by different functions. To read data with the <code>byte</code> type, the function will read one byte of data at the specified address. To read data with type <code>word</code>, the function will read two bytes of data starting from the specified address. To read data with <code>double word</code> type, the function will read four bytes of data starting from the specified address.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token keyword keyword-void">void</span> <span class="token function">readChannelConfig</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> channel<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> offset <span class="token operator">=</span> <span class="token function">getChannelOffset</span><span class="token punctuation">(</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    byte configured <span class="token operator">=</span> <span class="token function">readByte</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    byte instrumentCode <span class="token operator">=</span> <span class="token function">readByte</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">uint16_t</span> threshold <span class="token operator">=</span> <span class="token function">readWord</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">uint16_t</span> headRoom <span class="token operator">=</span> <span class="token function">readWord</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">uint32_t</span> duration <span class="token operator">=</span> <span class="token function">readDoubleWord</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token comment">// add code here</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">getChannelOffset</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> channel<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> memOffset <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>channel <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> memSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> 
+</code></pre><h3 id="convert-voltage-to-velocity">Convert Voltage to Velocity </h3>
+<p>To convert average pressure into velocity, the calculation uses the following parameters:</p>
+<ol>
+<li>12 bit voltage input (0 - 4095) is obtained from the average voltage on the ADC PIN</li>
+<li>12 bit threshold (0 - 4095) which will reduce the original average voltage to prevent vibrations from one pad propagating to other pads. The smaller the threshold, the weaker the strike will produce vibrations on other pads that are not hit. The greater the threshold, the less sensitive the pad is, which causes the player to have to hit faster to get high velocity.</li>
+<li>head room (0 - 4095) is the maximum tension produced by the fastest shot of the average player. The smaller the headroom, the smaller the head will produce high velocity.</li>
+</ol>
+<p>The threshold will basically have almost the same value for all pads because the threshold prevents nearby pads from being accidentally triggered if the pad next to it is hit at very high speed. Meanwhile, head room can have very varying values depending on the instrument used. For example, the snare may require a harder hit than the hat.</p>
+<p>The sampling interval must be precise. A small interval will reduce the latency between the time the pad is hit and the time the note ON signal is sent. Conversely, if the interval is too small, then the ESP32 cannot capture the maximum voltage which represents the player's speed when hitting the pad.</p>
+<p>The duration must be set in such a way that when the next voltage is read, the voltage value is below the threshold. This is intended to prevent the ESP32 from sending the ON note twice when the player hits the pad once. Thus, the number of note ON signals sent by the ESP32 is equal to the number of pad strokes made by the player.</p>
+<p>Default values which are test results must be provided by the application.</p>
+<p><img src="https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/velocity.drawio.svg" alt="Velocity"></p>
+<p>The ESP32 takes several voltage samples and then averages them. This average value is then converted into velocity.</p>
+<p>The average voltage is not the peak voltage but rather the average value taken from several samples when a voltage above the threshold is detected. This voltage may be far from the peak value depending on the sampling time. If the sampling time is close to the peak voltage, then the data-average voltage will be close to the peak voltage value. On the other hand, if the sampling time is far from the peak voltage, then the average data voltage will be far from the peak voltage value.</p>
+<p>In the example above, it is known that the threshold is equal to 383 and the head room is equal to 2059. The voltage that will be converted to velocity is above 0.309450549 volts while voltages below 0.309450549 volts will be ignored. Meanwhile, any voltage will be reduced by 0.309450549 volts. A voltage of 2.0625 volts will be converted to a velocity of 127 while a voltage of 0.309450549 volts will be converted to a velocity of 0. The relationship between voltage and velocity is as follows:</p>
+<pre data-role="codeBlock" data-info="" class="language-text text"><code>velocity = 127 * (voltage - 0.309450549 / (2.0625 - 0.309450549))
+</code></pre><p>where <code>voltage</code> is the average voltage of several voltage samples taken.</p>
+<p>We can write the diagram above into the following function:</p>
+<pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token class-name">uint8_t</span> <span class="token function">calcVelocity</span><span class="token punctuation">(</span><span class="token class-name">uint16_t</span> inp<span class="token punctuation">,</span> <span class="token class-name">uint16_t</span> thd<span class="token punctuation">,</span> <span class="token class-name">uint16_t</span> headRoom<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token class-name">uint16_t</span> inp2 <span class="token operator">=</span> inp <span class="token operator">&gt;=</span> thd <span class="token operator">?</span> inp <span class="token operator">-</span> thd <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-float">float</span> outp2 <span class="token operator">=</span> <span class="token number">127</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> inp2 <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span><span class="token punctuation">(</span>headRoom <span class="token operator">-</span> thd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>outp2 <span class="token operator">&gt;</span> <span class="token number">127</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        outp2 <span class="token operator">=</span> <span class="token number">127</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token class-name">uint8_t</span><span class="token punctuation">)</span> <span class="token function">round</span><span class="token punctuation">(</span>outp2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="duration">Duration </h3>
+<p>Duration in general is the time calculated from the <code>note on</code> signal to the next <code>note off</code> signal on the same channel and instrument or note. When it comes to drum pads, duration is very important because this will affect the speed at which the player plays the drums. The default value of the duration must be provided by the application.</p>
+<h1 id="tft-display">TFT Display </h1>
+<p>Drum pads can be equipped with TFT displays that allow users to see the status of the drum pad. However, the display is not an important feature considering the limited resources of the ESP 32.</p>
+<p>Some modules that can be used for displays are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Com</th>
+<th>Resolution</th>
+<th>Color</th>
+<th>Touch</th>
+<th>SD Card</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OLED</td>
+<td>IIC</td>
+<td>128 x 64</td>
+<td>White</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ST7735</td>
+<td>SPI</td>
+<td>128 x 160</td>
+<td>RGB</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ili9341</td>
+<td>SPI</td>
+<td>240 x 320</td>
+<td>RGB</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wiring-1">Wiring </h2>
+<h3 id="oled">OLED </h3>
+<table>
+<thead>
+<tr>
+<th>OLED</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>VIN 3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>SCL (GPIO 22)</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>SDA (GPIO 21)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="st7735">ST7735 </h3>
+<table>
+<thead>
+<tr>
+<th>ST7735</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LED</td>
+<td>VIN 3.3V</td>
+</tr>
+<tr>
+<td>SCK</td>
+<td>CLK (GPIO 18)</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>MOSI (GPIO 23)</td>
+</tr>
+<tr>
+<td>A0</td>
+<td>GPIO 4</td>
+</tr>
+<tr>
+<td>RESET</td>
+<td>RESET</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>CSO (GPIO 5)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>VIN 3.3V</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ili9341">ili9341 </h3>
+<table>
+<thead>
+<tr>
+<th>ili9341</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LED</td>
+<td>VIN 3.3V</td>
+</tr>
+<tr>
+<td>SCK</td>
+<td>CLK (GPIO 18)</td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td>MOSI (GPIO 23)</td>
+</tr>
+<tr>
+<td>MISO</td>
+<td>MISO (GPIO 19)</td>
+</tr>
+<tr>
+<td>D/C</td>
+<td>GPIO 4</td>
+</tr>
+<tr>
+<td>RESET</td>
+<td>VIN 3.3V</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>CSO (GPIO 5)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>VIN 3.3V</td>
+</tr>
+</tbody>
+</table>
+<h1 id="need-support">Need Support </h1>
+<p>Please support our YouTube channel by subsribe it at <a href="https://www.youtube.com/@MusicPlanetbiru">https://www.youtube.com/@MusicPlanetbiru</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
