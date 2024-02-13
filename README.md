@@ -317,7 +317,7 @@ With the internal EEPROM built in on the ESP32, we can map data addresses as fol
 | offsetCh14             | 450    | 10     | String     | Channel 14                          |
 | offsetCh15             | 460    | 10     | String     | Channel 15                          |
 | offsetCh16             | 470    | 10     | String     | Channel 16                          |
-| offsetTestVelocity     | 480    | 1      | Byte       | Channel 16                          |
+| offsetTestVelocity     | 480    | 1      | Byte       | Test velocity                         |
 
 So far we do not need additional storage media.
 
