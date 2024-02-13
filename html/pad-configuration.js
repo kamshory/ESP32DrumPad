@@ -222,15 +222,14 @@ function saveConfigPad() {
     "No",
     function () {
       let data = getBtnData("#pad-container");
-      console.log(data);
+      //console.log(data);
       ajax.post('save-pad.html', data, function (response, status, statusText) {
-        toast(
-          pSel,
-          'Configuration saved',
-          'Success',
-          "Hide", 
+        toast(pSel,
+          tMsg,
+          tTtl,
+          tBtn,
           null,
-          1000);
+          tTm);
       }, true);
     },
     null

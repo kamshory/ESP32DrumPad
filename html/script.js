@@ -69,6 +69,12 @@ let rMsg = "Are you sure you want to reset the configuration?";
 let pSel = ".popup-confirm";
 let pTtl = "User Confirmation";
 
+let tMsg = "Configurasion saved";
+let tTtl = "Success";
+let tBtn = "Hide";
+let tTm = 1200;
+
+
 function initPopUp() {
   _sls(".popup-closer").forEach((a) => {
     a.on("click", () => {
@@ -106,10 +112,10 @@ function toast(selector,
     btnOk.off("click");
   } catch (ex) { }
 
-  let to = setTimeout(lifetime, function () {
+  let to = setTimeout(function () {
     btnCallbackHide();
     confirmObject.popupHide();
-  });
+  }, lifetime);
 
   btnOk.on("click", function () {
     btnCallbackHide();
@@ -200,13 +206,12 @@ function saveConfigWS() {
         },
         function (response, status, statusText) {
           console.log(statusText);
-          toast(
-            pSel,
-            'Configuration saved',
-            'Success',
-            "Hide",
+          toast(pSel,
+            tMsg,
+            tTtl,
+            tBtn,
             null,
-            1000);
+            tTm);
         },
         true
       );
@@ -276,13 +281,12 @@ function saveConfigAP() {
           hidden: _nm("hidden").value,
         },
         function (response, status, statusText) {
-          toast(
-            pSel,
-            'Configuration saved',
-            'Success',
-            "Hide",
+          toast(pSel,
+            tMsg,
+            tTtl,
+            tBtn,
             null,
-            1000);
+            tTm);
         },
         true
       );
@@ -340,13 +344,12 @@ function saveConfigGeneral() {
           solo_pad_number: _nm("solo_pad_number").value,
         },
         function (response, status, statusText) {
-          toast(
-            pSel,
-            'Configuration saved',
-            'Success',
-            "Hide",
+          toast(pSel,
+            tMsg,
+            tTtl,
+            tBtn,
             null,
-            1000);
+            tTm);
         },
         true
       );
@@ -355,6 +358,7 @@ function saveConfigGeneral() {
   );
   return false;
 }
+
 function handleIP(e) {
   let el = e.target;
   isValidIP(el.value)
