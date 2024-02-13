@@ -77,6 +77,48 @@ function initPopUp() {
   });
 }
 
+function toast(selector,
+  message,
+  title,
+  btnTextHide,
+  btnCallbackHide,
+  lifetime) {
+  message = message || "Info";
+  title = title || "Info";
+  btnTextHide = btnTextHide || "Hide";
+  let confirmObject = _sl(selector);
+  confirmObject.find(".popup-header-text").innerText = title;
+  confirmObject.find(".popup-body .message").innerText = message;
+  confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
+  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
+  let btnOk = _ce("button");
+  btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
+  btnOk.innerText = btnTextHide;
+  let footer = confirmObject.find(".popup-footer");
+  footer.appendChild(btnOk);
+  confirmObject.popupShow();
+  btnCallbackHide =
+    btnCallbackHide ||
+    function () {
+      confirmObject.popupHide();
+    };
+  try {
+    btnOk.off("click");
+  } catch (ex) { }
+
+  let to = setTimeout(lifetime, function () {
+    btnCallbackHide();
+    confirmObject.popupHide();
+  });
+
+  btnOk.on("click", function () {
+    btnCallbackHide();
+    clearTimeout(to);
+    confirmObject.popupHide();
+  });
+
+}
+
 function customConfim(
   selector,
   message,
@@ -94,8 +136,7 @@ function customConfim(
   confirmObject.find(".popup-header-text").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
   confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
-  confirmObject.find(".btn-cancel") &&
-    confirmObject.find(".btn-cancel").remove();
+  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
 
   let btnOk = _ce("button");
   btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
@@ -124,7 +165,7 @@ function customConfim(
   try {
     btnOk.off("click");
     btnCancel.off("click");
-  } catch (ex) {}
+  } catch (ex) { }
   btnOk.on("click", function () {
     btnCallbackOk();
     confirmObject.popupHide();
@@ -159,6 +200,13 @@ function saveConfigWS() {
         },
         function (response, status, statusText) {
           console.log(statusText);
+          toast(
+            pSel,
+            'Configuration saved',
+            'Success',
+            "Hide",
+            null,
+            1000);
         },
         true
       );
@@ -184,7 +232,7 @@ function loadConfigWS() {
         _nm("ws_path").value = t.ws_path;
         _nm("ws_username").value = t.ws_username;
         _nm("ws_password").value = t.ws_password;
-      } catch (e) {}
+      } catch (e) { }
     },
     true
   );
@@ -203,7 +251,7 @@ function loadConfigAP() {
         _nm("gateway").value = t.gateway;
         _nm("subnet").value = t.subnet;
         _nm("hidden").value = t.hidden;
-      } catch (e) {}
+      } catch (e) { }
     },
     true
   );
@@ -227,7 +275,15 @@ function saveConfigAP() {
           subnet: _nm("subnet").value,
           hidden: _nm("hidden").value,
         },
-        function (response, status, statusText) {},
+        function (response, status, statusText) {
+          toast(
+            pSel,
+            'Configuration saved',
+            'Success',
+            "Hide",
+            null,
+            1000);
+        },
         true
       );
     },
@@ -246,7 +302,7 @@ function loadConfigGeneral() {
         _nm("read_interval").value = t.read_interval;
         _nm("solo_pad").value = t.solo_pad;
         _nm("solo_pad_number").value = t.solo_pad_number;
-      } catch (e) {}
+      } catch (e) { }
     },
     true
   );
@@ -283,7 +339,15 @@ function saveConfigGeneral() {
           solo_pad: _nm("solo_pad").value,
           solo_pad_number: _nm("solo_pad_number").value,
         },
-        function (response, status, statusText) {},
+        function (response, status, statusText) {
+          toast(
+            pSel,
+            'Configuration saved',
+            'Success',
+            "Hide",
+            null,
+            1000);
+        },
         true
       );
     },
@@ -325,22 +389,22 @@ ajax.create = function () {
   if ("undefined" != typeof XMLHttpRequest) return new XMLHttpRequest();
   for (
     let httpRequest,
-      obj = [
-        "MSXML2.XmlHttp.6.0",
-        "MSXML2.XmlHttp.5.0",
-        "MSXML2.XmlHttp.4.0",
-        "MSXML2.XmlHttp.3.0",
-        "MSXML2.XmlHttp.2.0",
-        "Microsoft.XmlHttp",
-      ],
-      n = 0;
+    obj = [
+      "MSXML2.XmlHttp.6.0",
+      "MSXML2.XmlHttp.5.0",
+      "MSXML2.XmlHttp.4.0",
+      "MSXML2.XmlHttp.3.0",
+      "MSXML2.XmlHttp.2.0",
+      "Microsoft.XmlHttp",
+    ],
+    n = 0;
     n < obj.length;
     n++
   )
     try {
       httpRequest = new ActiveXObject(obj[n]);
       break;
-    } catch (ex) {}
+    } catch (ex) { }
   return httpRequest;
 };
 

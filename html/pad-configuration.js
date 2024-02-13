@@ -1,46 +1,45 @@
 let defDt = {
   "row": [
-      [9, 10, 11, 12],
-      [5, 6, 7, 8],
-      [1, 2, 3, 4]
+    [9, 10, 11, 12],
+    [5, 6, 7, 8],
+    [1, 2, 3, 4]
   ],
   "pad": {
-      "f1": [35, 100, 1000, 10000],
-      "f2": [36, 100, 1000, 10000],
-      "f3": [37, 100, 1000, 10000],
-      "f4": [38, 100, 1000, 10000],
-      "f5": [39, 100, 1000, 10000],
-      "f6": [40, 100, 1000, 10000],
-      "f7": [41, 100, 1000, 10000],
-      "f8": [42, 100, 1000, 10000],
-      "f9": [43, 100, 1000, 10000],
-      "f10": [44, 100, 1000, 10000],
-      "f11": [45, 100, 1000, 10000],
-      "f12": [46, 100, 1000, 10000]
+    "f1": [35, 100, 1000, 10000],
+    "f2": [36, 100, 1000, 10000],
+    "f3": [37, 100, 1000, 10000],
+    "f4": [38, 100, 1000, 10000],
+    "f5": [39, 100, 1000, 10000],
+    "f6": [40, 100, 1000, 10000],
+    "f7": [41, 100, 1000, 10000],
+    "f8": [42, 100, 1000, 10000],
+    "f9": [43, 100, 1000, 10000],
+    "f10": [44, 100, 1000, 10000],
+    "f11": [45, 100, 1000, 10000],
+    "f12": [46, 100, 1000, 10000]
   }
 };
 
 window.onload = function () {
   // use default first
   renderPad(defDt.row, defDt.pad, "#pad-container");
-  
+
   // use saved
-  ajax.get('pad-configuration.json', {}, function(response, status, statusText){
-    try
-    {
-    let loadedDt = JSON.parse(response);
-    // remove first
-    _sl("#pad-container").innerHTML = "";
-    // render
-    renderPad(loadedDt.row, loadedDt.pad, "#pad-container");
+  ajax.get('pad-configuration.json', {}, function (response, status, statusText) {
+    try {
+      let loadedDt = JSON.parse(response);
+      // remove first
+      _sl("#pad-container").innerHTML = "";
+      // render
+      renderPad(loadedDt.row, loadedDt.pad, "#pad-container");
     }
-    catch(e){
+    catch (e) {
       console.log(e);
       console.log(response);
     }
   }, false);
 
-  
+
   let opt = _nm("instrument");
   let btnhide = _sls(".pupup-hide");
   let btnPad = _sls(".pad");
@@ -86,12 +85,12 @@ window.onload = function () {
     },
     false
   );
-  
+
   initPopUp();
 };
 
 function testDrum(note) {
-  ajax.get('test-note.html', {note:note}, function(response, status, statusText){
+  ajax.get('test-note.html', { note: note }, function (response, status, statusText) {
   }, true);
 }
 function resetToDefault() {
@@ -222,7 +221,16 @@ function saveConfigPad() {
     "Yes",
     "No",
     function () {
-      ajax.post('save-pad.html', getBtnData("#pad-container"), function(response, status, statusText){
+      let data = getBtnData("#pad-container");
+      console.log(data);
+      ajax.post('save-pad.html', data, function (response, status, statusText) {
+        toast(
+          pSel,
+          'Configuration saved',
+          'Success',
+          "Hide", 
+          null,
+          1000);
       }, true);
     },
     null
