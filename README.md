@@ -102,7 +102,7 @@ ESP32 can send MIDI signal over bluetooth and it recognized as MIDI controller.
 
 ![Diagram](https://raw.githubusercontent.com/kamshory/ESP32DrumPad/main/images/ESP32Drum.drawio.svg)
 
-## MIDI Isntrument Code
+## MIDI Instrument Code
 
 | Key | Note | Drum Sound         |
 | --- | ---- | ------------------ |
