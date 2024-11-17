@@ -1,0 +1,400 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px;
+    color: #555;
+  }
+  
+  h3 {
+    margin: 4px 0;
+  }
+  
+  .all {
+    width: 600px;
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .form-label {
+    padding: 5px 0;
+  }
+  
+  .form-input {
+    position: relative;
+  
+    input {
+      &[type="text"], &[type="number"], &[type="password"], &[type="ipaddress"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #CCC;
+        background-color: #FFF;
+        margin-bottom: 2px;
+      }
+
+      &[type="ipaddress"].invalid-ip {
+        border: 1px solid #C00;
+      }
+  
+      &[type="text"]:focus, &[type="number"]:focus, &[type="password"]:focus, &[type="ipaddress"]:focus {
+        outline: none;
+        transition: border 0.3s ease-in-out;
+      }
+      &[type="text"]:focus-visible, &[type="number"]:focus-visible, &[type="password"]:focus-visible {
+        outline: none;
+        border: 1px solid #4d80ce;
+      }
+    }
+  
+    select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 10px;
+      border-radius: 3px;
+      border: 1px solid #CCC;
+      background-color: #FFF;
+      margin-bottom: 2px;
+    }
+  
+    select:focus {
+      outline: none;
+      transition: border 0.3s ease-in-out;
+    }
+  
+    select:focus-visible {
+      outline: none;
+      border: 1px solid #4d80ce;
+    }
+  }
+  
+  .btn {
+    min-width: 54px;
+    box-sizing: border-box;
+    padding: 6px 6px;
+    border-radius: 3px;
+    border: 1px solid #bdbcbc;
+    background-color: #c7c6c6;
+    color: #333;
+    margin: 8px 0;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+  }
+  
+  .btn-100 {
+    width: 100%;
+  }
+  
+  .btn-success {
+    color: #FFF;
+    border: 1px solid #46992d;
+    background-color: #419129;
+  
+    &:hover {
+      background-color: #3e8827;
+    }
+  }
+  
+  .btn-primary {
+    color: #FFF;
+    border: 1px solid #2c5a9e;
+    background-color: #3464ac;
+  
+    &:hover {
+      background-color: #2c5a9e;
+    }
+  }
+  
+  .btn-warning {
+    color: #212529;
+    border: 1px solid #f8bb05;
+    background-color: #ffc107;
+  
+    &:hover {
+      background-color: #f8bb05;
+    }
+  }
+  
+  .btn-danger {
+    color: #FFF;
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
+  
+    &:hover {
+      background-color: #d63343;
+    }
+  }
+  
+  .row {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .column {
+    flex: 50%;
+    justify-content: space-between;
+  }
+  
+  .pad-wrapper {
+    flex: 50%;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .pad {
+    position: relative;
+    height: 60px;
+    font-size: 14px;
+    background-color: #64ffc5;
+    border: 1px solid #4ddba6;
+    min-width: 20px;
+  
+    &:active {
+      background-image: radial-gradient(#98ffd9, #64ffc5);
+    }
+  
+    &::before {
+      content: attr(data-number);
+      position: absolute;
+      display: block;
+      left: 4px;
+      top: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+  
+    &::after {
+      content: attr(data-tt);
+      position: absolute;
+      display: block;
+      width: calc(100% - 8px);
+      left: 4px;
+      bottom: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+    }
+  }
+  
+  .pad-wrapper .editor {
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+  }
+  
+  a.ctrl {
+    display: block;
+    width: 20px;
+    height: 20px;
+    color: #333;
+  
+    &::before {
+      content: '\270E';
+      color: #333;
+      display: block;
+      position: absolute;
+      font-size: 15px;
+      transform: rotate(90deg);
+    }
+  }
+  
+  /* Popup shadow, digunakan untuk latar belakang transparan */
+  
+  .popup-shadow {
+    z-index: 1001;
+    min-width: 100vw;
+    min-height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #aaaaaa;
+    opacity: 0;
+  
+    /* initial state - hidden */
+    visibility: hidden;
+  
+    /* initial state - hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0.2s;
+  
+    /* transition opacity, delay visibility change */
+  }
+  
+  /* Popup box */
+  
+  .popup {
+    position: absolute;
+    color: #333333;
+    background-color: #ffffff;
+    box-shadow: 0 2px 3px #0000001c;
+    border: 1px solid rgb(124, 153, 193);
+    width: 480px;
+    left: 50%;
+    margin-left: -240px;
+    min-height: 100px;
+    top: 20px;
+    opacity: 0;
+  
+    /* initial state - hidden */
+    visibility: hidden;
+  
+    /* initial state - hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0.2s;
+  
+    /* transition opacity, delay visibility change */
+  
+    &.show {
+      opacity: 1;
+  
+      /* make visible */
+      visibility: visible;
+  
+      /* ensure visibility */
+      transition: opacity 0.2s ease-in-out, visibility 0s ease 0s;
+  
+      /* reset visibility transition */
+    }
+  }
+  
+  /* When both popup and shadow are visible (with class "show") */
+  
+  .popup-shadow.show {
+    opacity: 1;
+  
+    /* make visible */
+    visibility: visible;
+  
+    /* ensure visibility */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0s;
+  
+    /* reset visibility transition */
+  
+    + .popup.show {
+      opacity: 1;
+  
+      /* make visible */
+      visibility: visible;
+  
+      /* ensure visibility */
+    }
+  }
+  
+  /* Ensure the popup shadow is visible along with the popup */
+  
+  .popup-confirm {
+    position: fixed;
+    width: 320px;
+    left: 50%;
+    margin-left: -160px;
+    min-height: 100px;
+    top: calc(50vh - 88px);
+    z-index: 10;
+  }
+  
+  @media screen and (max-width: 520px) {
+    .popup-w {
+      width: calc(100vw - 40px);
+      left: 0%;
+      margin-left: 20px;
+    }
+  }
+  
+  @media screen and (max-width: 360px) {
+    .popup-confirm {
+      width: calc(100vw - 40px);
+      left: 0%;
+      margin-left: 20px;
+      min-height: 100px;
+    }
+  }
+  
+  .popup-header {
+    padding: 4px 12px;
+    min-height: 25px;
+    line-height: 25px;
+    background-color: #3464ac;
+    color: white;
+  }
+  
+  .popup-closer {
+    background-color: transparent;
+    border: none;
+    float: inline-end;
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    margin-right: -4px;
+    position: relative;
+    border-radius: 2px;
+    cursor: pointer;
+  
+    &::before {
+      width: 2px;
+      height: 12px;
+      background-color: white;
+      display: block;
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 8px;
+      transform: rotate(-45deg);
+    }
+  
+    &::after {
+      width: 2px;
+      height: 12px;
+      background-color: white;
+      display: block;
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 8px;
+      transform: rotate(45deg);
+      
+    }
+  }
+  
+  .popup-body {
+    padding: 5px 12px;
+    min-height: 25px;
+    background-color: #ffffff;
+  
+    p {
+      line-height: 1.5;
+    }
+  }
+  
+  .popup-footer {
+    padding: 6px 12px;
+    min-height: 25px;
+    background-color: #eeeeee;
+    text-align: end;
+  
+    .btn {
+      margin: 4px 0;
+      min-width: 64px;
+    }
+  }
+  
+  .two-side-table {
+    width: 100%;
+  
+    td {
+      padding: 2px 0;
+    }
+  
+    tr > td:nth-child(1) {
+      width: 35%;
+    }
+  }
+  
