@@ -216,8 +216,7 @@ a.ctrl::before {
   position: absolute;
   color: #333333;
   background-color: #ffffff;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1098039216);
-  border: 1px solid rgb(124, 153, 193);
+  box-shadow: 1px 1px 4px rgba(110, 119, 132, 0.7607843137);
   width: 480px;
   left: 50%;
   margin-left: -240px;
