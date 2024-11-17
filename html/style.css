@@ -100,12 +100,12 @@ h3 {
 }
 
 .btn-warning {
-  color: #212529;
-  border: 1px solid #f8bb05;
-  background-color: #ffc107;
+  color: #fff;
+  border: 1px solid #f4b700;
+  background-color: #ffbf00;
 }
 .btn-warning:hover {
-  background-color: #f8bb05;
+  background-color: #ffbf00;
 }
 
 .btn-danger {
@@ -137,12 +137,12 @@ h3 {
   position: relative;
   height: 60px;
   font-size: 14px;
-  background-color: #64ffc5;
-  border: 1px solid #4ddba6;
+  background-color: #f1e315;
+  border: 1px solid #d8cb13;
   min-width: 20px;
 }
 .pad:active {
-  background-image: radial-gradient(#98ffd9, #64ffc5);
+  background-image: radial-gradient(#f7e92d, #f1e315);
 }
 .pad::before {
   content: attr(data-number);
