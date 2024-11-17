@@ -6,6 +6,9 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 #include <MIDI.h>
+#include <map>
+
+std::map<String, String> sessions;
 
 int onboardLED = 2;
 char *ssid = "PlanetbiruMusic";
@@ -363,6 +366,58 @@ void Listen15(void *pvParameters);
  */
 void Listen16(void *pvParameters);
 
+/**
+ * @brief Generates a unique session ID based on the current system time.
+ * 
+ * This function uses the `millis()` function to generate a session ID, which is 
+ * essentially the number of milliseconds since the ESP32 started. This ID is used 
+ * to track sessions for the user.
+ * 
+ * @return A string representing the session ID.
+ */
+String generateSessionID() {
+  String sessionID = String(millis());  // Create a session ID from the number of milliseconds
+  return sessionID;  // Return the session ID
+}
+
+/**
+ * @brief Sets a session cookie in the HTTP response header.
+ * 
+ * This function sends a `Set-Cookie` header in the HTTP response to the client 
+ * with the session ID. The cookie will be valid for 1 hour (3600 seconds) and will
+ * be available for the entire domain (`Path=/`).
+ * 
+ * @param server The `WebServer` object that handles the HTTP request.
+ * @param sessionID The session ID to store in the cookie.
+ */
+void setSessionCookie(WebServer& server, const String& sessionID) {
+  // Create a cookie string with the session ID, setting the expiration time to 1 hour
+  String cookie = "sessionID=" + sessionID + "; Max-Age=3600; Path=/";
+  server.sendHeader("Set-Cookie", cookie);  // Send the Set-Cookie header with the sessionID
+}
+
+/**
+ * @brief Retrieves the session ID from the request's cookies.
+ * 
+ * This function checks the incoming HTTP request for the `sessionID` cookie. If found,
+ * it returns the session ID. Otherwise, it returns an empty string.
+ * 
+ * @param server The `WebServer` object that handles the HTTP request.
+ * @return A string representing the session ID if found, or an empty string if not found.
+ */
+String getSessionID(WebServer& server) {
+  String cookieHeader = server.header("Cookie");  // Get the Cookie header from the request
+  String sessionID = "";  // Initialize an empty session ID
+
+  // Check if the cookie contains 'sessionID='
+  if (cookieHeader.indexOf("sessionID=") != -1) {
+    // Extract the session ID from the cookie header
+    sessionID = cookieHeader.substring(cookieHeader.indexOf("sessionID=") + 10);  // Skip 'sessionID='
+    sessionID = sessionID.substring(0, sessionID.indexOf(";"));  // Extract the session ID value before the ';'
+  }
+
+  return sessionID;  // Return the session ID or an empty string if not found
+}
 
 /**
  * @brief Calculates a velocity value based on input, threshold, and headroom values.
@@ -752,6 +807,7 @@ String readString(int offset, int length)
  */
 void getAPData()
 {
+    handleCookieAndSession();
     String savedSSID = readString(offsetSSID1, sizeofString30);
     String savedSSIDPassword = readString(offsetSSIDPassword1, sizeofString30);
     String savedIP = readIp(offsetAPIP);
@@ -786,6 +842,7 @@ void getAPData()
  */
 void saveConfigAP()
 {
+    handleCookieAndSession();
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
@@ -817,6 +874,7 @@ void saveConfigAP()
  */
 void getMidiConfiguration()
 {
+    handleCookieAndSession();
     response += "{";
     int i = 0;
     for (int i = 1; i <= maxCh; i++)
@@ -906,6 +964,7 @@ void resetSTA()
  */
 void getSubData()
 {
+    handleCookieAndSession();
     String response = "";
     String savedSSID = readString(offsetSSID2, sizeofString20);
     String savedSSIDPassword = readString(offsetSSIDPassword2, sizeofString20);
@@ -956,6 +1015,7 @@ void getSubData()
  */
 void saveConfigWS()
 {
+    handleCookieAndSession();
     if (server.method() == HTTP_POST)
     {
         String savedSSID = server.arg("ssid_name");
@@ -1624,6 +1684,33 @@ String[] splitStringMax(String text, char splitChar, int splitCount)
 }
 
 /**
+ * @brief Handles the reading and setting of session cookies.
+ *
+ * This function checks if a session ID is present in the incoming HTTP request's cookie. 
+ * If no session ID is found, a new session is created, the session data is stored in a map,
+ * and a new session cookie is sent to the client. If a session ID exists, the corresponding session data
+ * is retrieved from the server-side session store and logged.
+ */
+void handleCookieAndSession()
+{
+    // Retrieve the session ID from the incoming request's cookies
+    String sessionID = getSessionID(server);
+
+    if (sessionID == "") {
+        // No session ID found, create a new session
+        sessionID = generateSessionID(); // Generate a unique session ID
+        sessions[sessionID] = "New User"; // Store session data for the new session ID
+        setSessionCookie(server, sessionID); // Set the session cookie in the response
+        Serial.println("New session created with ID: " + sessionID);
+    } else {
+        // Session ID found, retrieve corresponding session data
+        String sessionData = sessions[sessionID]; // Get session data from the server-side session map
+        Serial.println("Session ID: " + sessionID + " - Session Data: " + sessionData);
+    }
+}
+
+
+/**
  * @brief Handles the root path ("/") request and serves the home page HTML.
  * 
  * This function sends a basic HTML page with buttons to navigate to the other configuration pages.
@@ -1633,6 +1720,7 @@ String[] splitStringMax(String text, char splitChar, int splitCount)
  */
 void handleRoot()
 {
+    handleCookieAndSession();
     String response = "<!doctype html><html lang=en><head><meta charset=UTF-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=0,user-scalable=no\"><title>PlanetDrum - Home</title><link rel=stylesheet href=style.css><script src=script.js></script></head><body><div class=all><div class=form-item><div class=row><div class=column><input class=\"btn btn-100 btn-primary\" type=button value=\"General Setting\" onclick='window.location=\"general-configuration.html\"'></div><div class=column><input class=\"btn btn-100 btn-primary\" type=button value=\"Pad Setting\" onclick='window.location=\"pad-configuration.html\"'></div></div><div class=row><div class=column><input class=\"btn btn-100 btn-primary\" type=button value=\"Access Point\" onclick='window.location=\"ap-configuration.html\"'></div><div class=column><input class=\"btn btn-100 btn-primary\" type=button value=\"Web Socket\" onclick='window.location=\"ws-configuration.html\"'></div></div></div></div></body></html>";
     server.sendHeader("Cache-Control", "public, max-age=2678400");
     server.send(200, "text/html", response);
@@ -1649,6 +1737,7 @@ void handleRoot()
  */
 void handleAP()
 {
+    handleCookieAndSession();
     String response = "<!doctype html><html lang=en><head><meta charset=UTF-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=0,user-scalable=no\"><title>PlanetDrum - Access Point Configuration</title><link rel=stylesheet href=style.css><script src=script.js></script></head><body><div class=all><form action=save-ap.html method=post onsubmit=\"return saveConfigAP(),!1\"><div class=form-item><div class=form-label>SSID</div><div class=form-input> <input name=ssid_name maxlength=20 required> </div></div><div class=form-item><div class=form-label>Password</div><div class=form-input> <input type=password name=ssid_password maxlength=20> </div></div><div class=form-item><div class=form-label>IP Address</div><div class=form-input> <input type=ipaddress pattern=^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$ name=ip placeholder=192.168.4.1 required> </div></div><div class=form-item><div class=form-label>Gateway</div><div class=form-input> <input type=ipaddress pattern=^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$ name=gateway placeholder=192.168.4.1 required></div></div><div class=form-item><div class=form-label>Subnet</div><div class=form-input> <input type=ipaddress pattern=^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$ name=subnet placeholder=255.255.255.0 required></div></div><div class=form-item><div class=form-label>Hidden</div><div class=form-input> <select name=hidden><option value=0>No</option><option value=1>Yes</option></select> </div></div><div class=form-item><div class=row><div class=column><input class=\"btn btn-100 btn-success\" type=submit name=save id=save value=Save></div><div class=column><input class=\"btn btn-100 btn-danger\" type=button name=save id=home value=Home onclick='window.location=\"index.html\"'></div></div></div></form></div><div class=popup-shadow><div class=\"popup popup-confirm\"><div class=popup-header>Confirm</div><div class=popup-body><p class=message></p></div><div class=popup-footer></div></div></div><script>window.onload=function(){loadConfigAP(),initIP()}</script></body></html>";
     server.sendHeader("Cache-Control", "public, max-age=2678400");
     server.send(200, "text/html", response);
@@ -1664,6 +1753,7 @@ void handleAP()
  */
 void handleWS()
 {
+    handleCookieAndSession();
     String response = "<!doctype html><html lang=en><head><meta charset=UTF-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=0,user-scalable=no\"><title>PlanetDrum - Subscribtion Configuration</title><link rel=stylesheet href=style.css><script src=script.js></script></head><body><div class=all><form action=\"\" method=post onsubmit=\"return saveConfigWS()\"><div class=form-item><div class=form-label>Connect to Wifi</div><div class=form-input><select name=wifi_enable><option value=0>No</option><option value=1>Yes</option></select></div></div><div class=form-item><div class=form-label>Wifi SSID</div><div class=form-input><input name=ssid_name></div></div><div class=form-item><div class=form-label>Wifi Password</div><div class=form-input><input type=password name=ssid_password></div></div><div class=form-item><div class=form-label>Connect to WebSocket</div><div class=form-input><select name=ws_enable><option value=0>No</option><option value=1>Yes</option></select></div></div><div class=form-item><div class=form-label>WebSocket Scheme</div><div class=form-input><select name=ws_scheme><option value=ws>ws</option><option value=wss>wss</option></select></div></div><div class=form-item><div class=form-label>WebSocket Host</div><div class=form-input><input name=ws_host></div></div><div class=form-item><div class=form-label>WebSocket Port</div><div class=form-input><input name=ws_port></div></div><div class=form-item><div class=form-label>WebSocket Path</div><div class=form-input><input name=ws_path></div></div><div class=form-item><div class=form-label>WebSocket Username</div><div class=form-input><input name=ws_username></div></div><div class=form-item><div class=form-label>WebSocket Password</div><div class=form-input><input type=password name=ws_password></div></div><div class=form-item><div class=row><div class=column><input class=\"btn btn-100 btn-success\" type=submit name=save value=Save></div><div class=column><input class=\"btn btn-100 btn-danger\" type=button name=save value=Home onclick='window.location=\"index.html\"'></div></div></div></form></div><div class=popup-shadow><div class=\"popup popup-confirm\"><div class=popup-header>Confirm</div><div class=popup-body><p class=message></p></div><div class=popup-footer></div></div></div><script>window.onload=function(){loadConfigWS()}</script></body></html>";
     server.sendHeader("Cache-Control", "public, max-age=2678400");
     server.send(200, "text/html", response);
@@ -1679,6 +1769,7 @@ void handleWS()
  */
 void handleStyle()
 {
+    handleCookieAndSession();
     String response = ".all,.btn{box-sizing:border-box}.form-input,.pad,.pad-wrapper,body{position:relative}.pad::after,.pad::before{display:block;left:4px;font-size:10px;white-space:nowrap}.btn,a.ctrl{color:#333}body{margin:0;padding:0;font-family:Verdana,Geneva,Tahoma,sans-serif;font-size:13px;color:#555}.popup-footer .btn,h3{margin:4px 0}.all{width:900px;max-width:100%;margin:auto;padding:20px}.form-label{padding:5px 0}.form-input input[type=ipaddress],.form-input input[type=number],.form-input input[type=password],.form-input input[type=text],.form-input select{width:100%;box-sizing:border-box;padding:6px 10px;border-radius:3px;border:1px solid #ccc;background-color:#fff;margin-bottom:2px}.form-input input[type=ipaddress].invalid-ip{border:1px solid #c00}.form-input input[type=ipaddress]:focus,.form-input input[type=number]:focus,.form-input input[type=password]:focus,.form-input input[type=text]:focus,.form-input select:focus{outline:0;transition:border .3s ease-in-out}.form-input input[type=number]:focus-visible,.form-input input[type=password]:focus-visible,.form-input input[type=text]:focus-visible,.form-input select:focus-visible{outline:0;border:1px solid #4d80ce}.btn{min-width:60px;padding:6px 10px;border-radius:3px;border:1px solid #bdbcbc;background-color:#c7c6c6;margin:8px 0}.btn-100,.two-side-table{width:100%}.btn-success{color:#fff;border:1px solid #46992d;background-color:#419129}.btn-primary{color:#fff;border:1px solid #2d5899;background-color:#3464ac}.btn-warning{color:#212529;border:1px solid #ffc107;background-color:#ffc107}.btn-danger{color:#fff;border:1px solid #dc3545;background-color:#dc3545}.row{display:flex;gap:10px}.column,.pad-wrapper{flex:50%;justify-content:space-between}.pad{height:60px;font-size:14px;background-color:#64ffc5;border:1px solid #4ddba6;min-width:20px}.pad::after,.pad::before,.popup,.popup-shadow,a.ctrl::before{position:absolute}.pad:active{background-image:radial-gradient(#98ffd9,#64ffc5)}.pad::before{content:attr(data-number);top:4px}.pad::after{content:attr(data-tt);width:calc(100% - 8px);bottom:4px;text-overflow:ellipsis;overflow-x:hidden}.pad-wrapper .editor,a.ctrl{width:20px;height:20px;display:block}.pad-wrapper .editor{position:absolute;top:10px;right:0}a.ctrl::before{content:'\270E';color:#333;display:block;font-size:15px;transform:rotate(90deg)}.popup-shadow{z-index:1001;min-width:100vw;min-height:100vh;top:0;bottom:0;left:0;right:0;overflow:auto;background-color:rgba(0,0,0,.4);color:#aaa;display:none}.popup,.popup-confirm{left:50%;min-height:100px}.popup{color:#333;background-color:#fff;border:1px solid #7c99c1;display:none;width:480px;margin-left:-240px;top:20px}.popup-confirm{position:fixed;width:320px;margin-left:-160px;top:calc(50vh - 70px);z-index:10}@media screen and (max-width:520px){.popup-w{width:calc(100vw - 40px);left:0;margin-left:20px}}@media screen and (max-width:360px){.popup-confirm{width:calc(100vw - 40px);left:0;margin-left:20px;min-height:100px}}.popup-header{padding:4px 12px;min-height:25px;line-height:25px;background-color:#3464ac;color:#fff}.popup-body{padding:5px 12px;min-height:25px;background-color:#fff}.popup-body p{line-height:1.5}.popup-footer{padding:6px 12px;min-height:25px;background-color:#eee;text-align:end}.two-side-table td{padding:2px 0}.two-side-table tr>td:first-child{width:35%}";
     server.sendHeader("Cache-Control", "public, max-age=2678400");
     server.send(200, "text/css", response);
@@ -1694,6 +1785,7 @@ void handleStyle()
  */
 void handleScript()
 {
+    handleCookieAndSession();
     String response = "function _ce(e){return document.createElement(e)}function _nm(e){return document.getElementsByName(e)[0]}function _sl(e){return document.querySelector(e)}function _sls(e){return document.querySelectorAll(e)}Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){let n=this;do{if(Element.prototype.matches.call(n,e))return n;n=n.parentElement||n.parentNode}while(null!==n&&1===n.nodeType);return null}),Element.prototype.remove||(Element.prototype.remove=function(e){this.parentNode.removeChild(this)}),Element.prototype.popupShow=function(){this.style.display=\"block\",this.closest(\".popup-shadow\").style.display=\"block\"},Element.prototype.attr=function(e,n){return void 0!==n?this.setAttribute(e,n):this.getAttribute(e)},Element.prototype.popupHide=function(){this.style.display=\"none\",this.closest(\".popup-shadow\").style.display=\"none\"},Element.prototype.on=function(e,n,t){return this.addEventListener(e,n,t)},Element.prototype.off=function(e,n,t){return this.removeEventListener(e,n,t)},Element.prototype.find=function(e){return this.querySelector(e)},Element.prototype.findAll=function(e){return this.querySelectorAll(e)};let ajax={},cMsg=\"Are you sure you want to save the config?\",rMsg=\"Are you sure you want to reset the config?\",pSel=\".popup-confirm\",pTtl=\"User Confirmation\";function customConfim(e,n,t,o,a,s,l){n=n||\"Are you sure?\",t=t||\"Confirm\",o=o||\"OK\",a=a||\"Cancel\";let i=_sl(e);i.find(\".popup-header\").innerText=t,i.find(\".popup-body .message\").innerText=n,i.find(\".btn-ok\")&&i.find(\".btn-ok\").remove(),i.find(\".btn-cancel\")&&i.find(\".btn-cancel\").remove();let u=_ce(\"button\");u.attr(\"class\",\"btn btn-success btn-ok\"),u.innerText=o;let r=_ce(\"button\");r.attr(\"class\",\"btn btn-warning btn-cancel\"),r.innerText=a;let p=i.find(\".popup-footer\");p.appendChild(u),p.appendChild(document.createTextNode(\" \")),p.appendChild(r),i.popupShow(),s=s||function(){i.popupHide()},l=l||function(){i.popupHide()};try{u.off(\"click\"),r.off(\"click\")}catch(c){}u.on(\"click\",function(){s(),i.popupHide()}),r.on(\"click\",function(){l(),i.popupHide()})}function saveConfigWS(){return customConfim(pSel,cMsg,pTtl,\"Yes\",\"No\",function(){ajax.post(\"save-ws.html\",{action:\"save-ws\",wifi_enable:_nm(\"wifi_enable\").value,ssid_name:_nm(\"ssid_name\").value,ssid_password:_nm(\"ssid_password\").value,ws_enable:_nm(\"ws_enable\").value,ws_host:_nm(\"ws_host\").value,ws_port:_nm(\"ws_port\").value,ws_path:_nm(\"ws_path\").value,ws_username:_nm(\"ws_username\").value,ws_password:_nm(\"ws_password\").value},function(e,n,t){console.log(t)},!0)},null),!1}function loadConfigWS(){ajax.get(\"ws-configuration.json\",{},function(e,n,t){try{let o=JSON.parse(e);_nm(\"wifi_enable\").value=o.wifi_enable,_nm(\"ssid_name\").value=o.ssid_name,_nm(\"ssid_password\").value=o.ssid_password,_nm(\"ws_enable\").value=o.ws_enable,_nm(\"ws_scheme\").value=o.ws_scheme,_nm(\"ws_host\").value=o.ws_host,_nm(\"ws_port\").value=o.ws_port,_nm(\"ws_path\").value=o.ws_path,_nm(\"ws_username\").value=o.ws_username,_nm(\"ws_password\").value=o.ws_password}catch(a){}},!0)}function loadConfigAP(){ajax.get(\"ap-configuration.json\",{},function(e,n,t){try{let o=JSON.parse(e);_nm(\"ssid_name\").value=o.ssid_name,_nm(\"ssid_password\").value=o.ssid_password,_nm(\"ip\").value=o.ip,_nm(\"gateway\").value=o.gateway,_nm(\"subnet\").value=o.subnet,_nm(\"hidden\").value=o.hidden}catch(a){}},!0)}function saveConfigAP(){return customConfim(pSel,cMsg,pTtl,\"Yes\",\"No\",function(){ajax.post(\"save-ap.html\",{action:\"save-ap\",ssid_name:_nm(\"ssid_name\").value,ssid_password:_nm(\"ssid_password\").value,ip:_nm(\"ip\").value,gateway:_nm(\"gateway\").value,subnet:_nm(\"subnet\").value,hidden:_nm(\"hidden\").value},function(e,n,t){},!0)},null),!1}function loadConfigGeneral(){ajax.get(\"general-configuration.json\",{},function(e,n,t){try{let o=JSON.parse(e);_nm(\"channel\").value=o.channel,_nm(\"read_interval\").value=o.read_interval,_nm(\"solo_pad\").value=o.solo_pad,_nm(\"solo_pad_number\").value=o.solo_pad_number}catch(a){}},!0)}function loadDefaultGeneral(){customConfim(pSel,rMsg,pTtl,\"Yes\",\"No\",function(){_nm(\"channel\").value=10,_nm(\"read_interval\").value=1e3,_nm(\"solo_pad\").value=0,_nm(\"solo_pad_number\").value=1},null)}function saveConfigGeneral(){return customConfim(pSel,cMsg,pTtl,\"Yes\",\"No\",function(){ajax.post(\"save-general.html\",{channel:_nm(\"channel\").value,read_interval:_nm(\"read_interval\").value,solo_pad:_nm(\"solo_pad\").value,solo_pad_number:_nm(\"solo_pad_number\").value},function(e,n,t){},!0)},null),!1}function handleIP(e){let n=e.target;isValidIP(n.value)?n.classList.remove(\"invalid-ip\"):(n.classList.remove(\"invalid-ip\"),n.classList.add(\"invalid-ip\"))}function initIP(){let e=_sls('input[type=\"ipaddress\"]');if(null!=e&&e.length)for(let n=0;n<e.length;n++)e[n].on(\"keyup\",function(e){handleIP(e)}),e[n].on(\"change\",function(e){handleIP(e)})}function isValidIP(e){if(0==e.length)return!0;let n,t=e.split(\".\");if(4!=t.length)return!1;for(n in t)if(isNaN(parseInt(t[n]))||t[n]<0||255<t[n])return!1;return!0}ajax.create=function(){if(\"undefined\"!=typeof XMLHttpRequest)return new XMLHttpRequest;for(let e,n=[\"MSXML2.XmlHttp.6.0\",\"MSXML2.XmlHttp.5.0\",\"MSXML2.XmlHttp.4.0\",\"MSXML2.XmlHttp.3.0\",\"MSXML2.XmlHttp.2.0\",\"Microsoft.XmlHttp\",],t=0;t<n.length;t++)try{e=new ActiveXObject(n[t]);break}catch(o){}return httpRequest},ajax.send=function(e,n,t,o,a){a=a||!1;let s=ajax.create();s.open(t,e,a),s.onreadystatechange=function(){if(4==s.readyState&&null!=n&&\"function\"==typeof n){let e=n.length;1==e?n(s.responseText):2==e?n(s.responseText,s.status):3==e&&n(s.responseText,s.status,s.statusText)}},\"POST\"==t&&s.setRequestHeader(\"Content-type\",\"application/x-www-form-urlencoded\"),s.send(o)},ajax.get=function(e,n,t,o){let a,s=[];for(a in n)n.hasOwnProperty(a)&&s.push(encodeURIComponent(a)+\"=\"+encodeURIComponent(n[a]));ajax.send(e+(s.length?\"?\"+s.join(\"&\"):\"\"),t,\"GET\",null,o)},ajax.post=function(e,n,t,o){let a,s=[];for(a in n)n.hasOwnProperty(a)&&s.push(encodeURIComponent(a)+\"=\"+encodeURIComponent(n[a]));ajax.send(e,t,\"POST\",s.join(\"&\"),o)};";
     server.sendHeader("Cache-Control", "public, max-age=2678400");
     server.send(200, "text/javascript", response);
@@ -1710,6 +1802,7 @@ void handleScript()
  */
 void handleNotFound()
 {
+    handleCookieAndSession();
     String message = "File Not Found\n\n";
     message += "URI: ";
     message += server.uri();
@@ -1907,6 +2000,7 @@ void setup(void)
  */
 void handleTestNote()
 {
+    handleCookieAndSession();
     if (server.method() == HTTP_GET)
     {
         String noteStr = server.arg("note");
@@ -1930,6 +2024,7 @@ void handleTestNote()
  */
 void handleHitPad()
 {
+    handleCookieAndSession();
     if (server.method() == HTTP_GET)
     {
         String padStr = server.arg("pad");
