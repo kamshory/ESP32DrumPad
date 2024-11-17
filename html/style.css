@@ -287,6 +287,7 @@ a.ctrl::before {
     height: 18px;
     width: 18px;
     margin-top: 4px;
+    margin-right: -4px;
     position: relative;
     border-radius: 2px;
     cursor: pointer;
