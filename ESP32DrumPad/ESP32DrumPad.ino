@@ -1510,32 +1510,34 @@ void Listen16(void *pvParameters)
  */
 void listenChannel(int channel)
 {
-    do
+    while (true)
     {
         int pin = channelPin[channel];
         int input = analogRead(pin);
-        float total = (float)input;
+        int total = input;
 
         uint16_t threshold = channelThreshold[channel];
         uint32_t delayTime = channelDuration[channel];
         if (input > threshold && solo == 0 && channel == soloChannel)
         {
-            total += (float)adcRead(pin, 3);
-            float average = total / 4;
+            total += adcRead(pin, 3);
+            int average = total / 4;
 
             uint8_t velocity = calcVelocity((uint16_t)average, threshold, (uint16_t)channelHeadRoom[channel]);
 
             int instrumentCode = channelInstrument[channel];
             MIDI.sendNoteOn(instrumentCode, velocity, offsetMidiChannel);
-            delayMicroseconds(delayTime);
+            vTaskDelay(delayTime / portTICK_PERIOD_MS);  // Convert milliseconds to ticks
             MIDI.sendNoteOff(instrumentCode, 0, offsetMidiChannel);
 
             if (offsetReadInterval > 0)
             {
-                delayMicroseconds(offsetReadInterval);
+                vTaskDelay(offsetReadInterval / portTICK_PERIOD_MS); // Convert milliseconds to ticks 
             }
         }
-    } while (true);
+        // Yield control to other tasks
+        vTaskDelay(10 / portTICK_PERIOD_MS);  // Small delay to yield control
+    }
 }
 
 /**
@@ -1551,11 +1553,9 @@ void listenChannel(int channel)
 int adcRead(int pin, int count)
 {
     int total = 0;
-    while (count > 0)
-    {
-        int int2 = analogRead(pin);
-        total += int2;
-        count--;
+    for (int i = 0; i < count; i++) {
+        total += analogRead(pin);
+        vTaskDelay(3 / portTICK_PERIOD_MS);  // Small delay between reads to prevent overlap
     }
     return total;
 }
