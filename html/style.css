@@ -195,6 +195,7 @@ a.ctrl::before {
     transform: rotate(90deg);
 }
 
+/* Popup shadow, digunakan untuk latar belakang transparan */
 .popup-shadow {
     z-index: 1001;
     min-width: 100vw;
@@ -207,22 +208,41 @@ a.ctrl::before {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
     color: #aaaaaa;
-    display: none;
+    opacity: 0; /* initial state - hidden */
+    visibility: hidden; /* initial state - hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0.2s; /* transition opacity, delay visibility change */
 }
 
+/* Popup box */
 .popup {
     position: absolute;
     color: #333333;
     background-color: #ffffff;
     box-shadow: 0 2px 3px #0000001c;
     border: 1px solid rgb(124, 153, 193);
-    display: none;
     width: 480px;
     left: 50%;
     margin-left: -240px;
     min-height: 100px;
     top: 20px;
+    opacity: 0; /* initial state - hidden */
+    visibility: hidden; /* initial state - hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0.2s; /* transition opacity, delay visibility change */
 }
+
+/* When both popup and shadow are visible (with class "show") */
+.popup.show, .popup-shadow.show {
+    opacity: 1; /* make visible */
+    visibility: visible; /* ensure visibility */
+    transition: opacity 0.2s ease-in-out, visibility 0s ease 0s; /* reset visibility transition */
+}
+
+/* Ensure the popup shadow is visible along with the popup */
+.popup-shadow.show + .popup.show{
+    opacity: 1; /* make visible */
+    visibility: visible; /* ensure visibility */
+}
+
 
 .popup-confirm {
     position: fixed;

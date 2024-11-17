@@ -22,13 +22,13 @@ if (!Element.prototype.remove) {
   };
 }
 Element.prototype.popupShow = function () {
-  this.style.display = "block";
-  this.closest(".popup-shadow").style.display = "block";
+  this.classList.add('show');
+  this.closest(".popup-shadow").classList.add('show');
 };
 
 Element.prototype.popupHide = function () {
-  this.style.display = "none";
-  this.closest(".popup-shadow").style.display = "none";
+  this.classList.remove('show');
+  this.closest(".popup-shadow").classList.remove('show');
 };
 
 Element.prototype.on = function (a, b, c) {
