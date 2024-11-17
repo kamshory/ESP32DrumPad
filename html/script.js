@@ -1,7 +1,6 @@
 if (!Element.prototype.matches) {
   Element.prototype.matches =
-    Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector;
+    Element.prototype.msMatchesSelector;
 }
 if (!Element.prototype.closest) {
   Element.prototype.closest = function (s) {
@@ -95,8 +94,16 @@ function toast(selector,
   let confirmObject = _sl(selector);
   confirmObject.find(".popup-header-text").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
-  confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
-  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
+  let obj1 = confirmObject.find(".btn-ok");
+  if(obj1 != null) 
+  {
+    obj1.remove();
+  }
+  let obj2 = confirmObject.find(".btn-cancel");
+  if(obj2 != null)
+  {
+    obj2.remove();
+  }
   let btnOk = _ce("button");
   btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
   btnOk.innerText = btnTextHide;
@@ -141,8 +148,16 @@ function customConfim(
   let confirmObject = _sl(selector);
   confirmObject.find(".popup-header-text").innerText = title;
   confirmObject.find(".popup-body .message").innerText = message;
-  confirmObject.find(".btn-ok") && confirmObject.find(".btn-ok").remove();
-  confirmObject.find(".btn-cancel") && confirmObject.find(".btn-cancel").remove();
+  let obj1 = confirmObject.find(".btn-ok");
+  if(obj1 != null)
+  {
+    obj1.remove();
+  }
+  let obj2 = confirmObject.find(".btn-cancel");
+  if(obj2 != null)
+  {
+    obj2.remove();
+  }
 
   let btnOk = _ce("button");
   btnOk.attr("class", "btn btn-success btn-ok"); // add classes at once
@@ -360,23 +375,26 @@ function saveConfigGeneral() {
 }
 
 function handleIP(e) {
-  let el = e.target;
-  isValidIP(el.value)
-    ? el.classList.remove("invalid-ip")
-    : (el.classList.remove("invalid-ip"), el.classList.add("invalid-ip"));
+  const el = e.target;
+  const isValid = isValidIP(el.value);
+  
+  if (isValid) {
+    el.classList.remove("invalid-ip");
+  } else {
+    el.classList.add("invalid-ip");
+  }
 }
+
 function initIP() {
-  let el = _sls('input[type="ipaddress"]');
-  if (el != null && el.length)
-    for (let i = 0; i < el.length; i++) {
-      el[i].on("keyup", function (e) {
-        handleIP(e);
-      });
-      el[i].on("change", function (e) {
-        handleIP(e);
-      });
-    }
+  const el = document.querySelectorAll('input[type="ipaddress"]');
+  if (el.length) {
+    el.forEach(input => {
+      input.addEventListener("keyup", handleIP);
+      input.addEventListener("change", handleIP);
+    });
+  }
 }
+
 function isValidIP(e) {
   if (0 == e.length) return true;
   let t,
@@ -390,9 +408,14 @@ function isValidIP(e) {
 }
 
 ajax.create = function () {
-  if ("undefined" != typeof XMLHttpRequest) return new XMLHttpRequest();
+  if ("undefined" != typeof XMLHttpRequest) 
+  {
+    return new XMLHttpRequest();
+  }
+  let httpRequest;
+  let obj;
+  let n;
   for (
-    let httpRequest,
     obj = [
       "MSXML2.XmlHttp.6.0",
       "MSXML2.XmlHttp.5.0",
