@@ -278,6 +278,7 @@ a.ctrl::before {
     line-height: 25px;
     background-color: #3464ac;
     color: white;
+    user-select: none;
 }
 
 .popup-closer {
