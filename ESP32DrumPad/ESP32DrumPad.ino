@@ -1448,15 +1448,17 @@ void Listen16(void *pvParameters)
  */
 void listenChannel(int channel)
 {
-    do
+    for (;;)
     {
         int pin = channelPin[channel];
         int input = analogRead(pin);
         float total = (float)input;
 
         uint16_t threshold = channelThreshold[channel];
-        uint32_t delayTime = channelDuration[channel];
-        if (input > threshold && solo == 0 && channel == soloChannel)
+        uint32_t delayTime = channelDelay[channel];
+        bool canTrigger = (solo == 0) || (solo == 1 && channel == soloChannel);
+
+        if (input > threshold && canTrigger)
         {
             total += (float)adcRead(pin, 3);
             float average = total / 4;
@@ -1464,16 +1466,18 @@ void listenChannel(int channel)
             uint8_t velocity = calcVelocity((uint16_t)average, threshold, (uint16_t)channelHeadRoom[channel]);
 
             int instrumentCode = channelInstrument[channel];
-            MIDI.sendNoteOn(instrumentCode, velocity, offsetMidiChannel);
+            byte midiChannel = readByte(offsetMidiChannel);
+            MIDI.sendNoteOn(instrumentCode, velocity, midiChannel);
             delayMicroseconds(delayTime);
-            MIDI.sendNoteOff(instrumentCode, 0, offsetMidiChannel);
+            MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
 
             if (offsetReadInterval > 0)
             {
                 delayMicroseconds(offsetReadInterval);
             }
         }
-    } while (true);
+        vTaskDelay(1);
+    }
 }
 
 /**
@@ -1911,9 +1915,10 @@ void handleTestNote()
     {
         String noteStr = server.arg("note");
         int instrumentCode = noteStr.toInt();
-        Midi.on(instrumentCode, (int)testVelocity);
-        delay(delay);
-        Midi.off(instrumentCode);
+        byte midiChannel = readByte(offsetMidiChannel);
+        MIDI.sendNoteOn(instrumentCode, testVelocity, midiChannel);
+        delay(100);
+        MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
     }
     server.send(200, "application/json", "{}");
 }
@@ -1935,9 +1940,10 @@ void handleHitPad()
         String padStr = server.arg("pad");
         int channel = padStr.toInt();
         int instrumentCode = channelInstrument[channel];
-        Midi.on(instrumentCode, (int)testVelocity);
-        delay(delay);
-        Midi.off(instrumentCode);
+        byte midiChannel = readByte(offsetMidiChannel);
+        MIDI.sendNoteOn(instrumentCode, testVelocity, midiChannel);
+        delay(100);
+        MIDI.sendNoteOff(instrumentCode, 0, midiChannel);
     }
     server.send(200, "application/json", "{}");
 }
